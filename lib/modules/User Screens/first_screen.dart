@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:xtremes_skills/modules/User%20Screens/bottnavbar_user.dart';
+
+import 'package:xtremes_skills/modules/User%20Screens/dashboard.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/first_screen.dart';
+import 'package:xtremes_skills/modules/login_otp/screen/welcome.dart';
 import 'package:xtremes_skills/widgets/action_button.dart';
 import 'package:xtremes_skills/widgets/clip.dart';
 
@@ -25,7 +27,7 @@ class FirstScreen extends StatelessWidget {
              bordersidecolor: Colors.white,
                 color:Colors.blue.shade900,
              ontap: (){
-               Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>UserBottomNav()));
+               Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const Welcome()));
              },
               text: "As a Customer"
              ),

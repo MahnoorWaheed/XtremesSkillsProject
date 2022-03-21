@@ -1,4 +1,4 @@
-package com.xtremessoft.xtremesSkills.xtremes_skills
+package com.xtremessoft.xtremesSkills
 
 import io.flutter.embedding.android.FlutterActivity
 

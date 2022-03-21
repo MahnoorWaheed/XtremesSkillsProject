@@ -1,6 +1,7 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:xtremes_skills/modules/onboarding_screen/screen/onboardingpage.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,30 +13,46 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
+
+startSplashScreen() {
+    var duration = const Duration(seconds: 3);
+    return Timer(duration, () {
+      Get.to(() =>const OnboardingPage());
+    });
+  }
+
+@override
+  void initState() {
+    super.initState();
+    startSplashScreen();
+  }
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(
+      statusBarColor:Colors.blue.shade900, //or set color with: Color(0xFF0000FF)
+    ));
     return Scaffold(
       body: Stack(
         children: [
-          AnimatedSplashScreen(
-              duration: 1000,
-               splashIconSize: 1000,
-              splash: Image.asset("assets/logo.png"),
-              nextScreen: const OnboardingPage(),
-              splashTransition: SplashTransition.fadeTransition,
-              pageTransitionType: PageTransitionType.fade,
-              //backgroundColor: Colors.blue
+         Center(
+            child: Container(
+            child:Image(
+              width:MediaQuery.of(context).size.width*0.5,
+              height:MediaQuery.of(context).size.height*0.7,
+              image: const AssetImage('assets/logo.png', 
               
-            ),
-          const Positioned(
-            bottom: 150,
-            left: 50,
-            child: Text("Hey!...\nWelcome To Xtremes Skills", 
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-             fontSize: 20, color:Color(0xff034baa)),
-            ),
+              ),
+              fit:BoxFit.contain,
+            )),
           ),
+
+          Positioned(bottom:100,
+                left:MediaQuery.of(context).size.width*0.45,
+                child: Container(child: CircularProgressIndicator(
+                  color:Colors.blue.shade900,
+
+
+                ),),),
           
 
         ],
