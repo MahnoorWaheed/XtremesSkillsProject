@@ -40,7 +40,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   shape: BoxShape.circle,
                 ),
                 child: Image.asset(
-                  'assets/images/illustration-3.png',
+                  'assets/password.svg',
                 ),
               ),
               SizedBox(
@@ -69,7 +69,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 height: 28,
               ),
               Container(
-                padding: EdgeInsets.all(28),
+                padding: EdgeInsets.all(18),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
