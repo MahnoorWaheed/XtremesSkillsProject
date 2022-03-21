@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "5510108356",
+    "project_id": "xtremes-skills",
+    "storage_bucket": "xtremes-skills.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5510108356:android:c6bb41cf0ea85347ade591",
+        "android_client_info": {
+          "package_name": "com.xtremessoft.xtremesSkills"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "5510108356-3jb3imn3gmp9jnli7rj14pdssddc94rn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-vYstiVmt6p9Wo2NlNSTa3hn6t5t7ZFQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "5510108356-3jb3imn3gmp9jnli7rj14pdssddc94rn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

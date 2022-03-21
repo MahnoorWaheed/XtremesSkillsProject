@@ -12,80 +12,124 @@ class DasboardUser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-            Text("Hi there,", 
-            style: GoogleFonts.poppins(
-              fontSize: 25, 
-              color: Colors.blue.shade900
-            ),
-            ), 
-            Text("Let's get things done today!" ,
-             style: GoogleFonts.poppins(
-              fontSize: 15, 
-              
-            ),
-            ),
-            Center(
-              child: MyTextField(
-               
-                height: screenHeight(context)*0.06,
-                width: screenWidth(context)*0.9,
-                label: "Type to find a service",
-                icons: Icon(Icons.search),),
-            ),
-            SizedBox(height: 10,),
-            Card(
-              color: Color.fromARGB(255, 16, 101, 170),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                    Text("New to Xtreme Skills", 
-                    style: GoogleFonts.poppins(
-              fontSize: 10, 
-              color: Colors.white, 
-              fontWeight: FontWeight.w700
-            ),
-                    ), 
-                    Text("Book a Clean for PKR 24/hr", 
-                    style: GoogleFonts.poppins(
-              fontSize: 10, 
-              color: Colors.white, 
-              fontWeight: FontWeight.w700
-            ),
-                    )
-                  ],), 
-                  ActionButton(ontap: (){}, 
-                  text: "Book now", 
-                  color: Colors.blue.shade800,
-                  bordersidecolor: Colors.white,
-                  )
-                ],
-              ),
-            ), 
-              Text("Popular Services" ,
-             style: GoogleFonts.poppins(
-              fontSize: 15, 
-            ),
-            ),
-            //TODO: ADD GRID VIEW
-            Row(
+          child: Stack(
+            children: [ 
+              Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                GestureDetector(
-                  onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>PickLocation()));
-                  },
-                  child: Container(
+              Text("Hi there,", 
+              style: GoogleFonts.poppins(
+                fontSize: 25, 
+                color: Colors.blue.shade900
+              ),
+              ), 
+              Text("Let's get things done today!" ,
+               style: GoogleFonts.poppins(
+                fontSize: 15, 
+                
+              ),
+              ),
+              Center(
+                child: MyTextField(
+                 
+                  height: screenHeight(context)*0.06,
+                  width: screenWidth(context)*0.9,
+                  label: "Type to find a service",
+                  icons: Icon(Icons.search),),
+              ),
+              SizedBox(height: 10,),
+              Card(
+                color: Color.fromARGB(255, 16, 101, 170),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                      Text("New to Xtreme Skills", 
+                      style: GoogleFonts.poppins(
+                fontSize: 10, 
+                color: Colors.white, 
+                fontWeight: FontWeight.w700
+              ),
+                      ), 
+                      Text("Book a Clean for PKR 24/hr", 
+                      style: GoogleFonts.poppins(
+                fontSize: 10, 
+                color: Colors.white, 
+                fontWeight: FontWeight.w700
+              ),
+                      )
+                    ],), 
+                    ActionButton(ontap: (){}, 
+                    text: "Book now", 
+                    color: Colors.blue.shade800,
+                    bordersidecolor: Colors.white,
+                    )
+                  ],
+                ),
+              ), 
+                Text("Popular Services" ,
+               style: GoogleFonts.poppins(
+                fontSize: 15, 
+              ),
+              ),
+              //TODO: ADD GRID VIEW
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>PickLocation()));
+                    },
+                    child: Container(
+                          width: 150.0,
+                          child: Card(
+                            elevation: 2.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            child: Wrap(
+                              children: <Widget>[
+                                ClipRRect(
+                                  child: Image.network(
+                                    'https://images.everydayhealth.com/images/healthy-living/healthy-home/easy-ways-to-clean-your-home-01-722x406.jpg',
+                                    height: 130,
+                                    // width: 100,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(16.0),
+                                    topRight: Radius.circular(16.0),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: Text(
+                                      'Home Cleaning',
+                                      style: TextStyle(
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Times New Roman'),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                  ),
+                      Container(
                         width: 150.0,
                         child: Card(
                           elevation: 2.0,
@@ -96,7 +140,7 @@ class DasboardUser extends StatelessWidget {
                             children: <Widget>[
                               ClipRRect(
                                 child: Image.network(
-                                  'https://images.everydayhealth.com/images/healthy-living/healthy-home/easy-ways-to-clean-your-home-01-722x406.jpg',
+                                  'https://media.glamour.com/photos/5695b2b593ef4b09520e4617/master/pass/sex-love-life-2013-08-moving-in-main.jpg',
                                   height: 130,
                                   // width: 100,
                                   fit: BoxFit.cover,
@@ -113,7 +157,7 @@ class DasboardUser extends StatelessWidget {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Center(
                                   child: Text(
-                                    'Home Cleaning',
+                                    'Moving',
                                     style: TextStyle(
                                         fontSize: 15.0,
                                         fontWeight: FontWeight.bold,
@@ -126,8 +170,12 @@ class DasboardUser extends StatelessWidget {
                           ),
                         ),
                       ),
-                ),
-                    Container(
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
                       width: 150.0,
                       child: Card(
                         elevation: 2.0,
@@ -138,7 +186,7 @@ class DasboardUser extends StatelessWidget {
                           children: <Widget>[
                             ClipRRect(
                               child: Image.network(
-                                'https://media.glamour.com/photos/5695b2b593ef4b09520e4617/master/pass/sex-love-life-2013-08-moving-in-main.jpg',
+                                'https://images.pexels.com/photos/1249611/pexels-photo-1249611.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
                                 height: 130,
                                 // width: 100,
                                 fit: BoxFit.cover,
@@ -155,7 +203,7 @@ class DasboardUser extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Center(
                                 child: Text(
-                                  'Moving',
+                                  'Handyman',
                                   style: TextStyle(
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.bold,
@@ -168,96 +216,124 @@ class DasboardUser extends StatelessWidget {
                         ),
                       ),
                     ),
-              ],
+                    Container(
+                      width: 150.0,
+                      child: Card(
+                        elevation: 2.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        child: Wrap(
+                          children: <Widget>[
+                            ClipRRect(
+                              child: Image.network(
+                                'https://media.istockphoto.com/photos/coronavirus-disinfection-people-in-hazmats-making-disinfection-in-picture-id1251021649?b=1&k=20&m=1251021649&s=170667a&w=0&h=XnwjEnbZH_SzI9M8SlVEt5LXu-IH8ScUFo8ktI2fyBc=',
+                                height: 130,
+                                // width: 100,
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(16.0),
+                                topRight: Radius.circular(16.0),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Text(
+                                  'Sanitization',
+                                  style: TextStyle(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Times New Roman'),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                ],
+              ), 
+            ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                    width: 150.0,
-                    child: Card(
-                      elevation: 2.0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      child: Wrap(
-                        children: <Widget>[
-                          ClipRRect(
-                            child: Image.network(
-                              'https://images.pexels.com/photos/1249611/pexels-photo-1249611.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-                              height: 130,
-                              // width: 100,
-                              fit: BoxFit.cover,
+            Positioned(
+                      bottom: 0,
+                      child: Container(
+                        padding: EdgeInsets.only(left:10,right:10,top:10),
+                        height: 66,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black12,
+                                  offset: Offset(2, 2),
+                                  blurRadius: 5)
+                            ],
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5.0),
+                            )),
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+
+                                Column(
+                                  children: [
+                                    GestureDetector(
+                                        onTap: () async {
+
+                                          // await xtremesProjectsController.getProjectsDetails();
+
+                                          // Get.to(() => XtremesProjects());
+                                        },
+                                        child: Icon(
+                                          Icons.location_city_rounded,
+                                          size: 28,
+                                          color: Colors.blue.shade900,
+                                        )),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "Mega Projects",
+                                      style:
+                                      GoogleFonts.poppins(fontSize: 8, color: Colors.black54),
+                                    )
+                                  ],
+                                ),
+                            Column(
+                              children: [
+                                GestureDetector(
+                                    onTap: () async {
+                                      // await xtremesPropertiesController.getPropertiesData(1);
+                                      // Get.to(() => XtremesProperties());
+                                    },
+                                    child: Icon(
+                                      Icons.home_work_outlined,
+                                      size: 28,
+                                      color: Colors.blue.shade900,
+                                    )),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  "Properties",
+                                  style:
+                                  GoogleFonts.poppins(fontSize: 8, color: Colors.black54),
+                                )
+                              ],
                             ),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(16.0),
-                              topRight: Radius.circular(16.0),
+                              ],
                             ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Text(
-                                'Handyman',
-                                style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Times New Roman'),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 150.0,
-                    child: Card(
-                      elevation: 2.0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      child: Wrap(
-                        children: <Widget>[
-                          ClipRRect(
-                            child: Image.network(
-                              'https://media.istockphoto.com/photos/coronavirus-disinfection-people-in-hazmats-making-disinfection-in-picture-id1251021649?b=1&k=20&m=1251021649&s=170667a&w=0&h=XnwjEnbZH_SzI9M8SlVEt5LXu-IH8ScUFo8ktI2fyBc=',
-                              height: 130,
-                              // width: 100,
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(16.0),
-                              topRight: Radius.circular(16.0),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Text(
-                                'Sanitization',
-                                style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Times New Roman'),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-              ],
-            ), 
-          ],),
+
+                      )),
+            ],
+          ),
         ),
       ),
     );
