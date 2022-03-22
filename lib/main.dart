@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
-import 'package:xtremes_skills/modules/login_otp/screen/otp_screen.dart';
+import 'package:xtremes_skills/modules/login_otp/controller/auth_service.dart';
+import 'package:xtremes_skills/modules/login_otp/screen/home_page.dart';
+import 'package:xtremes_skills/modules/login_otp/screen/welcome.dart';
 import 'package:xtremes_skills/splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -12,15 +14,38 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   //1
 WidgetsFlutterBinding.ensureInitialized();
-await Firebase.initializeApp();
 
+await Firebase.initializeApp();
 
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
 
+class _MyAppState extends State<MyApp> {
+  AuthClass authClass = AuthClass();
+
+   Widget currentPage = FirstScreen();
+
+
+  checkLogin() async {
+    String? tokne = await authClass.getToken();
+    print("tokne");
+    if (tokne != null)
+      setState(() {
+        currentPage = HomePage();
+      });
+  }
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkLogin();
+  }
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -29,12 +54,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: OtpScreen(),
+      home: currentPage,
 
 
 
       
     );
   }
-  
 }
