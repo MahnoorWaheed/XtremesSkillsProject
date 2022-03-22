@@ -1,7 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/otp_screen.dart';
 import 'package:xtremes_skills/splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,7 +32,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: OtpScreen(),
+      home: LocationData(),
 
 
 

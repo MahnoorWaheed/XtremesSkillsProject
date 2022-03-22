@@ -32,8 +32,8 @@ final Color? textColor;
         style: ElevatedButton.styleFrom(
           
           primary: color, //background color of button
-       side: BorderSide(width:1, 
-       color:bordersidecolor!), //border width and color
+      //  side: BorderSide(width:1, 
+      //  color:bordersidecolor!), //border width and color
        elevation: 2, //elevation of button
         shape: RoundedRectangleBorder(
        borderRadius: BorderRadius.circular(10)
