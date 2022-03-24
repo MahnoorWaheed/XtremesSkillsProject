@@ -11,6 +11,7 @@ class SignupController extends GetxController{
    final FirebaseFirestore _firestore= FirebaseFirestore.instance;
    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     DateTime dateOfBirth = DateTime.now();
+    
   
   Color bulbColor = Colors.black;
 

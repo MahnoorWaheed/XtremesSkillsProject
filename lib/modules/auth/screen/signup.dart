@@ -24,8 +24,8 @@ class _signupState extends State<signup> {
   Widget build(BuildContext context) {
       String formatedate= DateFormat.yMMMd().format(_controller.dateOfBirth);
     Size size = MediaQuery.of(context).size;
-    
-
+      
+ 
     
     return Scaffold(
       backgroundColor: Colors.white,
@@ -207,12 +207,14 @@ class _signupState extends State<signup> {
                             child: TextFormField(
                          
                             controller: _controller.pass,
+                            
                              
                               
                                keyboardType: TextInputType.visiblePassword,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                                 prefixIcon:  Icon(Icons.lock, color: Colors.blue.shade900,),
+                          
                                 labelText: "Password",
                                 labelStyle: TextStyle(color: Colors.blue[800]),
                                 filled: true,
@@ -505,7 +507,7 @@ class _signupState extends State<signup> {
                           setState(() {
                             _controller.isLoading=true;
                           });
-                           String res = await _controller.signup(firstname: _controller.firstname.text, lastname: _controller.lastname.text, cnic: _controller.cnic.text, email: _controller.email.text, confirmpass: _controller.cpass.text, gender: _controller.data,dob: _controller.dateOfBirth.toString(),city: _controller.selectcity, phone: _controller.ph.text, address: _controller.add.text);
+                           String res = await _controller.signup(firstname: _controller.firstname.text, lastname: _controller.lastname.text, cnic: _controller.cnic.text, email: _controller.email.text, confirmpass: _controller.cpass.text, gender: _controller.data,dob: formatedate,city: _controller.selectcity, phone: _controller.ph.text, address: _controller.add.text);
                               setState(() {
                             _controller.isLoading=false;
                           });
