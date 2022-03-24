@@ -60,7 +60,10 @@ class _MyAppState extends State<MyApp> {
       ),
 
       // home: LocationData(),
+
       home: currentPage,
+      // home: currentPage,
+      home: FirstScreen(),
 
 
 
