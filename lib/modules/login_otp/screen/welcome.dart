@@ -2,20 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/otp_screen.dart';
 
+
 class Welcome extends StatefulWidget {
-  const Welcome({ Key? key }) : super(key: key);
 
   @override
+  // ignore: no_logic_in_create_state
   State<Welcome> createState() => _WelcomeState();
 }
 
 class _WelcomeState extends State<Welcome> {
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xfff7f6fb),
       body: SafeArea(
+        
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 24, horizontal: 32),
           child: Column(
@@ -109,7 +118,7 @@ class _WelcomeState extends State<Welcome> {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => OtpScreen()),
+                            MaterialPageRoute(builder: (context) => PhoneAuthPage()),
                           );
                         },
                         style: ButtonStyle(
@@ -137,7 +146,7 @@ class _WelcomeState extends State<Welcome> {
                 ),
               ),
             ],
-          ),
+          )
         ),
       ),
     );
