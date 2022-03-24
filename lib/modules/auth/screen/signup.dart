@@ -3,14 +3,12 @@ import 'dart:developer';
 import 'package:awesome_dropdown/awesome_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
-import 'package:xtremes_skills/modules/auth/controller/login_controller.dart';
 import 'package:xtremes_skills/modules/auth/controller/signup_controller.dart';
-import 'package:xtremes_skills/modules/auth/screen/signup.dart';
 import 'package:xtremes_skills/utils/utils.dart';
 import 'package:xtremes_skills/widgets/action_button.dart';
-import 'package:xtremes_skills/widgets/custom_buttons.dart';
+
 
 class signup extends StatefulWidget {
   const signup({Key? key}) : super(key: key);
@@ -24,7 +22,9 @@ class _signupState extends State<signup> {
 
   @override
   Widget build(BuildContext context) {
+      String formatedate= DateFormat.yMMMd().format(_controller.dateOfBirth);
     Size size = MediaQuery.of(context).size;
+    
 
     
     return Scaffold(
@@ -78,9 +78,7 @@ class _signupState extends State<signup> {
                             }
                             return null;
                           },
-                                    
-                           
-                              
+                                       
                              
                             ),
                           ),
@@ -196,10 +194,7 @@ class _signupState extends State<signup> {
                   return "Please enter a valid email";
                 }
               }
-                           
-                              
-                             
-                            ),
+               ),
                           ),
                    
                       Row(
@@ -496,40 +491,48 @@ class _signupState extends State<signup> {
                              
                             ),
                           ),
-                      ActionButton(ontap: (){
-                        log('${_controller.firstname}');
-                        log('${_controller.lastname}');
-                        log('${_controller.cnic}');
-                        log('${_controller.email}');
-                        log('${_controller.pass}');
-                        log('${_controller.cpass}');
-                        log(_controller.data);
-                        log(_controller.selectcity);
-                        log('${_controller.ph}');
-                        log('${_controller.add}');
-
-                       final isValid = _controller.formKey.currentState!.validate();
-                        if (!isValid) {
-                              return;
-                                   }
-                          _controller.formKey.currentState!.save();
-
+                      Container(
                         
-                       
-              
-                   
-                           
+                        child: _controller.isLoading?const Center(child: CircularProgressIndicator()):ActionButton(ontap: () async{
+
+                          log(formatedate);
+
+                              final isValid = _controller.formKey.currentState!.validate();
+                          if (!isValid) {
+                                return;
+                                     }
+                            _controller.formKey.currentState!.save();          
+                          setState(() {
+                            _controller.isLoading=true;
+                          });
+                           String res = await _controller.signup(firstname: _controller.firstname.text, lastname: _controller.lastname.text, cnic: _controller.cnic.text, email: _controller.email.text, confirmpass: _controller.cpass.text, gender: _controller.data,dob: _controller.dateOfBirth.toString(),city: _controller.selectcity, phone: _controller.ph.text, address: _controller.add.text);
+                              setState(() {
+                            _controller.isLoading=false;
+                          });
+                              if(res !='success'){
+                                showSnackBar(res, context);
+                              }  
+                              else{
+                           Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const skills()));
+                           _controller.dispose();
+                              }                     
                           
-                 Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const skills()));
+                          
+
+                    
                 
-                      },
-                      
-                      
-                      text: "Sign Up", 
-                      bordersidecolor: Colors.white,
-                      color: Colors.blue.shade900,
-                      width: screenWidth(context)*0.4,
-                      ),   
+                        },
+                        
+                        
+                        text: "Sign Up", 
+                        bordersidecolor: Colors.white,
+                        color: Colors.blue.shade900,
+                        width: screenWidth(context)*0.4,
+                        
+                        ),
+                      ),  
+
+                     
                     ]),
               ),
             ),
