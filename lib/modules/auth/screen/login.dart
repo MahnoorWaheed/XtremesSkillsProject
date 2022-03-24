@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,6 +25,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
        backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -123,28 +127,51 @@ class _LoginState extends State<Login> {
               
               Padding(
                 padding: const EdgeInsets.only(top:8.0),
-                child: ActionButton(
-                  width: MediaQuery.of(context).size.width*0.4,
-                  bordersidecolor: Colors.white,
-                  color:Colors.blue.shade900,
-                  text: "Login",
-                  ontap: () {
-                        final isValid = _controller.formKey.currentState!.validate();
-                        if (!isValid) {
-                          return;
-                              
-                                   }
-                          _controller.formKey.currentState!.save();
+                child: Container(
+                  child: _controller.isLoading? const Center(child: CircularProgressIndicator(),):ActionButton(
+                    width: MediaQuery.of(context).size.width*0.4,
+                    bordersidecolor: Colors.white,
+                    color:Colors.blue.shade900,
+                    text: "Login",
+                    ontap: () async{
+                      
 
-                        
+                               final isValid = _controller.formKey.currentState!.validate();
+                          if (!isValid) {
+                            return;
+                                
+                                     }
+                            _controller.formKey.currentState!.save();
+                            setState(() {
+                        _controller.isLoading=true;
+                      });
+
+                      String res =await _controller.login(email: _controller.eml.text, password: _controller.pass.text);
+                      log(res);
+                       setState(() {
+                          _controller.isLoading=false;
+                        });
+                      if(res !='success'){
                        
-              
+                             showSnackBar(res, context);
+                      }
+                      else{
                    
-                           
-                          
-                 Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const skills()));
+                             Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const skills()));
+                             _controller.dispose();
+                      }
                     
-                  },
+             
+                          
+                         
+              
+                     
+                             
+                            
+              
+                      
+                    },
+                  ),
                 ),
               ),
               Row(

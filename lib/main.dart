@@ -59,8 +59,9 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
 
-      home: LocationData(),
-      home: currentPage,
+      // home: LocationData(),
+      // home: currentPage,
+      home: FirstScreen(),
 
 
 
