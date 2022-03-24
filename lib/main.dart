@@ -58,17 +58,8 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-
-      // home: LocationData(),
-
       home: currentPage,
-      // home: currentPage,
-      home: FirstScreen(),
 
-
-
-
-      
     );
   }
 }

@@ -27,7 +27,7 @@ class FirstScreen extends StatelessWidget {
              bordersidecolor: Colors.white,
                 color:Colors.blue.shade900,
              ontap: (){
-               Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> Welcome()));
+               Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> LoginScreen()));
              },
               text: "As a Customer"
              ),
