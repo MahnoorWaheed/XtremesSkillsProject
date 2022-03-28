@@ -8,8 +8,6 @@ import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
 import 'package:xtremes_skills/modules/auth/screen/signup.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/otp_screen.dart';
-import 'package:xtremes_skills/modules/login_otp/controller/auth_service.dart';
-import 'package:xtremes_skills/modules/login_otp/screen/home_page.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/welcome.dart';
 import 'package:xtremes_skills/splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -40,25 +38,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  AuthClass authClass = AuthClass();
+  // AuthClass authClass = AuthClass();
 
    Widget currentPage = FirstScreen();
-
-
-  checkLogin() async {
-    String? tokne = await authClass.getToken();
-    print("tokne");
-    if (tokne != null)
-      setState(() {
-        currentPage = HomePage();
-      });
-  }
 
 @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    checkLogin();
+    
   }
   @override
   Widget build(BuildContext context) {
