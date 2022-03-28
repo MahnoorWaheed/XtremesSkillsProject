@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,9 +8,15 @@ import 'package:xtremes_skills/widgets/action_button.dart';
 import 'package:xtremes_skills/widgets/login_text_field.dart';
 
 
-class DasboardUser extends StatelessWidget {
+class DasboardUser extends StatefulWidget {
   const DasboardUser({ Key? key }) : super(key: key);
 
+  @override
+  State<DasboardUser> createState() => _DasboardUserState();
+}
+
+class _DasboardUserState extends State<DasboardUser> {
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -22,7 +29,7 @@ class DasboardUser extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-              Text("Hi there,", 
+              Text("Hi ${user!.displayName},", 
               style: GoogleFonts.poppins(
                 fontSize: 25, 
                 color: Colors.blue.shade900
@@ -300,7 +307,7 @@ class DasboardUser extends StatelessWidget {
                                       height: 5,
                                     ),
                                     Text(
-                                      "Mega Projects",
+                                      "home",
                                       style:
                                       GoogleFonts.poppins(fontSize: 8, color: Colors.black54),
                                     )
@@ -322,7 +329,7 @@ class DasboardUser extends StatelessWidget {
                                   height: 5,
                                 ),
                                 Text(
-                                  "Properties",
+                                  "services",
                                   style:
                                   GoogleFonts.poppins(fontSize: 8, color: Colors.black54),
                                 )
