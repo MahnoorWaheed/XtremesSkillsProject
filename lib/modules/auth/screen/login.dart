@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
 import 'package:xtremes_skills/modules/auth/controller/login_controller.dart';
 import 'package:xtremes_skills/modules/auth/screen/signup.dart';
@@ -157,7 +158,7 @@ class _LoginState extends State<Login> {
                       }
                       else{
                    
-                             Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const skills()));
+                             Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const LocationData()));
                              _controller.dispose();
                       }
                     

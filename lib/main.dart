@@ -3,14 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
+import 'package:xtremes_skills/modules/User%20Screens/location.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/otp_screen.dart';
 import 'package:xtremes_skills/modules/login_otp/controller/auth_service.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/home_page.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/welcome.dart';
+import 'package:xtremes_skills/rate.dart';
 import 'package:xtremes_skills/splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:xtremes_skills/widgets/formwidget/form.dart';
+
+import 'modules/Worker Dashboard/multi_form.dart';
+
+
 
 
 
@@ -30,25 +37,25 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  AuthClass authClass = AuthClass();
+  // AuthClass authClass = AuthClass();
 
-   Widget currentPage = FirstScreen();
+  //  Widget currentPage = LocationData();
 
 
-  checkLogin() async {
-    String? tokne = await authClass.getToken();
-    print("tokne");
-    if (tokne != null)
-      setState(() {
-        currentPage = HomePage();
-      });
-  }
+  // checkLogin() async {
+  //   String? tokne = await authClass.getToken();
+  //   print("tokne");
+  //   if (tokne != null)
+  //     setState(() {
+  //       currentPage = LocationData();
+  //     });
+  // }
 
 @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    checkLogin();
+    // checkLogin();
   }
   @override
   Widget build(BuildContext context) {
@@ -59,11 +66,8 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
 
-      // home: LocationData(),
-
-      home: currentPage,
-      // home: currentPage,
-      home: FirstScreen(),
+      home: MultiForm(),
+     
 
 
 
