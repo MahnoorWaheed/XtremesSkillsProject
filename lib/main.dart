@@ -2,9 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
+import 'package:xtremes_skills/modules/auth/screen/signup.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/otp_screen.dart';
 import 'package:xtremes_skills/modules/login_otp/controller/auth_service.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/home_page.dart';
@@ -15,13 +17,21 @@ import 'package:firebase_core/firebase_core.dart';
 
 
 
-void main() async {
-  //1
-WidgetsFlutterBinding.ensureInitialized();
+// void main() async {
+//   //1
+// WidgetsFlutterBinding.ensureInitialized();
 
-await Firebase.initializeApp();
+// await Firebase.initializeApp();
 
-  runApp(MyApp());
+//   runApp(MyApp());
+// }
+Future<void> main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+
+     SharedPreferences prefs = await SharedPreferences.getInstance();
+     var email =prefs.getString('email');
+     runApp(MaterialApp(home: email== null ?  MyApp(): const skills(),));
 }
 
 class MyApp extends StatefulWidget {
@@ -63,3 +73,4 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
