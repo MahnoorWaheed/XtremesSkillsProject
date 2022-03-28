@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class SignupController extends GetxController{
@@ -120,6 +121,9 @@ class SignupController extends GetxController{
             'city': city,
             'phone' : phone,
             'address': address,
+         }).then((value) async {
+           SharedPreferences prefs = await SharedPreferences.getInstance();
+           prefs.setString('email', email);
          });
          res= "success";
       }
