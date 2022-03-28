@@ -1,6 +1,4 @@
 import 'dart:developer';
-
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -171,15 +169,8 @@ class _LoginState extends State<Login> {
                    
                              Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const skills()));
                              _controller.dispose();
-                      }
-                    
-             
-                          
-                         
-              
-                     
-                             
-                            
+                      }        
+                                 
               
                       
                     },
