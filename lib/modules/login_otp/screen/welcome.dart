@@ -66,19 +66,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
   getMobileFormWidget(context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        // const Spacer(),
+        const Spacer(),
         Text("Registration",
         style: GoogleFonts.poppins(
           fontSize: 25, 
           fontWeight:FontWeight.bold,
         ),
         ),
-        SvgPicture.asset("assets/phone.svg", 
-        height: MediaQuery.of(context).size.height*0.25,
-        fit: BoxFit.contain,
-        ),
+        // SvgPicture.asset("assets/phone.svg", 
+        // height: MediaQuery.of(context).size.height*0.25,
+        // fit: BoxFit.contain,
+        // ),
          Text("Add Phone Number to Verify you are not a Robot", 
          style: GoogleFonts.poppins(
            fontSize: 14,
