@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
@@ -20,55 +19,20 @@ import 'modules/Worker Dashboard/multi_form.dart';
 
 
 
+Future<void> main() async { 
+  Widget currentpage= const FirstScreen();
 
-
-// void main() async {
-//   //1
-// WidgetsFlutterBinding.ensureInitialized();
-
-// await Firebase.initializeApp();
-
-//   runApp(MyApp());
-// }
-Future<void> main() async {
    WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
-
-     SharedPreferences prefs = await SharedPreferences.getInstance();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
      var email =prefs.getString('email');
-     runApp(MaterialApp(home: email== null ?  MyApp(): const skills(),));
-}
-
-class MyApp extends StatefulWidget {
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  // AuthClass authClass = AuthClass();
-
-  //  Widget currentPage = LocationData();
-
-
-@override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-  }
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
+     runApp(GetMaterialApp(
+       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+       home: email== null ? currentpage: const skills(),));
 
-      home: MultiForm(),
-     
-
-    );
-  }
 }
 
