@@ -1,6 +1,4 @@
 import 'dart:developer';
-
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,6 +24,13 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    bool _isobsecure = true;
+    
+    void _toggle() {
+    setState(() {
+      _isobsecure = !_isobsecure;
+    });
+  }
     
     return Scaffold(
        backgroundColor: Colors.white,
@@ -49,8 +54,9 @@ class _LoginState extends State<Login> {
                 width: screenWidth(context)*0.7,
                             margin: const EdgeInsets.only(top: 20),
                             child: TextFormField(
-                         
+                                
                             controller: _controller.eml,
+
                              
                               
                                keyboardType: TextInputType.emailAddress,
@@ -91,6 +97,7 @@ class _LoginState extends State<Login> {
                 width: screenWidth(context)*0.7,
                             margin: const EdgeInsets.only(top: 20),
                             child: TextFormField(
+                              obscureText: _isobsecure,
                          
                             controller: _controller.pass,
                              
@@ -99,6 +106,9 @@ class _LoginState extends State<Login> {
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                                 prefixIcon:  Icon(Icons.lock, color: Colors.blue.shade900,),
+                                suffix:  InkWell(
+                                  onTap: _toggle,
+                                  child: Icon(_isobsecure? Icons.visibility:Icons.visibility_off)),
                                 labelText: "Password",
                                 labelStyle: TextStyle(color: Colors.blue[800]),
                                 filled: true,
@@ -160,15 +170,8 @@ class _LoginState extends State<Login> {
                    
                              Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const LocationData()));
                              _controller.dispose();
-                      }
-                    
-             
-                          
-                         
-              
-                     
-                             
-                            
+                      }        
+                                 
               
                       
                     },

@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:xtremes_skills/rate.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xtremes_skills/main.dart';
+
 
 
 class skills extends StatefulWidget {
@@ -11,24 +14,37 @@ class skills extends StatefulWidget {
 }
 
 class _skillsState extends State<skills> {
+ final FirebaseAuth _firebaseAuth=FirebaseAuth.instance;
+  Future<void> _signout(BuildContext context) async {
+    await _firebaseAuth.signOut().then((_){
+         Navigator.push(context,MaterialPageRoute(builder: (context) => MyApp()));
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Select your skills :'),
+        title: const Text('Select your skills :'),
+        actions: [
+          TextButton(onPressed: ()async{
+            SharedPreferences prefs= await SharedPreferences.getInstance();
+            prefs.remove('email');
+            _signout(context);
+          }, child: const Text('Log out',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+        ],
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection("worker_skills").snapshots(),
         
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
           return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 1.0,
                   mainAxisSpacing: 1.0),
@@ -38,7 +54,7 @@ class _skillsState extends State<skills> {
                  DocumentSnapshot skills = snapshot.data!.docs[index];
 
                 return  Container(
-                        margin: EdgeInsets.only(left: 10.0, top: 10.0),
+                        margin: const EdgeInsets.only(left: 10.0, top: 10.0),
                         height: 50,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
@@ -71,6 +87,7 @@ class _skillsState extends State<skills> {
                                           topRight: Radius.circular(16.0),
                                         ),
                                       ),
+
                                       SizedBox(
                                         height:  MediaQuery.of(context).size.height * 0.01,
                                       ),
@@ -82,6 +99,21 @@ class _skillsState extends State<skills> {
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'Times New Roman'),
                                         ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(16.0),
+                                        topRight: Radius.circular(16.0),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height:  MediaQuery.of(context).size.height * 0.02,
+                                    ),
+                                    Center(
+                                      child: Text(
+                                        skills['Name'],
+                                        style: const TextStyle(
+                                            fontSize: 15.0,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Times New Roman'),
                                       ),
                                      
                                     ],
@@ -102,6 +134,7 @@ class _skillsState extends State<skills> {
        
         },
       ),
+
       
       
       
