@@ -1,9 +1,12 @@
 import 'dart:developer';
 
 import 'package:awesome_dropdown/awesome_dropdown.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
 import 'package:xtremes_skills/modules/auth/controller/signup_controller.dart';
 import 'package:xtremes_skills/utils/utils.dart';
@@ -18,12 +21,137 @@ class signup extends StatefulWidget {
 }
 
 class _signupState extends State<signup> {
-  final _controller= Get.put(SignupController());
+  // final _controller= Get.put(SignupController());
+   bool isLoading =false;
+   final FirebaseAuth _auth = FirebaseAuth.instance;
+   final FirebaseFirestore _firestore= FirebaseFirestore.instance;
+   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    DateTime dateOfBirth = DateTime.now();
+    
+  
+  Color bulbColor = Colors.black;
+
+  String selectcity = 'Select City';
+
+  String confirmpass='';
+
+  String selectedday = 'Day';
+  String selectedmonth = 'Month';
+  String selectedyear = 'Year';
+
+  String data = 'Male';
+  // String? _email, _password;
+
+   TextEditingController firstname = TextEditingController();
+   TextEditingController lastname = TextEditingController(); 
+   TextEditingController cnic = TextEditingController(); 
+   TextEditingController email = TextEditingController(); 
+   TextEditingController pass = TextEditingController(); 
+   TextEditingController cpass = TextEditingController(); 
+   TextEditingController ph = TextEditingController(); 
+   TextEditingController add = TextEditingController();  
+
+
+   @override
+   void dispose(){
+     firstname.clear();
+     lastname.clear();
+     cnic.clear();
+     email.clear();
+     pass.clear();
+     cpass.clear();
+     ph.clear();
+     add.clear();
+     selectcity='Select City';
+     dateOfBirth=DateTime.now();
+
+   }
+
+
+
+    List<String> city = [
+      "Karachi",
+      "Lahore",
+      "Faisalabad",
+      "Rawalpindi",
+      "Multan",
+      "Peshawar",
+      "Islamabad",
+      "Quetta",
+      "Mardan",
+    ];
+     void submit() {
+  //   final isValid = formKey.currentState!.validate();
+  //   if (!isValid) {
+  //     return;
+  //   }
+  //   formKey.currentState!.save();
+
+
+      }
+
+
+  String getText() {
+
+  return '${dateOfBirth.month}/${dateOfBirth.day}/${dateOfBirth.year}';
+      
+    }
+
+    // Signup User
+
+    Future<String> signup({
+      
+      required String firstname,
+      required String lastname,
+      required String cnic,
+      required String email,
+      required String confirmpass,
+      required String phone,
+      required String address,
+      required String gender,
+      required String dob,
+      required String city,
+    }) async{
+      
+      String res ="some error occurred";
+      try{
+
+        // register user
+
+         UserCredential cred =await _auth.createUserWithEmailAndPassword(email: email, password: confirmpass);
+
+          print(cred.user!.uid);
+
+         // add user to our database
+         
+         _firestore.collection('users').doc(cred.user!.uid).set({
+            'firstname': firstname,
+            'lastname': lastname,
+            'cnic':     cnic,
+            'email':    email,
+            'gender': gender,
+            'Date of Birth':dob,
+            'city': city,
+            'phone' : phone,
+            'address': address,
+         }).then((value) async {
+           SharedPreferences prefs = await SharedPreferences.getInstance();
+           prefs.setString('email', email);
+         });
+         res= "success";
+      }
+      catch(err){
+        res=err.toString();
+
+      }
+      return res;
+
+    }
 
   @override
   Widget build(BuildContext context) {
-      String formatedate= DateFormat.yMMMd().format(_controller.dateOfBirth);
-    Size size = MediaQuery.of(context).size;
+      String formatedate= DateFormat.yMMMd().format(dateOfBirth);
+    // Size size = MediaQuery.of(context).size;
       
  
     
@@ -42,7 +170,7 @@ class _signupState extends State<signup> {
             Container(
               margin: const EdgeInsets.only(top: 20, left: 15, right: 15),
               child: Form(
-                key: _controller.formKey,
+                key: formKey,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -55,7 +183,7 @@ class _signupState extends State<signup> {
                             margin: const EdgeInsets.only(top: 20),
                             child: TextFormField(
                          
-                            controller: _controller.firstname,
+                            controller: firstname,
                              
                               
                                keyboardType: TextInputType.name,
@@ -89,7 +217,7 @@ class _signupState extends State<signup> {
                             margin: const EdgeInsets.only(top: 20),
                             child: TextFormField(
                          
-                            controller: _controller.lastname,
+                            controller: lastname,
                              
                               
                                keyboardType: TextInputType.name,
@@ -127,7 +255,7 @@ class _signupState extends State<signup> {
                             margin: const EdgeInsets.only(top: 20),
                             child: TextFormField(
                          
-                            controller: _controller.cnic,
+                            controller: cnic,
                              
                               
                                keyboardType: TextInputType.number,
@@ -166,7 +294,7 @@ class _signupState extends State<signup> {
                             width: screenWidth(context)*0.9,
                             margin: const EdgeInsets.only(top: 20),
                             child: TextFormField(
-                            controller: _controller.email,
+                            controller: email,
                                keyboardType: TextInputType.emailAddress,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
@@ -206,7 +334,7 @@ class _signupState extends State<signup> {
                             margin: const EdgeInsets.only(top: 20),
                             child: TextFormField(
                          
-                            controller: _controller.pass,
+                            controller: pass,
                             
                              
                               
@@ -226,7 +354,7 @@ class _signupState extends State<signup> {
                                 enabledBorder: const OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.blue))),
                                     validator: (value){
-                                      _controller.confirmpass=value!;
+                                       confirmpass=value!;
                                       if(value.isEmpty){
                                         return "Field cannot be empty";
                                   
@@ -249,7 +377,7 @@ class _signupState extends State<signup> {
                             margin: const EdgeInsets.only(top: 20),
                             child: TextFormField(
                          
-                            controller:_controller.cpass,
+                            controller:cpass,
                              
                               
                                keyboardType: TextInputType.visiblePassword,
@@ -273,7 +401,7 @@ class _signupState extends State<signup> {
                                       if(value.length<6){
                                         return 'Atleast 6 character long';
                                       }
-                                      if(value != _controller.confirmpass){
+                                      if(value != confirmpass){
                                         return "Password not match";
 
                                       }
@@ -305,10 +433,10 @@ class _signupState extends State<signup> {
                             children: [
                               Radio(
                                   value: 'Male',
-                                  groupValue: _controller.data,
+                                  groupValue: data,
                                   onChanged: (value) {
                                     setState(() {
-                                      _controller.data = value.toString();
+                                      data = value.toString();
                                     });
                                   }),
                               Text(
@@ -327,10 +455,10 @@ class _signupState extends State<signup> {
                             children: [
                               Radio(
                                   value: 'Female',
-                                  groupValue: _controller.data,
+                                  groupValue: data,
                                   onChanged: (value) {
                                     setState(() {
-                                      _controller.data = value.toString();
+                                      data = value.toString();
                                     });
                                   }),
                               Text(
@@ -372,7 +500,7 @@ class _signupState extends State<signup> {
                                       width: 7,
                                     ),
                                     Text(
-                                      _controller.getText(),
+                                      getText(),
                                       style: const TextStyle(
                                           fontSize: 18,
                                           fontStyle: FontStyle.italic,
@@ -394,11 +522,11 @@ class _signupState extends State<signup> {
                       ),
                       
                       AwesomeDropDown(
-                        dropDownList: _controller.city,
-                        selectedItem: _controller.selectcity,
+                        dropDownList: city,
+                        selectedItem: selectcity,
                         onDropDownItemClick: (selectedItem) {
                           setState(() {
-                            _controller.selectcity = selectedItem;
+                            selectcity = selectedItem;
                           });
                          
                         
@@ -427,7 +555,7 @@ class _signupState extends State<signup> {
                             margin: const EdgeInsets.only(top: 20),
                             child: TextFormField(
                          
-                            controller: _controller.ph,
+                            controller: ph,
                              
                               
                                keyboardType: TextInputType.phone,
@@ -466,7 +594,7 @@ class _signupState extends State<signup> {
                             margin: const EdgeInsets.only(top: 20),
                             child: TextFormField(
                          
-                            controller: _controller.add,
+                            controller: add,
                              
                               
                                keyboardType: TextInputType.streetAddress,
@@ -495,28 +623,28 @@ class _signupState extends State<signup> {
                           ),
                       Container(
                         
-                        child: _controller.isLoading?const Center(child: CircularProgressIndicator()):ActionButton(ontap: () async{
+                        child: isLoading?const Center(child: CircularProgressIndicator()):ActionButton(ontap: () async{
 
                           log(formatedate);
 
-                              final isValid = _controller.formKey.currentState!.validate();
+                              final isValid = formKey.currentState!.validate();
                           if (!isValid) {
                                 return;
                                      }
-                            _controller.formKey.currentState!.save();          
+                            formKey.currentState!.save();          
                           setState(() {
-                            _controller.isLoading=true;
+                          isLoading=true;
                           });
-                           String res = await _controller.signup(firstname: _controller.firstname.text, lastname: _controller.lastname.text, cnic: _controller.cnic.text, email: _controller.email.text, confirmpass: _controller.cpass.text, gender: _controller.data,dob: formatedate,city: _controller.selectcity, phone: _controller.ph.text, address: _controller.add.text);
+                           String res = await signup(firstname: firstname.text, lastname: lastname.text, cnic: cnic.text, email: email.text, confirmpass: cpass.text, gender: data,dob: formatedate,city: selectcity, phone:ph.text, address: add.text);
                               setState(() {
-                            _controller.isLoading=false;
+                            isLoading=false;
                           });
                               if(res !='success'){
                                 showSnackBar(res, context);
                               }  
                               else{
                            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const skills()));
-                           _controller.dispose();
+                             dispose();
                               }                     
                           
                           
@@ -550,12 +678,12 @@ class _signupState extends State<signup> {
       context: context,
       initialDate: initialDate,
       firstDate: DateTime(DateTime.now().year - 100),
-      lastDate: _controller.dateOfBirth,
+      lastDate: dateOfBirth,
     );
 
     if (newDate == null) return;
     setState(() {
-      _controller.dateOfBirth = newDate;
+      dateOfBirth = newDate;
     });
   }
 }

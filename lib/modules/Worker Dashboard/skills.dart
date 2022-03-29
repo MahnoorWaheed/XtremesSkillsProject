@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xtremes_skills/main.dart';
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
@@ -19,7 +20,7 @@ class _skillsState extends State<skills> {
  final FirebaseAuth _firebaseAuth=FirebaseAuth.instance;
   Future<void> _signout(BuildContext context) async {
     await _firebaseAuth.signOut().then((_){
-         Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstScreen()));
+      Get.to(()=> const FirstScreen());
     });
   }
   
