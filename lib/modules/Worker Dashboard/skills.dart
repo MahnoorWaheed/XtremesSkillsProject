@@ -7,7 +7,7 @@ import 'package:xtremes_skills/main.dart';
 
 
 class skills extends StatefulWidget {
-  const skills({Key? key}) : super(key: key);
+  const skills(String location, {Key? key}) : super(key: key);
 
   @override
   _skillsState createState() => _skillsState();
@@ -59,23 +59,46 @@ class _skillsState extends State<skills> {
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: <Widget>[
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.4,
-                            
-                              child: Card(
-                                elevation: 2.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
-                                child: Column(
-                                  children: <Widget>[
-                                    ClipRRect(
-                                      child: Image.network(
-                                        skills['Image'],
-                                        fit: BoxFit.cover,
-                                        height: MediaQuery.of(context).size.height * 0.17,
-                                       
+                             GestureDetector(  onTap: () {
+                               
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => rate(),
+                    ));
+                 },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.4,
+                              
+                                child: Card(
+                                  elevation: 2.0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                  ),
+                                  child: Column(
+                                    children: <Widget>[
+                                      ClipRRect(
+                                        child: Image.network(
+                                          skills['Image'],
+                                          fit: BoxFit.cover,
+                                          height: MediaQuery.of(context).size.height * 0.17,
+                                         
+                                        ),
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(16.0),
+                                          topRight: Radius.circular(16.0),
+                                        ),
                                       ),
+
+                                      SizedBox(
+                                        height:  MediaQuery.of(context).size.height * 0.01,
+                                      ),
+                                      Center(
+                                        child: Text(
+                                          skills['Name'],
+                                          style: TextStyle(
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'Times New Roman'),
+                                        ),
                                       borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(16.0),
                                         topRight: Radius.circular(16.0),
@@ -92,9 +115,9 @@ class _skillsState extends State<skills> {
                                             fontWeight: FontWeight.bold,
                                             fontFamily: 'Times New Roman'),
                                       ),
-                                    ),
-                                   
-                                  ],
+                                     
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
