@@ -16,6 +16,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:xtremes_skills/widgets/formwidget/form.dart';
 
 import 'modules/Worker Dashboard/multi_form.dart';
+import 'modules/Worker Dashboard/worker_location.dart';
 
 
 
@@ -36,7 +37,8 @@ Future<void> main() async {
 
      SharedPreferences prefs = await SharedPreferences.getInstance();
      var email =prefs.getString('email');
-     runApp(MaterialApp(home: email== null ?  MyApp(): const skills(),));
+     runApp(MaterialApp(home: email== null ?  MyApp(): skills()));
+     //const skills(),));
 }
 
 class MyApp extends StatefulWidget {
@@ -65,7 +67,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
 
-      home: MultiForm(),
+      home: skills(),
      
 
     );
