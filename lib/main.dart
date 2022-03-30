@@ -26,13 +26,44 @@ Future<void> main() async {
     await Firebase.initializeApp();
     SharedPreferences prefs = await SharedPreferences.getInstance();
      var email =prefs.getString('email');
+     runApp(MaterialApp(home: email== null ?  MyApp(): skills(),));
+}
+
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // AuthClass authClass = AuthClass();
+
+  //  Widget currentPage = LocationData();
+
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+
      runApp(GetMaterialApp(
        debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-       home: email== null ? currentpage: const skills(),));
+       //home: email== null ? currentpage: const skills(),));
 
+
+      home: FirstScreen(),
+     
+
+    );
+  }
 }
 

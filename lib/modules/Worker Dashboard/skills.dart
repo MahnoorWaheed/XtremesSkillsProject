@@ -3,13 +3,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xtremes_skills/main.dart';
+import 'package:xtremes_skills/rate.dart';
+
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
 import 'package:xtremes_skills/modules/auth/screen/login.dart';
 
 
 
+
 class skills extends StatefulWidget {
-  const skills(String location, {Key? key}) : super(key: key);
+  // const skills(String location, {Key? key}) : super(key: key);
 
   @override
   _skillsState createState() => _skillsState();
@@ -102,10 +105,11 @@ class _skillsState extends State<skills> {
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'Times New Roman'),
                                         ),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(16.0),
-                                        topRight: Radius.circular(16.0),
-                                      ),
+                                        
+                                      // borderRadius: const BorderRadius.only(
+                                      //   topLeft: Radius.circular(16.0),
+                                      //   topRight: Radius.circular(16.0),
+                                      // ),
                                     ),
                                     SizedBox(
                                       height:  MediaQuery.of(context).size.height * 0.02,
@@ -118,7 +122,7 @@ class _skillsState extends State<skills> {
                                             fontWeight: FontWeight.bold,
                                             fontFamily: 'Times New Roman'),
                                       ),
-                                     
+                                    )
                                     ],
                                   ),
                                 ),
