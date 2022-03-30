@@ -1,3 +1,6 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,332 +19,189 @@ class DasboardUser extends StatefulWidget {
 }
 
 class _DasboardUserState extends State<DasboardUser> {
-  User? user = FirebaseAuth.instance.currentUser;
+ 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
+        body: Container(
           child: Stack(
-            children: [ 
-              Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-              Text("Hi ${user!.displayName},", 
-              style: GoogleFonts.poppins(
-                fontSize: 25, 
-                color: Colors.blue.shade900
-              ),
-              ), 
-              Text("Let's get things done today!" ,
-               style: GoogleFonts.poppins(
-                fontSize: 15, 
-                
-              ),
-              ),
-              Center(
-                child: MyTextField(
-                 
-                  height: screenHeight(context)*0.06,
-                  width: screenWidth(context)*0.9,
-                  label: "Type to find a service",
-                  icons: Icon(Icons.search),),
-              ),
-              SizedBox(height: 10,),
-              Card(
-                color: Color.fromARGB(255, 16, 101, 170),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                      Text("New to Xtreme Skills", 
-                      style: GoogleFonts.poppins(
-                fontSize: 10, 
-                color: Colors.white, 
-                fontWeight: FontWeight.w700
-              ),
-                      ), 
-                      Text("Book a Clean for PKR 24/hr", 
-                      style: GoogleFonts.poppins(
-                fontSize: 10, 
-                color: Colors.white, 
-                fontWeight: FontWeight.w700
-              ),
-                      )
-                    ],), 
-                    ActionButton(ontap: (){}, 
-                    text: "Book now", 
-                    color: Colors.blue.shade800,
-                    bordersidecolor: Colors.white,
-                    )
-                  ],
-                ),
-              ), 
-                Text("Popular Services" ,
-               style: GoogleFonts.poppins(
-                fontSize: 15, 
-              ),
-              ),
-              //TODO: ADD GRID VIEW
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>PickLocation()));
-                    },
-                    child: Container(
-                          width: 150.0,
-                          child: Card(
-                            elevation: 2.0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
-                            child: Wrap(
-                              children: <Widget>[
-                                ClipRRect(
-                                  child: Image.network(
-                                    'https://images.everydayhealth.com/images/healthy-living/healthy-home/easy-ways-to-clean-your-home-01-722x406.jpg',
-                                    height: 130,
-                                    // width: 100,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(16.0),
-                                    topRight: Radius.circular(16.0),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Center(
-                                    child: Text(
-                                      'Home Cleaning',
-                                      style: TextStyle(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Times New Roman'),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+            overflow:Overflow.visible,
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height,
+                child: ListView(
+                 children:[Container(
+                          decoration:BoxDecoration(
+                            color:Colors.blue.shade900,
                           ),
-                        ),
-                  ),
-                      Container(
-                        width: 150.0,
-                        child: Card(
-                          elevation: 2.0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          child: Wrap(
-                            children: <Widget>[
-                              ClipRRect(
-                                child: Image.network(
-                                  'https://media.glamour.com/photos/5695b2b593ef4b09520e4617/master/pass/sex-love-life-2013-08-moving-in-main.jpg',
-                                  height: 130,
-                                  // width: 100,
-                                  fit: BoxFit.cover,
-                                ),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(16.0),
-                                  topRight: Radius.circular(16.0),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Center(
-                                  child: Text(
-                                    'Moving',
-                                    style: TextStyle(
-                                        fontSize: 15.0,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Times New Roman'),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                      width: 150.0,
-                      child: Card(
-                        elevation: 2.0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        child: Wrap(
-                          children: <Widget>[
-                            ClipRRect(
-                              child: Image.network(
-                                'https://images.pexels.com/photos/1249611/pexels-photo-1249611.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-                                height: 130,
-                                // width: 100,
-                                fit: BoxFit.cover,
-                              ),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(16.0),
-                                topRight: Radius.circular(16.0),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Text(
-                                  'Handyman',
-                                  style: TextStyle(
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Times New Roman'),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 150.0,
-                      child: Card(
-                        elevation: 2.0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        child: Wrap(
-                          children: <Widget>[
-                            ClipRRect(
-                              child: Image.network(
-                                'https://media.istockphoto.com/photos/coronavirus-disinfection-people-in-hazmats-making-disinfection-in-picture-id1251021649?b=1&k=20&m=1251021649&s=170667a&w=0&h=XnwjEnbZH_SzI9M8SlVEt5LXu-IH8ScUFo8ktI2fyBc=',
-                                height: 130,
-                                // width: 100,
-                                fit: BoxFit.cover,
-                              ),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(16.0),
-                                topRight: Radius.circular(16.0),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Text(
-                                  'Sanitization',
-                                  style: TextStyle(
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Times New Roman'),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                ],
-              ), 
-            ],
-            ),
-            Positioned(
-                      bottom: 0,
-                      child: Container(
-                        padding: EdgeInsets.only(left:10,right:10,top:10),
-                        height: 66,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black12,
-                                  offset: Offset(2, 2),
-                                  blurRadius: 5)
-                            ],
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(5.0),
-                            )),
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-
-                                Column(
-                                  children: [
-                                    GestureDetector(
-                                        onTap: () async {
-
-                                          // await xtremesProjectsController.getProjectsDetails();
-
-                                          // Get.to(() => XtremesProjects());
-                                        },
-                                        child: Icon(
-                                          Icons.location_city_rounded,
-                                          size: 28,
-                                          color: Colors.blue.shade900,
-                                        )),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      "home",
-                                      style:
-                                      GoogleFonts.poppins(fontSize: 8, color: Colors.black54),
-                                    )
-                                  ],
-                                ),
-                            Column(
+                          width: MediaQuery.of(context).size.width,
+                          child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                GestureDetector(
-                                    onTap: () async {
-                                      // await xtremesPropertiesController.getPropertiesData(1);
-                                      // Get.to(() => XtremesProperties());
+
+
+                                Column(children: [
+                                  Container(
+                                    width: double.infinity,
+                                    padding: const EdgeInsets.only(
+                                        left: 20, top: 25, bottom: 10),
+                                    child: Text(
+                                      "Find The Best Service !",
+                                      style: GoogleFonts.poppins(
+                                        fontSize: MediaQuery.of(context).size.height*0.023,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        
+                                      ),
+                                    ),
+                                  ),
+                                ]),
+                                Container(
+                                  margin: EdgeInsets.only(left:15,right:15,bottom:15
+
+                                      ,top:5),
+                                  child:
+                                  GestureDetector(
+                                    onTap: () {
+                                      // Get.to(() => searchfilter());
                                     },
-                                    child: Icon(
-                                      Icons.home_work_outlined,
-                                      size: 28,
-                                      color: Colors.blue.shade900,
-                                    )),
-                                SizedBox(
-                                  height: 5,
+                                    child:
+                                    Container(
+                                      width: MediaQuery.of(context).size.height,
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 5, horizontal: 10),
+
+                                      height:
+                                      MediaQuery.of(context).size.height * 0.07,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: Colors.black12,
+                                                offset: Offset(2, 2),
+                                                blurRadius: 5)
+                                          ],
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(5.0),
+                                          )),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Let\'s get things done today..',
+                                            style: GoogleFonts.poppins(color:Colors.black54),),
+                                          
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                Text(
-                                  "services",
-                                  style:
-                                  GoogleFonts.poppins(fontSize: 8, color: Colors.black54),
-                                )
-                              ],
-                            ),
                               ],
                             ),
 
-                      )),
+
+
+                          ),
+                        ),
+
+                        Container(
+                          height: MediaQuery.of(context).size.height,
+                          child: StreamBuilder<QuerySnapshot>(
+                             stream: FirebaseFirestore.instance.collection("worker_skills").snapshots(),
+                              
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+                                return GridView.builder(
+                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        // crossAxisSpacing: 1.0,
+                                        // mainAxisSpacing: 1.0
+                                        ),
+                                    scrollDirection: Axis.vertical,
+                                  itemCount: snapshot.data!.docs.length,
+                                    itemBuilder: (context, index) {
+                                       DocumentSnapshot skills = snapshot.data!.docs[index];
+                        
+                                      return  Container(
+                          
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: <Widget>[
+                               GestureDetector(  onTap: () {
+                                 
+                                          // Get.to()
+                                       },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width * 0.4,
+                                    
+                                  child: Card(
+                                    elevation: 2.0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        ClipRRect(
+                                          child: Image.network(
+                                            skills['Image'],
+                                            fit: BoxFit.cover,
+                                            height: MediaQuery.of(context).size.height * 0.17,
+                                           
+                                          ),
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(16.0),
+                                            topRight: Radius.circular(16.0),
+                                          ),
+                                        ),
+                        
+                                        Center(
+                                          child: Text(
+                                            skills['Name'],
+                                            style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: 'Times New Roman'),
+                                          ),
+                                          
+                                      
+                                      ),
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                
+                                ),
+                              ),
+                            ],
+                          ),
+                                            );
+                                         
+                                    }
+                                   
+                                    );
+                                            
+                             
+                           
+                             
+                              },
+                          ),
+                        ),
+                         const Spacer(),
+                        ])
+               
+              ),
             ],
           ),
         ),
+       
       ),
     );
   }
