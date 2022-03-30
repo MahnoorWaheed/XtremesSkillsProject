@@ -6,11 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xtremes_skills/main.dart';
 import 'package:xtremes_skills/rate.dart';
+
 import 'package:xtremes_skills/widgets/formwidget/skills_details.dart';
+
+
+import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
+import 'package:xtremes_skills/modules/auth/screen/login.dart';
+
+
 
 
 
 class skills extends StatefulWidget {
+
+
 
   // const skills(String location, {Key? key}) : super(key: key);
 
@@ -28,9 +37,10 @@ class _skillsState extends State<skills> {
   
   Future<void> _signout(BuildContext context) async {
     await _firebaseAuth.signOut().then((_){
-         Navigator.push(context,MaterialPageRoute(builder: (context) => MyApp()));
+         Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstScreen()));
     });
   }
+  
   @override
   Widget build(BuildContext context) {
    
@@ -124,11 +134,30 @@ class _skillsState extends State<skills> {
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'Times New Roman'),
                                         ),
+
                                       
+
+                                        
+                                      // borderRadius: const BorderRadius.only(
+                                      //   topLeft: Radius.circular(16.0),
+                                      //   topRight: Radius.circular(16.0),
+                                      // ),
+
                                     ),
                                     SizedBox(
                                       height:  MediaQuery.of(context).size.height * 0.02,
                                     ),
+
+                                    Center(
+                                      child: Text(
+                                        skills['Name'],
+                                        style: const TextStyle(
+                                            fontSize: 15.0,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Times New Roman'),
+                                      ),
+                                    )
+
                                     ],
                                   ),
                                 ),

@@ -126,10 +126,14 @@ Future<Position> _determinePosition() async {
             });
             // getCurrentLocation();
              Navigator.of(context).push(MaterialPageRoute(
+
                                   builder: (context) => skills(
                                  
                                     //Location
                                     )));
+
+                                  builder: (context) => skills()));
+
           }, text: 'Allow Location access',
           ),
             SizedBox(height: 30,),
