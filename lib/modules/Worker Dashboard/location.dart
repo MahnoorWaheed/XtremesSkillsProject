@@ -29,7 +29,7 @@ class _LocationDataState extends State<LocationData> {
 
 //   });
 // }
-
+var loctn ;
 String Location = "";
 String address = "";
 
@@ -126,7 +126,14 @@ Future<Position> _determinePosition() async {
             });
             // getCurrentLocation();
              Navigator.of(context).push(MaterialPageRoute(
+
+                                  builder: (context) => skills(
+                                 
+                                    //Location
+                                    )));
+
                                   builder: (context) => skills()));
+
           }, text: 'Allow Location access',
           ),
             SizedBox(height: 30,),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -5,13 +7,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xtremes_skills/main.dart';
 import 'package:xtremes_skills/rate.dart';
 
+import 'package:xtremes_skills/widgets/formwidget/skills_details.dart';
+
+
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
 import 'package:xtremes_skills/modules/auth/screen/login.dart';
 
 
 
 
+
 class skills extends StatefulWidget {
+
+
+
   // const skills(String location, {Key? key}) : super(key: key);
 
   @override
@@ -20,6 +29,12 @@ class skills extends StatefulWidget {
 
 class _skillsState extends State<skills> {
  final FirebaseAuth _firebaseAuth=FirebaseAuth.instance;
+
+  var SkillName,Service1,Service2,Service3,Service4,details1,details2,details3,details4;
+
+  // print("hello skill screen : ${widget.loctn}"); 
+
+  
   Future<void> _signout(BuildContext context) async {
     await _firebaseAuth.signOut().then((_){
          Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstScreen()));
@@ -28,6 +43,7 @@ class _skillsState extends State<skills> {
   
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -66,10 +82,23 @@ class _skillsState extends State<skills> {
                           scrollDirection: Axis.horizontal,
                           children: <Widget>[
                              GestureDetector(  onTap: () {
+                               print("Skill name"+ skills['Name'],);
                                
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => rate(),
-                    ));
+                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Skill_Details(
+                                   SkillName = skills['Name'],
+                                   Service1 = skills['Service1'],
+                                   Service2 = skills['Service2'],
+                                   Service3 = skills['Service3'],
+                                   Service4 = skills['Service4'],
+                                   details1 = skills['details1'],
+                                   details2 = skills['details2'],
+                                   details3 = skills['details3'],
+                                   details4 = skills['details4'],
+                               
+                               
+                                  ),
+                                ));
                  },
                               child: Container(
                                 width: MediaQuery.of(context).size.width * 0.4,
@@ -105,15 +134,20 @@ class _skillsState extends State<skills> {
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'Times New Roman'),
                                         ),
+
+                                      
+
                                         
                                       // borderRadius: const BorderRadius.only(
                                       //   topLeft: Radius.circular(16.0),
                                       //   topRight: Radius.circular(16.0),
                                       // ),
+
                                     ),
                                     SizedBox(
                                       height:  MediaQuery.of(context).size.height * 0.02,
                                     ),
+
                                     Center(
                                       child: Text(
                                         skills['Name'],
@@ -123,6 +157,7 @@ class _skillsState extends State<skills> {
                                             fontFamily: 'Times New Roman'),
                                       ),
                                     )
+
                                     ],
                                   ),
                                 ),
