@@ -36,7 +36,7 @@ Future<void> main() async {
 
      SharedPreferences prefs = await SharedPreferences.getInstance();
      var email =prefs.getString('email');
-     runApp(MaterialApp(home: email== null ?  MyApp(): const skills(),));
+     runApp(MaterialApp(home: email== null ?  MyApp(): skills(),));
 }
 
 class MyApp extends StatefulWidget {
@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
 
-      home: MultiForm(),
+      home: FirstScreen(),
      
 
     );
