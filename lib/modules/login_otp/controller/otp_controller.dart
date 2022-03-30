@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pinput/pinput.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xtremes_skills/modules/User%20Screens/dashboard.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/otp_screen.dart';
 
@@ -52,7 +55,7 @@ await FirebaseAuth.instance.verifyPhoneNumber(
             timeout: const Duration(seconds: 60),
               verificationCompleted: (phoneAuthCredential) async {
                 await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential).then((value) {
-if(value.user!=null){
+            if(value.user!=null){
                     Navigator.of(context).push(MaterialPageRoute(builder: (c)=> DasboardUser()));
                   }
                 });
@@ -105,15 +108,21 @@ if(value.user!=null){
           Padding(padding: EdgeInsets.all(40.0), 
           child: Pinput(
             length: 6,
+            androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsRetrieverApi,
+            readOnly: true,
+            pinAnimationType: PinAnimationType.rotation,
             focusNode: _pinOTPCodeFocus,
             controller: _pinOTPController,
             onTap: () async{
               String? pin;
               try{
+                
                 PhoneAuthCredential phoneAuthCredential =
                 PhoneAuthProvider.credential(
                     verificationId: verificationCode!, smsCode: pin!);
-
+setState(() {
+                  showLoading=true;
+                });
             signInWithPhoneAuthCredential(phoneAuthCredential);
                 // await FirebaseAuth.instance.signInWithCredential(
                 //   PhoneAuthProvider.credential(
@@ -176,7 +185,7 @@ if(value.user!=null){
           await _auth.signInWithCredential(phoneAuthCredential);
 
       setState(() {
-        showLoading = false;
+        showLoading = true;
       });
 
       if(authCredential.user != null){
@@ -193,4 +202,25 @@ if(value.user!=null){
           .showSnackBar(SnackBar(content: Text("${e.message}")));
     }
   }
+
+  // Future<String> login({
+  //     required String phoneNumber,
+      
+  //   }) async{
+  //     log('call to login');
+  //     String res ="some error occured";
+  //     try{
+  //       await _auth.signInWithPhoneNumber(phoneNumber).then((value) async{
+  //            SharedPreferences prefs= await SharedPreferences.getInstance();
+  //            prefs.setString('phoneNumber', phoneNumber);
+             
+  //       });
+  //       res="success";
+  //     }
+  //     catch(err){
+  //       res=err.toString();
+
+  //     }
+  //     return res;
+  //   }
 }
