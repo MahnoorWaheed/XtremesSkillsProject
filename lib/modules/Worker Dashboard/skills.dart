@@ -5,6 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xtremes_skills/main.dart';
 import 'package:xtremes_skills/rate.dart';
 
+import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
+import 'package:xtremes_skills/modules/auth/screen/login.dart';
+
+
 
 
 class skills extends StatefulWidget {
@@ -18,9 +22,10 @@ class _skillsState extends State<skills> {
  final FirebaseAuth _firebaseAuth=FirebaseAuth.instance;
   Future<void> _signout(BuildContext context) async {
     await _firebaseAuth.signOut().then((_){
-         Navigator.push(context,MaterialPageRoute(builder: (context) => MyApp()));
+         Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstScreen()));
     });
   }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

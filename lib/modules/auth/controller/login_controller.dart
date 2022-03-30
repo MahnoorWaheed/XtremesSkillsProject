@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController{
   bool isLoading= false;
@@ -26,7 +27,11 @@ class LoginController extends GetxController{
       log('call to login');
       String res ="some error occured";
       try{
-        await _auth.signInWithEmailAndPassword(email: email, password: password);
+        await _auth.signInWithEmailAndPassword(email: email, password: password).then((value) async{
+             SharedPreferences prefs= await SharedPreferences.getInstance();
+             prefs.setString('email', email);
+             
+        });
         res="success";
       }
       catch(err){
