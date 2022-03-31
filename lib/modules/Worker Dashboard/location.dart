@@ -116,7 +116,9 @@ Future<Position> _determinePosition() async {
             SizedBox(height: 30,),
             Text("position: $Location"),
             Text("ADDRESS : $address" ),
-          ActionButton(ontap: () async{
+          ActionButton(
+            // text: "",
+            ontap: () async{
             Position position = await _determinePosition();
             Location = 'LAT: ${position.latitude}, long: ${position.longitude}';
             // GetAddressFromLatLong(position);
@@ -132,7 +134,7 @@ Future<Position> _determinePosition() async {
                                     //Location
                                     )));
 
-                                  builder: (context) => skills()));
+                                  // builder: (context) => skills()));
 
           }, text: 'Allow Location access',
           ),

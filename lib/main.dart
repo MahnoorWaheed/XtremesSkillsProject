@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xtremes_skills/modules/User%20Screens/dashboard.dart';
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
+import 'package:xtremes_skills/modules/User%20Screens/location.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -79,10 +80,10 @@ getUser();
       ),
 
 
-      home: skills(),
+      // home: skills(),
 
       // home: email== null ?  MyApp(): skills(),
-         home: DasboardUser(),
+         home: PickLocation(),
 
 
     );
