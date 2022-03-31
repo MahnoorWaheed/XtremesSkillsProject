@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         ),
         SvgPicture.asset("assets/phone.svg", 
-        height: MediaQuery.of(context).size.height*0.25,
+        height: MediaQuery.of(context).size.height*0.2,
         fit: BoxFit.contain,
         ),
          Text("Add Phone Number to Verify you are not a Robot", 
@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
          Container(
            width: 400,
            height: 60,
-           color: Colors.red,
+          //  color: Colors.red,
            child: CountryCodePicker(
              onChanged: (country){
                setState(() {
@@ -140,40 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
               phone: phoneController.text,
               codedigits: dialCodeDigit.toString(),
             )));
-            // setState(() {
-            //   showLoading = true;
-            // });
-
-            // await _auth.verifyPhoneNumber(
-            //   phoneNumber: phoneController.text,
-            // timeout: const Duration(seconds: 5),
-            // // ignore: prefer_if_null_operators
-            // forceResendingToken: forceResendingToken!=null?forceResendingToken:null,
-            //   verificationCompleted: (phoneAuthCredential) async {
-            //      // ignore: unused_local_variable
-            //      User? user = FirebaseAuth.instance.currentUser;
-            //     setState(() {
-            //       showLoading = false;
-            //     });
-            //     signInWithPhoneAuthCredential(phoneAuthCredential);
-            //   },
-            //   verificationFailed: (verificationFailed) async {
-            //     setState(() {
-            //       showLoading = false;
-            //     });
-            //     // ignore: deprecated_member_use
-            //     _scaffoldKey.currentState!.showSnackBar(
-            //         SnackBar(content: Text("${verificationFailed.message}")));
-            //   },
-            //   codeSent: (verificationId, resendingToken) async {
-            //     setState(() {
-            //       showLoading = false;
-            //       currentState = MobileVerificationState.SHOW_OTP_FORM_STATE;
-            //       this.verificationId = verificationId;
-            //     });
-            //   },
-            //   codeAutoRetrievalTimeout: (verificationId) async {},
-            // );
+            
           },
           child: const Text("SEND"),
           // color: Colors.blue,
@@ -194,9 +161,9 @@ class _LoginScreenState extends State<LoginScreen> {
           fontWeight: FontWeight.bold,
         ),
         ),
-        SvgPicture.asset("assets/password.svg",
-        height: MediaQuery.of(context).size.height*0.25,
-        ),
+        // SvgPicture.asset("assets/password.svg",
+        // height: MediaQuery.of(context).size.height*0.25,
+        // ),
         TextFormField(
          controller: otpController,
                       keyboardType: TextInputType.number,
@@ -229,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Text("VERIFY"),
          
         ),
-       // Spacer(),
+        Spacer(),
       ],
     );
   }

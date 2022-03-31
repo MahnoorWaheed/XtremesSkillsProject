@@ -1,5 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xtremessoft.xtremesSkills">
+
+ <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
    <application
         android:label="xtremes_skills"
         android:name="${applicationName}"
@@ -30,5 +35,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+             <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyCojGJiSLoys9s88rnl5muwwSG5NLb1nbo"/>
     </application>
 </manifest>

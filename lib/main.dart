@@ -25,7 +25,7 @@ Future<void> main() async {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-       home: email== null ? currentpage: const skills(),));
+       home: email== null ? currentpage:  skills(),));
 }
 
 class MyApp extends StatefulWidget {

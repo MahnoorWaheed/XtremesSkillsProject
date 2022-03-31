@@ -1,3 +1,4 @@
+
 name: xtremes_skills
 description: A new Flutter project.
 
@@ -44,17 +45,24 @@ dependencies:
   google_maps_flutter: ^2.1.2
   animated_text_kit: ^4.2.1
   animated_splash_screen: ^1.2.0
-  firebase_core: ^1.6.0
-  cloud_firestore: ^2.5.1
-  otp_text_field: ^1.1.2
+  firebase_core: ^1.13.1
+  cloud_firestore: ^3.1.10
   firebase_auth: ^3.3.11
   google_sign_in: ^5.2.4
   flutter_secure_storage: ^5.0.2
   font_awesome_flutter: ^10.0.0
   country_code_picker: ^2.0.2
   intl: ^0.17.0
-  
+  otp_text_field: ^1.1.2
   shared_preferences: ^2.0.13
+
+  firebase_messaging: ^11.2.11
+  
+
+  pinput: ^2.2.5
+
+
+
 
 
 dev_dependencies:

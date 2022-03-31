@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
+
 import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
 import 'package:xtremes_skills/modules/auth/controller/login_controller.dart';
 import 'package:xtremes_skills/modules/auth/screen/signup.dart';
@@ -204,8 +206,13 @@ bool isLoading= false;
                       }
                       else{
                    
-                             Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const skills()));
+
+                             Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>  skills()));
                             dispose();
+
+                             Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const LocationData()));
+                             dispose();
+
                       }        
                                  
               

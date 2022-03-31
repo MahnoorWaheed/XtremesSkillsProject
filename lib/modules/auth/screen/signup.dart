@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
 import 'package:xtremes_skills/modules/auth/controller/signup_controller.dart';
 import 'package:xtremes_skills/utils/utils.dart';
@@ -643,8 +644,12 @@ class _signupState extends State<signup> {
                                 showSnackBar(res, context);
                               }  
                               else{
-                           Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const skills()));
+
+                           Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>skills()));
                              dispose();
+
+                           Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const LocationData()));
+                   
                               }                     
                           
                           
