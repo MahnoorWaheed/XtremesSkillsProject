@@ -51,9 +51,11 @@ class _skillsState extends State<skills> {
         title: const Text('Select your skills :'),
         actions: [
           TextButton(onPressed: ()async{
-            SharedPreferences prefs= await SharedPreferences.getInstance();
-            prefs.remove('email');
-            _signout(context);
+            // SharedPreferences prefs= await SharedPreferences.getInstance();
+            // prefs.remove('email');
+            // _signout(context);
+          Get.to(()=> const FirstScreen());
+
           }, child: const Text('Log out',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
         ],
       ),
