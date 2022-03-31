@@ -57,7 +57,7 @@ class _skillsState extends State<skills> {
         ],
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("worker_skills").snapshots(),
+        stream: FirebaseFirestore.instance.collection("Skills").snapshots(),
         
         builder: (context, snapshot) {
           if (!snapshot.hasData) {

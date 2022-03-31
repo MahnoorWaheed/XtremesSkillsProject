@@ -132,7 +132,7 @@ Future<Position> _determinePosition() async {
                                     //Location
                                     )));
 
-                                  builder: (context) => skills()));
+                              
 
           }, text: 'Allow Location access',
           ),
