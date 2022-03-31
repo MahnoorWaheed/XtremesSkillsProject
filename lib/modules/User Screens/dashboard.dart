@@ -102,15 +102,15 @@ class _DasboardUserState extends State<DasboardUser> {
                               ],
                             ),
 
-
+                 
 
                           ),
                         ),
-
+             Text("Hello World"),
                         Container(
                           height: MediaQuery.of(context).size.height,
                           child: StreamBuilder<QuerySnapshot>(
-                             stream: FirebaseFirestore.instance.collection("worker_skills").snapshots(),
+                             stream: FirebaseFirestore.instance.collection("Skills").snapshots(),
                               
                               builder: (context, snapshot) {
                                 if (!snapshot.hasData) {
@@ -194,7 +194,7 @@ class _DasboardUserState extends State<DasboardUser> {
                               },
                           ),
                         ),
-                         const Spacer(),
+                        //  const Spacer(),
                         ])
                
               ),

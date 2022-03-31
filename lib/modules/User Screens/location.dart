@@ -114,10 +114,7 @@ class PickLocation extends StatelessWidget {
            color: Colors.blue.shade900,
            ),
            SizedBox(height: 30,),
-           MyGestures(
-             ontap: (){},
-             text: "Enter My Location",
-           )
+           
          ],
        ),
      ),

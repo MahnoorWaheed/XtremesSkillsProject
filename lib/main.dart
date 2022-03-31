@@ -3,7 +3,11 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
+
+import 'package:xtremes_skills/modules/User%20Screens/location.dart';
+
 import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
+
 import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
 import 'package:xtremes_skills/modules/auth/screen/signup.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/otp_screen.dart';
@@ -47,10 +51,14 @@ class _MyAppState extends State<MyApp> {
       ),
 
 
-      home: skills(),
+      // home: skills(),
 
       // home: email== null ?  MyApp(): skills(),
+
+         home: PickLocation(),
+
         //  home: DasboardUser(),
+
 
 
     return Container(
