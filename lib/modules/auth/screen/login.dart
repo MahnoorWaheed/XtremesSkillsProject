@@ -1,8 +1,11 @@
 import 'dart:developer';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
+
 import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
 import 'package:xtremes_skills/modules/auth/controller/login_controller.dart';
 import 'package:xtremes_skills/modules/auth/screen/signup.dart';
@@ -19,7 +22,42 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
  
- final _controller= Get.put(LoginController());
+//  final _controller= Get.put(LoginController());
+bool isLoading= false;
+  final FirebaseAuth _auth= FirebaseAuth.instance;
+   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  TextEditingController eml = TextEditingController(); 
+   TextEditingController pass = TextEditingController(); 
+
+
+    void dispose(){
+      eml.clear();
+      pass.clear();
+    }
+
+
+     Future<String> login({
+      required String email,
+      required String password,
+    }) async{
+      log('call to login');
+      String res ="some error occured";
+      try{
+        await _auth.signInWithEmailAndPassword(email: email, password: password).then((value) async{
+             SharedPreferences prefs= await SharedPreferences.getInstance();
+             prefs.setString('email', email);
+             
+             
+        });
+        res="success";
+      }
+      catch(err){
+        res=err.toString();
+
+      }
+      return res;
+    }
  
 
   @override
@@ -36,7 +74,7 @@ class _LoginState extends State<Login> {
        backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Form(
-          key: _controller.formKey,
+          key: formKey,
           child: Column(
             children: [
             //   
@@ -55,7 +93,7 @@ class _LoginState extends State<Login> {
                             margin: const EdgeInsets.only(top: 20),
                             child: TextFormField(
                                 
-                            controller: _controller.eml,
+                            controller: eml,
 
                              
                               
@@ -99,7 +137,7 @@ class _LoginState extends State<Login> {
                             child: TextFormField(
                               obscureText: _isobsecure,
                          
-                            controller: _controller.pass,
+                            controller: pass,
                              
                               
                                keyboardType: TextInputType.visiblePassword,
@@ -139,7 +177,7 @@ class _LoginState extends State<Login> {
               Padding(
                 padding: const EdgeInsets.only(top:8.0),
                 child: Container(
-                  child: _controller.isLoading? const Center(child: CircularProgressIndicator(),):ActionButton(
+                  child: isLoading? const Center(child: CircularProgressIndicator(),):ActionButton(
                     width: MediaQuery.of(context).size.width*0.4,
                     bordersidecolor: Colors.white,
                     color:Colors.blue.shade900,
@@ -147,20 +185,20 @@ class _LoginState extends State<Login> {
                     ontap: () async{
                       
 
-                               final isValid = _controller.formKey.currentState!.validate();
+                               final isValid = formKey.currentState!.validate();
                           if (!isValid) {
                             return;
                                 
                                      }
-                            _controller.formKey.currentState!.save();
+                            formKey.currentState!.save();
                             setState(() {
-                        _controller.isLoading=true;
+                        isLoading=true;
                       });
 
-                      String res =await _controller.login(email: _controller.eml.text, password: _controller.pass.text);
+                      String res =await login(email: eml.text, password: pass.text);
                       log(res);
                        setState(() {
-                          _controller.isLoading=false;
+                        isLoading=false;
                         });
                       if(res !='success'){
                        
@@ -168,8 +206,13 @@ class _LoginState extends State<Login> {
                       }
                       else{
                    
+
+                             Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>  skills()));
+                            dispose();
+
                              Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const LocationData()));
-                             _controller.dispose();
+                             dispose();
+
                       }        
                                  
               

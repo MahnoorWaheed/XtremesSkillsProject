@@ -1,3 +1,8 @@
+
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xtremes_skills/utils/utils.dart';
@@ -12,6 +17,8 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  final FirebaseFirestore _firestore= FirebaseFirestore.instance;
+ final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -30,20 +37,21 @@ class _DashboardState extends State<Dashboard> {
                    Text("Ali khan", 
                    style: GoogleFonts.poppins(),
                    ),
-                   CircleAvatar(radius: 25,
+
+                   const CircleAvatar(radius: 25,
                    child: Text("Picture of worker"),)
                  ],
                ),
              ),
-            WorkerInfo(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const WorkerInfo(),
+            const Padding(
+              padding:  EdgeInsets.all(8.0),
               child: Text("Earnings"),
             ),
           
-            EarningContainer(),
-        Padding(
-              padding: const EdgeInsets.all(8.0),
+          const EarningContainer(),
+       const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text("To-Dos"),
             ),
             Padding(
