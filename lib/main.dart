@@ -3,9 +3,9 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/bottom_nav.dart';
 
 import 'package:xtremes_skills/modules/User%20Screens/location.dart';
-
 import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
 
 import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
@@ -29,7 +29,7 @@ Future<void> main() async {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-       home: email== null ? currentpage:  skills(),));
+       home: email== null ? currentpage: skills(),));
 }
 
 class MyApp extends StatefulWidget {
@@ -42,24 +42,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-
-
-      // home: skills(),
-
-      // home: email== null ?  MyApp(): skills(),
-
-         home: PickLocation(),
-
-        //  home: DasboardUser(),
-
-
 
     return Container(
       
