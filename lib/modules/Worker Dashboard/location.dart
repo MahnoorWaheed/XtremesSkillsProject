@@ -132,8 +132,6 @@ Future<Position> _determinePosition() async {
                                     //Location
                                     )));
 
-                              
-
           }, text: 'Allow Location access',
           ),
             SizedBox(height: 30,),

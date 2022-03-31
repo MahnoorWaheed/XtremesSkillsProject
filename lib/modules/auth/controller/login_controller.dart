@@ -5,41 +5,42 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginController extends GetxController{
-  bool isLoading= false;
-  final FirebaseAuth _auth= FirebaseAuth.instance;
-   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+// class LoginController extends GetxController{
+//   bool isLoading= false;
+//   final FirebaseAuth _auth= FirebaseAuth.instance;
+//    GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  TextEditingController eml = TextEditingController(); 
-   TextEditingController pass = TextEditingController(); 
-
-
-    void dispose(){
-      eml.clear();
-      pass.clear();
-    }
+//   TextEditingController eml = TextEditingController(); 
+//    TextEditingController pass = TextEditingController(); 
 
 
-     Future<String> login({
-      required String email,
-      required String password,
-    }) async{
-      log('call to login');
-      String res ="some error occured";
-      try{
-        await _auth.signInWithEmailAndPassword(email: email, password: password).then((value) async{
-             SharedPreferences prefs= await SharedPreferences.getInstance();
-             prefs.setString('email', email);
+//     void dispose(){
+//       eml.clear();
+//       pass.clear();
+//     }
+
+
+//      Future<String> login({
+//       required String email,
+//       required String password,
+//     }) async{
+//       log('call to login');
+//       String res ="some error occured";
+//       try{
+//         await _auth.signInWithEmailAndPassword(email: email, password: password).then((value) async{
+//              SharedPreferences prefs= await SharedPreferences.getInstance();
+//              prefs.setString('email', email);
              
-        });
-        res="success";
-      }
-      catch(err){
-        res=err.toString();
+             
+//         });
+//         res="success";
+//       }
+//       catch(err){
+//         res=err.toString();
 
-      }
-      return res;
-    }
+//       }
+//       return res;
+//     }
     
 
-}
+// }
