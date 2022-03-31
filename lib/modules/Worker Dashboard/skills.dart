@@ -1,26 +1,12 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:xtremes_skills/main.dart';
-import 'package:xtremes_skills/rate.dart';
-
 import 'package:xtremes_skills/widgets/formwidget/skills_details.dart';
-
-
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
-import 'package:xtremes_skills/modules/auth/screen/login.dart';
-
-
-
-
 
 class skills extends StatefulWidget {
-
-
 
   // const skills(String location, {Key? key}) : super(key: key);
 
@@ -33,9 +19,9 @@ class _skillsState extends State<skills> {
 
   var SkillName,Service1,Service2,Service3,Service4,details1,details2,details3,details4;
 
+
   // print("hello skill screen : ${widget.loctn}"); 
 
-  
   Future<void> _signout(BuildContext context) async {
     await _firebaseAuth.signOut().then((_){
       Get.to(()=> const FirstScreen());
@@ -51,10 +37,10 @@ class _skillsState extends State<skills> {
         title: const Text('Select your skills :'),
         actions: [
           TextButton(onPressed: ()async{
-            // SharedPreferences prefs= await SharedPreferences.getInstance();
-            // prefs.remove('email');
-            // _signout(context);
-          Get.to(()=> const FirstScreen());
+            SharedPreferences prefs= await SharedPreferences.getInstance();
+            prefs.remove('email');
+            _signout(context);
+        
 
           }, child: const Text('Log out',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
         ],
@@ -120,7 +106,7 @@ class _skillsState extends State<skills> {
                                           height: MediaQuery.of(context).size.height * 0.17,
                                          
                                         ),
-                                        borderRadius: BorderRadius.only(
+                                       borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(16.0),
                                           topRight: Radius.circular(16.0),
                                         ),
