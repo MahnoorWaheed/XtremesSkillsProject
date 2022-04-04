@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -127,12 +128,18 @@ Future<Position> _determinePosition() async {
               
             });
             // getCurrentLocation();
-             Navigator.of(context).push(MaterialPageRoute(
 
-                                  builder: (context) => skills(
+ FirebaseFirestore.instance.collection('worker').doc('DpSyPSIbSJWC2768qLTMAQNHe6J3').collection("workerskill").doc().set({
+                                   "Location":Location 
+                                      });
+                                   Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> skills()));
+
+            //  Navigator.of(context).push(MaterialPageRoute(
+
+            //                       builder: (context) => skills(
                                  
-                                    //Location
-                                    )));
+            //                         //Location
+            //                         )));
 
 
                                   // builder: (context) => skills()));

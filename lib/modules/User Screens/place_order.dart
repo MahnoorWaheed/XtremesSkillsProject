@@ -240,6 +240,10 @@ WalletMethod(
                 bordersidecolor: Colors.blue.shade900,
                 color: Colors.blue.shade900,
                 ontap: () {
+
+
+
+                  
                   // Navigator.push(
                   //   context,
                   //   MaterialPageRoute(builder: (context) => PayNow()),

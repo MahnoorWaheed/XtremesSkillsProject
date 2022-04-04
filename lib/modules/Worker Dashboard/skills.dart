@@ -19,6 +19,8 @@ class _skillsState extends State<skills> {
 
   var SkillName,Service1,Service2,Service3,Service4,details1,details2,details3,details4;
 
+ String workerEmail = '';
+
 
   // print("hello skill screen : ${widget.loctn}"); 
 
@@ -27,10 +29,36 @@ class _skillsState extends State<skills> {
       Get.to(()=> const FirstScreen());
     });
   }
+   late QuerySnapshot namee;
+ String userName = '';
+  String userEmail = '';
+  bool isLoading = true;
+  @override
+  // void initState() {
+  //   getUserData();
+  //   super.initState();
+  // }
+
+  //  getUserData() async {
+  //   await FirebaseFirestore.instance
+  //       .collection('worker')
+  //       .where('email', isEqualTo: FirebaseAuth.instance.currentUser?.email)
+  //       .get()
+  //       .then((value) {
+  //     print(value.docs.first.data()['firstname']);
+  //     print(value.docs.first.data()['lastname']);
+  //     print(value.docs.first.data()['email']);
+  //     userName = value.docs.first.data()['Name'];
+  //     userEmail = value.docs.first.data()['Email'];
+  //   });
+  //   setState(() {
+  //     isLoading = false;
+  //   });
+  // }
   
   @override
   Widget build(BuildContext context) {
-   
+  //  getUserData();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -75,6 +103,7 @@ class _skillsState extends State<skills> {
                                
                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => Skill_Details(
+                                  //  workerEmail = userEmail,
                                    SkillName = skills['Name'],
                                    Service1 = skills['Service1'],
                                    Service2 = skills['Service2'],

@@ -210,8 +210,8 @@ bool isLoading= false;
                              Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>  skills()));
                             dispose();
 
-                             Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const LocationData()));
-                             dispose();
+                            //  Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const LocationData()));
+                            //  dispose();
 
                       }        
                                  
