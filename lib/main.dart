@@ -52,7 +52,7 @@ Future<void> main() async {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-       home: MyApp(),));
+       home: PickLocation()));
 }
 
 class MyApp extends StatefulWidget {
