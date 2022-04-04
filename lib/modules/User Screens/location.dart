@@ -90,6 +90,8 @@ class PickLocation extends StatelessWidget {
                             Divider(),
                             GestureDetector(
                               onTap: (){
+                               
+
                               Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>NearbyWorkers()));
                               },
                               child: Text("Allow Once",
