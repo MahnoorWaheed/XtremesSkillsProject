@@ -7,6 +7,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
+import 'package:xtremes_skills/modules/User%20Screens/live_location.dart';
 import 'package:xtremes_skills/modules/User%20Screens/location.dart';
 
 import 'package:xtremes_skills/modules/Worker%20Dashboard/dialogbox.dart';
@@ -53,10 +54,14 @@ Future<void> main() async {
         primarySwatch: Colors.blue,
       ),
 
+
+       home: PickLocation()));
+
 //    home: email== null ? currentpage: skills()));
 
 
        home: NearbyWorkers()));
+
       //  home: Login())
 
 }
@@ -69,9 +74,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -90,18 +92,11 @@ class _MyAppState extends State<MyApp> {
             const Text(
               'You have pushed the button this many times:',
             ),
-          //  Text(
-            //   '$_counter',
-            //   style: Theme.of(context).textTheme.headline4,
-            // ),
+         
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: showNotification,
-      //   tooltip: 'Increment',
-      //   child: const Icon(Icons.add),
-      // ), // This trailing comma makes auto-formatting nicer for build methods.
+     
     );
   }
 // void getToken(){

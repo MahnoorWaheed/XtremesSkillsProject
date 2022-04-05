@@ -15,12 +15,7 @@ class NearbyWorkers extends StatefulWidget {
 }
 
 class _NearbyWorkersState extends State<NearbyWorkers> {
-// final List<String> names=["Tv installation", "House Cleaning", "Dish Washer", 
-// "Laundry ","Car cleaner", "Gardener"];
 
-//   final List<String> address=["DHA Peshawar","Hayatabad","Saddar","Mall Road","Abdara Road"," Kohat Road"];
-
-//  final List<String> price=["300/hr","100/hr","300/hr","100/hr","200/hr"," 300/hr"];
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +33,7 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
       ), 
       
       body: StreamBuilder<QuerySnapshot>(
-         stream: FirebaseFirestore.instance.collection("workers").doc().collection("workerskill").snapshots(),
+         stream: FirebaseFirestore.instance.collection("worker").snapshots(),
           
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
@@ -49,14 +44,37 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
             return ListView.builder(
              itemCount: snapshot.data!.docs.length,
               itemBuilder: (ctx, i){
-                 DocumentSnapshot loc = snapshot.data!.docs[i];
-                 print("Location: ${loc['Location']}");
+                 DocumentSnapshot workerlist = snapshot.data!.docs[i];
+                //  print("Location: ${workerlist['Location']}");
                       return Card(
-                        child: Column(
-                          children: [
-                            Text("data"),
-                            Text(loc['Location']),
-                          ],
+                        child: ListTile(
+                         leading: CircleAvatar(
+                           radius: 40,
+                         ),
+                         title: Column(
+                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           children: [
+                           Row(
+                             children: [
+                               Text(workerlist['firstname']),
+                               SizedBox(width: 5,),
+                               Text(workerlist['lastname']),
+                             ],
+                           ),
+                            Text("Address: ${workerlist['address']}", 
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.poppins(
+                              fontSize: 11,
+                            ),
+                            ),
+                            Text(workerlist['city'].toString()),
+                      
+                         ]),
+                         trailing: IconButton(icon: Icon(Icons.location_on), 
+                         onPressed: (){},
+                         ),
                         ),
                       );
             });

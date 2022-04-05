@@ -4,6 +4,8 @@ import 'package:awesome_dropdown/awesome_dropdown.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,7 +31,10 @@ class _signupState extends State<signup> {
    final FirebaseFirestore _firestore= FirebaseFirestore.instance;
    GlobalKey<FormState> formKey = GlobalKey<FormState>();
     DateTime dateOfBirth = DateTime.now();
-    
+    String Location = "";
+String address = "";
+ String location ='Null, Press Button';
+  String Address = 'search';
   
   Color bulbColor = Colors.black;
 
@@ -126,7 +131,11 @@ class _signupState extends State<signup> {
 
          // add user to our database
          
+
+         _firestore.collection('worker').doc(FirebaseAuth.instance.currentUser?.email).set({
+
          _firestore.collection('worker').doc(email).set({
+
             'firstname': firstname,
             'lastname': lastname,
             'cnic':     cnic,
@@ -587,46 +596,29 @@ class _signupState extends State<signup> {
                              
                             ),
                           ),
-                      
-                      
-                       Container(
-                           height: screenHeight(context)*0.1,
-                        width: screenWidth(context)*0.9,
+                      Text("position: $Location"),
+            Text("ADDRESS : $address" ),
+          ActionButton(
+            // text: "",
+            ontap: () async{
+            Position position = await _determinePosition();
+            Location = 'LAT: ${position.latitude}, long: ${position.longitude}';
+            // GetAddressFromLatLong(position);
+            
+            setState(() {
               
-                            margin: const EdgeInsets.only(top: 20),
-                            child: TextFormField(
-                         
-                            controller: add,
-                             
-                              
-                               keyboardType: TextInputType.streetAddress,
-                            cursorColor: Colors.black,
-                            decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.location_on, color: Colors.blue.shade900,),
-                                labelText: "Address",
-                                labelStyle: TextStyle(color: Colors.blue[800]),
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(18),
-                                  borderSide: const BorderSide(color: Colors.blue),
-                                ),
-                                enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.blue))),
-                                    validator: (value){
-                                       if(value!.isEmpty){
-                                         return 'Field cannot be empty';
-                                       }
-                                    },
-                           
-                              
-                             
-                            ),
-                          ),
+            });
+            
+
+          }, text: 'Allow Location access',
+          ),
+                      
+                  
                       Container(
                         
                         child: isLoading?const Center(child: CircularProgressIndicator()):ActionButton(ontap: () async{
-
+                          
+                           
                           log(formatedate);
 
                               final isValid = formKey.currentState!.validate();
@@ -637,7 +629,7 @@ class _signupState extends State<signup> {
                           setState(() {
                           isLoading=true;
                           });
-                           String res = await signup(firstname: firstname.text, lastname: lastname.text, cnic: cnic.text, email: email.text, confirmpass: cpass.text, gender: data,dob: formatedate,city: selectcity, phone:ph.text, address: add.text);
+                           String res = await signup(firstname: firstname.text, lastname: lastname.text, cnic: cnic.text, email: email.text, confirmpass: cpass.text, gender: data,dob: formatedate,city: selectcity, phone:ph.text, address: Location);
                               setState(() {
                             isLoading=false;
                           });
@@ -690,6 +682,48 @@ class _signupState extends State<signup> {
     if (newDate == null) return;
     setState(() {
       dateOfBirth = newDate;
+    });
+  }
+
+  
+
+
+Future<Position> _determinePosition() async {
+  bool serviceEnabled;
+  LocationPermission permission;
+
+  // Test if location services are enabled.
+  serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  if (!serviceEnabled) {
+    await Geolocator.openLocationSettings();
+    return Future.error('Location services are disabled.');
+  }
+
+  permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+
+      return Future.error('Location permissions are denied');
+    }
+  }
+  
+  if (permission == LocationPermission.deniedForever) {
+    // Permissions are denied forever, handle appropriately. 
+    return Future.error(
+      'Location permissions are permanently denied, we cannot request permissions.');
+  } 
+
+
+  return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+}
+
+Future<void> GetAddressFromLatLong(Position position)async {
+    List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+    print(placemarks);
+    Placemark place = placemarks[0];
+    Address = '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+    setState(()  {
     });
   }
 }
