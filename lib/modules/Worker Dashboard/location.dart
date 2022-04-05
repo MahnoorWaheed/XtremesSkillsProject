@@ -129,7 +129,7 @@ Future<Position> _determinePosition() async {
             });
             // getCurrentLocation();
 
- FirebaseFirestore.instance.collection('worker').doc('DpSyPSIbSJWC2768qLTMAQNHe6J3').collection("workerskill").doc().set({
+ FirebaseFirestore.instance.collection('worker').doc().collection("workerskill").doc().set({
                                    "Location":Location 
                                       });
                                    Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> skills()));
