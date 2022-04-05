@@ -218,10 +218,10 @@ class _Skill_DetailsState extends State<Skill_Details> {
          Navigator.of(context).pop();
        }, child: Text("Cancle")),
        TextButton(onPressed: (){
-         var data = widget.SkillName;
+         String? data = widget.SkillName.toString();
          print("worker emial" + userEmail);
 
-                                      _firestore.collection('worker').doc(userEmail).collection("worker_skills").doc(data).set({
+                                 _firestore.collection('worker').doc(FirebaseAuth.instance.currentUser?.email).collection("worker_skills").doc(data).set({
                                     'SkillName': widget.SkillName,
                                     'Service1': widget.Service1,
                                     'Description' : txtdata,

@@ -17,6 +17,33 @@ class LocationData extends StatefulWidget {
 
 class _LocationDataState extends State<LocationData> {
 
+   String userName = '';
+  String userEmail = '';
+  bool isLoading = true;
+  @override
+  void initState() {
+    getUserData();
+    super.initState();
+  }
+
+   getUserData() async {
+    await FirebaseFirestore.instance
+        .collection('worker')
+        .where('email', isEqualTo: FirebaseAuth.instance.currentUser?.email)
+        .get()
+        .then((value) {
+      print(value.docs.first.data()['firstname']);
+      print(value.docs.first.data()['lastname']);
+      print(value.docs.first.data()['email']);
+      userName = value.docs.first.data()['firstname'];
+      userEmail = value.docs.first.data()['email'];
+    });
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+
 // var locationMessage = "";
 // late Position currentPosition;
 // var geoLocator = Geolocator();
@@ -130,7 +157,11 @@ Future<Position> _determinePosition() async {
             });
             // getCurrentLocation();
 
+
+ FirebaseFirestore.instance.collection('worker').doc(FirebaseAuth.instance.currentUser?.email).collection("workerskill").doc().set({
+
  FirebaseFirestore.instance.doc('worker').collection("workerskill").doc('id').set({
+
                                    "Location":Location 
                                       });
                                    Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> skills()));
