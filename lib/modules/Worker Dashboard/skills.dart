@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/bottom_nav.dart';
 import 'package:xtremes_skills/widgets/formwidget/skills_details.dart';
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
 
@@ -62,7 +63,11 @@ class _skillsState extends State<skills> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Select your skills :'),
+        title: GestureDetector(
+          onTap:() {
+              Get.to(()=> const BottomNav());
+          },
+          child: const Text('Select your skills :')),
         actions: [
           TextButton(onPressed: ()async{
             SharedPreferences prefs= await SharedPreferences.getInstance();

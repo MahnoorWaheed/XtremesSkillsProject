@@ -9,6 +9,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/dashboard.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
 import 'package:xtremes_skills/modules/auth/controller/signup_controller.dart';
@@ -130,7 +131,11 @@ String address = "";
 
          // add user to our database
          
+
          _firestore.collection('worker').doc(FirebaseAuth.instance.currentUser?.email).set({
+
+         _firestore.collection('worker').doc(email).set({
+
             'firstname': firstname,
             'lastname': lastname,
             'cnic':     cnic,
@@ -632,7 +637,7 @@ String address = "";
                                 showSnackBar(res, context);
                               }  
                               else{
-
+                              
                            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>skills()));
                              dispose();
 
