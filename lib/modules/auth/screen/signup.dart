@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/dashboard.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
 import 'package:xtremes_skills/modules/auth/controller/signup_controller.dart';
@@ -125,7 +126,7 @@ class _signupState extends State<signup> {
 
          // add user to our database
          
-         _firestore.collection('users').doc(cred.user!.uid).set({
+         _firestore.collection('worker').doc(email).set({
             'firstname': firstname,
             'lastname': lastname,
             'cnic':     cnic,
@@ -644,7 +645,7 @@ class _signupState extends State<signup> {
                                 showSnackBar(res, context);
                               }  
                               else{
-
+                              
                            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>skills()));
                              dispose();
 

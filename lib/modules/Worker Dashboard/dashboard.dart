@@ -6,7 +6,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:xtremes_skills/modules/auth/screen/signup.dart';
 import 'package:xtremes_skills/utils/utils.dart';
 import 'package:xtremes_skills/widgets/worker_dashboard_widgets/earning_container.dart';
 import 'package:xtremes_skills/widgets/worker_dashboard_widgets/worker_info_container.dart';
@@ -24,8 +26,6 @@ class _DashboardState extends State<Dashboard> {
  List<Map<String, dynamic>> personaldata = [];
  bool Loading=true;
 
-
-
   @override
    initState() {
   
@@ -39,7 +39,7 @@ class _DashboardState extends State<Dashboard> {
      log(auth.currentUser!.uid);
     await firestore
         .collection("worker")
-        .doc(auth.currentUser!.uid)
+        .doc(auth.currentUser?.email)
         .get()
         .then((map) {
       setState(() {
@@ -63,6 +63,7 @@ class _DashboardState extends State<Dashboard> {
  
   @override
   Widget build(BuildContext context) {
+    String data;
     return Scaffold(
       
       body: Loading ? const Center(child: CircularProgressIndicator(),)
@@ -83,6 +84,7 @@ class _DashboardState extends State<Dashboard> {
                       
                         child: Flexible(
                 child: ListView.builder(
+                  
                     itemCount: personaldata.length,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
@@ -90,6 +92,7 @@ class _DashboardState extends State<Dashboard> {
                         return   Padding(
                           padding: const EdgeInsets.only(left: 50.0),
                           child: Row(children: [
+                          
                             Text(personaldata[index]['fname'],style: GoogleFonts.poppins(),),
                             Text(personaldata[index]['lname'],style: GoogleFonts.poppins(),),
                           ],)
