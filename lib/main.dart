@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
 import 'package:xtremes_skills/modules/User%20Screens/location.dart';
+import 'package:xtremes_skills/modules/User%20Screens/select_task.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -47,8 +48,8 @@ Future<void> main() async {
         primarySwatch: Colors.blue,
       ),
 
-       home: PickLocation()));
-       home: Login(),));
+       home: NearbyWorkers()));
+      //  home: Login())
 
 }
 
