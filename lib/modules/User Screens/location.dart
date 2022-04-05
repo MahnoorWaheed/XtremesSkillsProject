@@ -7,6 +7,8 @@ import 'package:xtremes_skills/widgets/custom_buttons.dart';
 class PickLocation extends StatelessWidget {
   const PickLocation({ Key? key }) : super(key: key);
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

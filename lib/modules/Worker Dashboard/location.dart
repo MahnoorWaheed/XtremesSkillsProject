@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -15,6 +16,33 @@ class LocationData extends StatefulWidget {
 }
 
 class _LocationDataState extends State<LocationData> {
+
+   String userName = '';
+  String userEmail = '';
+  bool isLoading = true;
+  @override
+  void initState() {
+    getUserData();
+    super.initState();
+  }
+
+   getUserData() async {
+    await FirebaseFirestore.instance
+        .collection('worker')
+        .where('email', isEqualTo: FirebaseAuth.instance.currentUser?.email)
+        .get()
+        .then((value) {
+      print(value.docs.first.data()['firstname']);
+      print(value.docs.first.data()['lastname']);
+      print(value.docs.first.data()['email']);
+      userName = value.docs.first.data()['firstname'];
+      userEmail = value.docs.first.data()['email'];
+    });
+    setState(() {
+      isLoading = false;
+    });
+  }
+
 
 // var locationMessage = "";
 // late Position currentPosition;
@@ -129,7 +157,7 @@ Future<Position> _determinePosition() async {
             });
             // getCurrentLocation();
 
- FirebaseFirestore.instance.collection('worker').doc('DpSyPSIbSJWC2768qLTMAQNHe6J3').collection("workerskill").doc().set({
+ FirebaseFirestore.instance.collection('worker').doc(FirebaseAuth.instance.currentUser?.email).collection("workerskill").doc().set({
                                    "Location":Location 
                                       });
                                    Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> skills()));
