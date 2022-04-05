@@ -73,7 +73,7 @@ class Nearby extends StatelessWidget {
                   children: [
 
                     IconButton(onPressed: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>LiveLocation()));
+                      // Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>LiveLocation()));
                     }, icon: Icon(Icons.location_on, 
                     color: Colors.blue.shade900,
                     )),

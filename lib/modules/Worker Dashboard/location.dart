@@ -157,7 +157,11 @@ Future<Position> _determinePosition() async {
             });
             // getCurrentLocation();
 
+
  FirebaseFirestore.instance.collection('worker').doc(FirebaseAuth.instance.currentUser?.email).collection("workerskill").doc().set({
+
+ FirebaseFirestore.instance.doc('worker').collection("workerskill").doc('id').set({
+
                                    "Location":Location 
                                       });
                                    Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> skills()));
