@@ -58,6 +58,8 @@ dependencies:
   firebase_messaging: ^11.2.11
   pinput: ^2.2.5
   flutter_local_notifications: ^9.4.0
+  location: ^4.3.0
+  flutter_polyline_points: ^1.0.0
 
 
 
