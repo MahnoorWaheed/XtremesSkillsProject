@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:xtremes_skills/modules/User%20Screens/live_location.dart';
 import 'package:xtremes_skills/modules/User%20Screens/select_task.dart';
 import 'package:xtremes_skills/utils/utils.dart';
 import 'package:xtremes_skills/widgets/action_button.dart';
@@ -90,6 +92,11 @@ class PickLocation extends StatelessWidget {
                             Divider(),
                             GestureDetector(
                               onTap: (){
+
+                                // Get.to(MyLocation());
+
+                               
+
                               Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>NearbyWorkers()));
                               },
                               child: Text("Allow Once",

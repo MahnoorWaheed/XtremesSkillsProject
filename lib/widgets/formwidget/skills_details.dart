@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/dashboard.dart';
 import 'package:xtremes_skills/widgets/action_button.dart';
@@ -41,6 +42,34 @@ class _Skill_DetailsState extends State<Skill_Details> {
   String txtdata2 = '';
    String txtdata3 = '';
   String service = '';
+
+ String userName = '';
+  String userEmail = '';
+  bool isLoading = true;
+  @override
+  void initState() {
+    getUserData();
+    super.initState();
+  }
+
+   getUserData() async {
+    await FirebaseFirestore.instance
+        .collection('worker')
+        .where('email', isEqualTo: FirebaseAuth.instance.currentUser?.email)
+        .get()
+        .then((value) {
+      print(value.docs.first.data()['firstname']);
+      print(value.docs.first.data()['lastname']);
+      print(value.docs.first.data()['email']);
+      userName = value.docs.first.data()['firstname'];
+      userEmail = value.docs.first.data()['email'];
+    });
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     print("Skill name 2"+ widget.SkillName,);
@@ -190,8 +219,9 @@ class _Skill_DetailsState extends State<Skill_Details> {
        }, child: Text("Cancle")),
        TextButton(onPressed: (){
          var data = widget.SkillName;
+         print("worker emial" + userEmail);
 
-                                      _firestore.collection('users').doc('9FKaPM5vDxXvGZikvVsIcWT5C472').collection("skills").doc().set({
+                                      _firestore.collection('worker').doc(userEmail).collection("worker_skills").doc(data).set({
                                     'SkillName': widget.SkillName,
                                     'Service1': widget.Service1,
                                     'Description' : txtdata,
