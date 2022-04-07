@@ -134,7 +134,7 @@ String address = "";
 
          _firestore.collection('worker').doc(FirebaseAuth.instance.currentUser?.email).set({
 
-         _firestore.collection('worker').doc(email).set({
+      
 
             'firstname': firstname,
             'lastname': lastname,

@@ -55,14 +55,14 @@ Future<void> main() async {
       ),
 
 
-       home: PickLocation()));
+      //  home: PickLocation()));
 
 //    home: email== null ? currentpage: skills()));
 
 
-       home: NearbyWorkers()));
+      //  home: NearbyWorkers()));
 
-      //  home: Login())
+       home: Login()));
 
 }
 

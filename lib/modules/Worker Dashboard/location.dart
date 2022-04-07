@@ -160,7 +160,7 @@ Future<Position> _determinePosition() async {
 
  FirebaseFirestore.instance.collection('worker').doc(FirebaseAuth.instance.currentUser?.email).collection("workerskill").doc().set({
 
- FirebaseFirestore.instance.doc('worker').collection("workerskill").doc('id').set({
+
 
                                    "Location":Location 
                                       });
