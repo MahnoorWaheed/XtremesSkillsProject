@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pinput/pinput.dart';
@@ -22,7 +24,7 @@ class _OTPControllerScreenState extends State<OTPControllerScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey= GlobalKey<ScaffoldState>();
   final TextEditingController _pinOTPController =TextEditingController();
   final FocusNode _pinOTPCodeFocus =FocusNode();
-
+  final FirebaseFirestore _firestore= FirebaseFirestore.instance;
   String? verificationCode;
 
     FirebaseAuth _auth = FirebaseAuth.instance;
@@ -54,8 +56,16 @@ await FirebaseAuth.instance.verifyPhoneNumber(
               phoneNumber:" ${widget.codedigits + widget.phone}",
             timeout: const Duration(seconds: 60),
               verificationCompleted: (phoneAuthCredential) async {
-                await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential).then((value) {
-            if(value.user!=null){
+                await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential).then((value) async {
+            if(value.user!=null) {
+                String? usertoken = await FirebaseMessaging.instance.getToken();
+         _firestore.collection('user').doc(FirebaseAuth.instance.currentUser?.email).set({
+
+      
+
+            'user_phone':widget.phone,
+            'userFCM_token': usertoken
+         });
                     Navigator.of(context).push(MaterialPageRoute(builder: (c)=> DasboardUser()));
                   }
                 });
