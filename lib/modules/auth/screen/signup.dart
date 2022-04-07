@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:awesome_dropdown/awesome_dropdown.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -131,7 +132,7 @@ String address = "";
 
          // add user to our database
          
-
+               String? token = await FirebaseMessaging.instance.getToken();
          _firestore.collection('worker').doc(FirebaseAuth.instance.currentUser?.email).set({
 
       
@@ -145,6 +146,7 @@ String address = "";
             'city': city,
             'phone' : phone,
             'address': address,
+            'FCM token': token
          }).then((value) async {
            SharedPreferences prefs = await SharedPreferences.getInstance();
            prefs.setString('email', email);
