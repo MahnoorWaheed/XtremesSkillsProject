@@ -70,7 +70,7 @@ Future<void> main() async {
 
       //  home: NearbyWorkers()));
 
-       home: LoginScreen()));
+       home: signup()));
 
 
 }
