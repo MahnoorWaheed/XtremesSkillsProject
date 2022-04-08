@@ -53,10 +53,10 @@ Future<void> main() async {
         primarySwatch: Colors.blue,
       ),
 
-//    home: email== null ? currentpage: skills()));
+   home: email== null ? currentpage: skills()));
 
 
-       home: NearbyWorkers()));
+      //  home: NearbyWorkers()));
       //  home: Login())
 
 }
