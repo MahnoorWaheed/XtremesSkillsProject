@@ -7,10 +7,12 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
+import 'package:xtremes_skills/modules/User%20Screens/live_location.dart';
 import 'package:xtremes_skills/modules/User%20Screens/location.dart';
 
 import 'package:xtremes_skills/modules/Worker%20Dashboard/dialogbox.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/mychats.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/review.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/showrating.dart';
 import 'package:xtremes_skills/modules/User%20Screens/select_task.dart';
@@ -18,6 +20,8 @@ import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:xtremes_skills/modules/auth/screen/login.dart';
+import 'package:xtremes_skills/modules/auth/screen/signup.dart';
+import 'package:xtremes_skills/modules/login_otp/screen/welcome.dart';
 
 import 'modules/User Screens/place_order.dart';
 import 'modules/Worker Dashboard/order.dart';
@@ -53,11 +57,21 @@ Future<void> main() async {
         primarySwatch: Colors.blue,
       ),
 
-   home: email== null ? currentpage: skills()));
+
+  //  home: email== null ? currentpage: skills()));
+
+
+      //  home: Login())
+
+      //  home: PickLocation()));
+
+
 
 
       //  home: NearbyWorkers()));
-      //  home: Login())
+
+       home: PlaceOrder()));
+
 
 }
 
@@ -69,9 +83,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -90,18 +101,11 @@ class _MyAppState extends State<MyApp> {
             const Text(
               'You have pushed the button this many times:',
             ),
-          //  Text(
-            //   '$_counter',
-            //   style: Theme.of(context).textTheme.headline4,
-            // ),
+         
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: showNotification,
-      //   tooltip: 'Increment',
-      //   child: const Icon(Icons.add),
-      // ), // This trailing comma makes auto-formatting nicer for build methods.
+     
     );
   }
 // void getToken(){

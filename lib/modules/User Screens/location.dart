@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xtremes_skills/modules/User%20Screens/live_location.dart';
@@ -6,8 +8,50 @@ import 'package:xtremes_skills/modules/User%20Screens/select_task.dart';
 import 'package:xtremes_skills/utils/utils.dart';
 import 'package:xtremes_skills/widgets/action_button.dart';
 import 'package:xtremes_skills/widgets/custom_buttons.dart';
-class PickLocation extends StatelessWidget {
+class PickLocation extends StatefulWidget {
   const PickLocation({ Key? key }) : super(key: key);
+
+  
+
+  @override
+  State<PickLocation> createState() => _PickLocationState();
+}
+
+class _PickLocationState extends State<PickLocation> {
+
+String Location = "";
+String address = "";
+
+Future<Position> _determinePosition() async {
+  bool serviceEnabled;
+  LocationPermission permission;
+
+  // Test if location services are enabled.
+  serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  if (!serviceEnabled) {
+    await Geolocator.openLocationSettings();
+    return Future.error('Location services are disabled.');
+  }
+
+  permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+
+      return Future.error('Location permissions are denied');
+    }
+  }
+  
+  if (permission == LocationPermission.deniedForever) {
+    // Permissions are denied forever, handle appropriately. 
+    return Future.error(
+      'Location permissions are permanently denied, we cannot request permissions.');
+  } 
+
+
+  return await Geolocator.getCurrentPosition();
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -61,61 +105,24 @@ class PickLocation extends StatelessWidget {
              textAlign: TextAlign.center,
                ),
            ),
-  
+   Text("position: $Location"),
+            Text("ADDRESS : $address" ),
           SizedBox(height: 100,),
            ActionButton(
             
-             ontap: (){
-               showDialog(
-                 context: context,
-                  builder: (ctx){
-                    return AlertDialog(
-                      title: Text("Allow Location to Access your location?",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(
-                              color: Colors.black,
-                              fontSize: 15
+             ontap: () async{
+               Position position = await _determinePosition();
+            Location = 'LAT: ${position.latitude}, long: ${position.longitude}';
+            // GetAddressFromLatLong(position);
+            
+            setState(() {
+              
+            });
+            // getCurrentLocation();
 
-                            ),
-                      ),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                      actions: [
-                        Column(
-                          children: [
-                            Divider(),
-                            Text("Allow While using App", 
-                            
-                            style: GoogleFonts.poppins(
-                              color: Colors.blue
-                            ),
-                            ),
-                            Divider(),
-                            GestureDetector(
-                              onTap: (){
-
-                                // Get.to(MyLocation());
-
-                               
-
-                              Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>NearbyWorkers()));
-                              },
-                              child: Text("Allow Once",
-                              style: GoogleFonts.poppins(
-                                color: Colors.blue
-                              ),
-                              ),
-                            ),
-                            Divider(),
-                            Text("Don't Allow",
-                            style: GoogleFonts.poppins(
-                              color: Colors.blue
-                            ),
-                            ),
-                          ],
-                        )
-                      ],
-                    );
-                  });
+ FirebaseFirestore.instance.collection("customer").doc().set({
+                                   "Location":Location 
+                                      });
              }, text: "Allow Location access", 
            bordersidecolor: Colors.white,
            color: Colors.blue.shade900,

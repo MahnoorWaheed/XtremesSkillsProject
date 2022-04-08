@@ -106,47 +106,8 @@ class _Skill_DetailsState extends State<Skill_Details> {
                     setState(() {  
                       this.valuefirst = value!;  
                     }); 
-                    openDialog();
+                     
                    }),
-                   SizedBox(height: 20,),
-                  CheckboxListTile(  
-                  controlAffinity: ListTileControlAffinity.trailing,  
-                  secondary: const Icon(Icons.alarm),  
-                  title: Text(widget.Service2),  
-                  subtitle: Text(widget.details2),  
-                  value: this.valuesecond,  
-                  onChanged: (value) {  
-                    setState(() {  
-                      this.valuesecond = value!;  
-                    });
-                     openDialog();
-                    }), 
-                    SizedBox(height: 20,),
-                      CheckboxListTile(  
-                  controlAffinity: ListTileControlAffinity.trailing,  
-                  secondary: const Icon(Icons.alarm),  
-                  title:  Text(widget.Service3),  
-                  subtitle: Text(widget.details3),  
-                  value: this.valuethird,  
-                  onChanged: (value) {  
-                    setState(() {  
-                      this.valuethird = value!;  
-                    });
-                    // openDialog();
-                    }), 
-                    SizedBox(height: 20,), 
-                    CheckboxListTile(  
-                  controlAffinity: ListTileControlAffinity.trailing,  
-                  secondary: const Icon(Icons.alarm),  
-                  title: Text(widget.Service4),  
-                  subtitle: Text(widget.details4),  
-                  value: this.valuefourth,  
-                  onChanged: (value) {  
-                    setState(() {  
-                      this.valuefourth = value!;  
-                    });
-                     openDialog();
-                    }),
 
                   CheckboxListTile(  
                   controlAffinity: ListTileControlAffinity.trailing,  
@@ -218,10 +179,11 @@ class _Skill_DetailsState extends State<Skill_Details> {
          Navigator.of(context).pop();
        }, child: Text("Cancle")),
        TextButton(onPressed: (){
-         var data = widget.SkillName;
+         String? data = widget.SkillName;
+         
          print("worker emial" + userEmail);
 
-                                      _firestore.collection('worker').doc(userEmail).collection("worker_skills").doc(data).set({
+                                 _firestore.collection('worker').doc(FirebaseAuth.instance.currentUser?.email).collection("worker_skills").doc("worker Skills Details : ${FirebaseAuth.instance.currentUser?.email}").set({
                                     'SkillName': widget.SkillName,
                                     'Service1': widget.Service1,
                                     'Description' : txtdata,

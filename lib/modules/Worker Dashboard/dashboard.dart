@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,11 +27,19 @@ class _DashboardState extends State<Dashboard> {
  List<Map<String, dynamic>> personaldata = [];
  bool Loading=true;
 
+// storeNotificationToken(){
+//   ScrollDragController.momentumRetainStationaryDurationThreshold
+// }
+
+
   @override
    initState() {
   
     super.initState();
-  
+  FirebaseMessaging.instance.getInitialMessage();
+  FirebaseMessaging.onMessage.listen(((event) {
+    print("FCM message received");
+  }));
     getCurrentUser();
   }
   

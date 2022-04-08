@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -22,6 +24,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   MobileVerificationState currentState =
       MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+    
 
   final phoneController = TextEditingController();
   final otpController = TextEditingController();
@@ -50,6 +53,9 @@ class _LoginScreenState extends State<LoginScreen> {
       });
 
       if(authCredential.user != null){
+
+         
+
         Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
       }
 

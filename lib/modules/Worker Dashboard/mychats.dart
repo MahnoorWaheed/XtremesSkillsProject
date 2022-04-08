@@ -17,7 +17,7 @@ class _MyChatState extends State<MyChat> {
 
   _sendMessageArea() {
     return Container(
-      margin: EdgeInsets.only(top: 462),
+      margin: EdgeInsets.only(top: 670),
       color: Colors.white,
       child: Row(
         children: [
@@ -55,31 +55,31 @@ class _MyChatState extends State<MyChat> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF6F6F6),
-      // appBar: AppBar(
-      //   elevation: 10,
-      //   backgroundColor: Colors.blue.shade900,
-      //   title: Center(
-      //     child: Text(
-      //       "Contact your rider  ",
-      //       style: TextStyle(
-      //           color: Colors.white,
-      //           fontSize: 15,
-      //           fontWeight: FontWeight.bold,
-      //           fontStyle: FontStyle.italic,
-      //           fontFamily: "Times New Roman"),
-      //     ),
-      //   ),
-      //   automaticallyImplyLeading: true,
-      //   leading: IconButton(
-      //     icon: Icon(Icons.arrow_back, color: Colors.white),
-      //     onPressed: () {
-      //       Navigator.of(context).pop();
-      //     },
-      //   ),
-      //   actions: <Widget>[
+      appBar: AppBar(
+        elevation: 10,
+        backgroundColor: Colors.blue.shade900,
+        title: Center(
+          child: Text(
+            "Contact your rider  ",
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic,
+                fontFamily: "Times New Roman"),
+          ),
+        ),
+        automaticallyImplyLeading: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        actions: <Widget>[
           
-      //   ],
-      // ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
