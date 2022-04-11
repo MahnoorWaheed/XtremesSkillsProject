@@ -27,6 +27,8 @@ class signup extends StatefulWidget {
 
 class _signupState extends State<signup> {
   // final _controller= Get.put(SignupController());
+  bool _isobsecure=true;
+  bool obsecure=true;
    bool isLoading =false;
    final FirebaseAuth _auth = FirebaseAuth.instance;
    final FirebaseFirestore _firestore= FirebaseFirestore.instance;
@@ -346,6 +348,8 @@ String address = "";
                             width: screenWidth(context)*0.43,
                             margin: const EdgeInsets.only(top: 20),
                             child: TextFormField(
+                              
+                              obscureText: _isobsecure,
                          
                             controller: pass,
                             
@@ -354,7 +358,16 @@ String address = "";
                                keyboardType: TextInputType.visiblePassword,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
+                              isDense: true,
+                         contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
                                 prefixIcon:  Icon(Icons.lock, color: Colors.blue.shade900,),
+                                suffix: IconButton(onPressed: (){
+                                  setState(() {
+                                    _isobsecure=!_isobsecure;
+                                  });
+                                }, icon: Icon(
+                                  _isobsecure?Icons.visibility:Icons.visibility_off
+                                )),
                           
                                 labelText: "Password",
                                 labelStyle: TextStyle(color: Colors.blue[800]),
@@ -389,6 +402,7 @@ String address = "";
                             width: screenWidth(context)*0.43,
                             margin: const EdgeInsets.only(top: 20),
                             child: TextFormField(
+                              obscureText: obsecure,
                          
                             controller:cpass,
                              
@@ -396,7 +410,17 @@ String address = "";
                                keyboardType: TextInputType.visiblePassword,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
+                              isDense: true,
+                         contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
                                 prefixIcon:  Icon(Icons.lock, color: Colors.blue.shade900,),
+                                suffix: IconButton(onPressed: (){
+                                  setState(() {
+                                    obsecure=!obsecure;
+                                  });
+                                }, icon: Icon(
+                                  obsecure? Icons.visibility:Icons.visibility_off
+                                )),
+                                
                                 labelText: "Confirm Password",
                                 labelStyle: TextStyle(color: Colors.blue[800]),
                                 filled: true,
