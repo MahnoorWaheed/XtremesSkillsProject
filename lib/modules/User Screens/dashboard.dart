@@ -5,10 +5,12 @@ import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xtremes_skills/modules/User%20Screens/location.dart';
+import 'package:xtremes_skills/modules/login_otp/screen/notification.dart';
 import 'package:xtremes_skills/utils/utils.dart';
 import 'package:xtremes_skills/widgets/action_button.dart';
 import 'package:xtremes_skills/widgets/login_text_field.dart';
@@ -23,8 +25,16 @@ class DasboardUser extends StatefulWidget {
 
 class _DasboardUserState extends State<DasboardUser> {
 
-
-  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+     FirebaseMessaging.instance.getInitialMessage();
+    FirebaseMessaging.onMessage.listen((event) {
+      LocalNotificationService.display(event);
+    });
+  }
+ 
   @override
   Widget build(BuildContext context) {
     return SafeArea(

@@ -24,19 +24,23 @@ import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:xtremes_skills/modules/auth/screen/login.dart';
 import 'package:xtremes_skills/modules/auth/screen/signup.dart';
+import 'package:xtremes_skills/modules/login_otp/screen/notification.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/welcome.dart';
 
 import 'modules/User Screens/place_order.dart';
 import 'modules/Worker Dashboard/order.dart';
 
-
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async{}
 
 
 Future<void> main() async { 
   Widget currentpage= const PickLocation();
-
+ 
    WidgetsFlutterBinding.ensureInitialized();  
     await Firebase.initializeApp();
+    LocalNotificationService.initialize();
+
+    FirebaseMessaging.onBackgroundMessage((_firebaseMessagingBackgroundHandler));
     SharedPreferences prefs = await SharedPreferences.getInstance();
      var email =prefs.getString('email');
      print(email);
@@ -75,6 +79,12 @@ Future<void> main() async {
       //  home: NearbyWorkers()));
 
        home: FirstScreen()));
+
+
+//        home: signup()));
+
+//        home: Order()));
+
 
 
 }

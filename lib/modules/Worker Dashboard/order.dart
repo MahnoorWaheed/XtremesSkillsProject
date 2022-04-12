@@ -1,12 +1,70 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:xtremes_skills/modules/login_otp/screen/notification.dart';
 import 'package:xtremes_skills/utils/utils.dart';
+import 'package:http/http.dart' as http;
 
 
-class Order extends StatelessWidget {
+class Order extends StatefulWidget {
    Order({ Key? key }) : super(key: key);
 
+  @override
+  State<Order> createState() => _OrderState();
+}
+
+class _OrderState extends State<Order> {
 final List<String> clientsName=["Luqman", "Ahmed", "Salman", "Ali ","Mustafa", "Qureshi"];
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   
+  }
+
+  sendNotification(String title, String token) async{
+
+final data = {
+  'click_action':"FLUTTER_NOTIFICATION_CLICK",
+  'id': '1',
+  'status': 'done',
+  'message': title,
+};
+
+try{
+http.Response response = await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+
+headers: <String, String>{
+  'Content-Type':'application/json',
+  'Authorization': 'key=AAAAAUhtlMQ:APA91bEv2M94s6ESLHWi7bt_ytwJpHY87O7wpuIqJab9Lc8ciMstM6LSK-hfEl8p-xv9rvGdOCrpcBkPhGRTNKVJBWCJFzF28d1-ZODt_SYPUvD2hz7Od3KOiQNVRqizTXyRb-TFFBt7',
+},
+body: jsonEncode(<String, dynamic>{
+'notification': <String, dynamic>{
+  'title': title,
+  'body':'accepted'},
+  'priority': 'high',
+  'data': data,
+  'to':'$token',
+
+}));
+if(response.statusCode == 200){
+  print("success");
+   print(response.body);
+}else{
+  print("error");
+}
+
+
+
+}catch(e){}
+
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +84,12 @@ final List<String> clientsName=["Luqman", "Ahmed", "Salman", "Ali ","Mustafa", "
                   return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (ctx,index){
+                       String? token;
+                  try{
+                    token = snapshot.data!.docs[index].get('userFCM_token');
+                  }catch(e){
+                    print("error");
+                  }
                     DocumentSnapshot orders=snapshot.data!.docs[index];
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -53,7 +117,14 @@ final List<String> clientsName=["Luqman", "Ahmed", "Salman", "Ali ","Mustafa", "
                   style: ElevatedButton.styleFrom(
                     primary: Colors.green
                   ),
-                  onPressed: (){}, 
+                  onPressed: (){
+               
+
+                  sendNotification("Order", token!);
+
+
+
+                  }, 
                 child: Text("Accept")),
                 //SizedBox(width: 5,),
                 ElevatedButton(
@@ -74,57 +145,4 @@ final List<String> clientsName=["Luqman", "Ahmed", "Salman", "Ali ","Mustafa", "
                 }));
                
   }
-    
-    
-    // ListView.builder(
-    //   itemCount: clientsName.length,
-    //   itemBuilder: (ctx, index){
-    //   return Padding(
-    //     padding: const EdgeInsets.all(8.0),
-    //     child: Container(
-    //       height: screenHeight(context)*0.2,
-    //       decoration: BoxDecoration(
-    //         color: Colors.white,
-    //         borderRadius: BorderRadius.circular(10),
-    //         boxShadow: [
-    //         // BoxShadow(
-    //         //   blurRadius: 1.0,
-    //         // color: Colors.black,
-    //         // )
-    //       ]),
-    //       child: Row(
-    //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //         children: [
-    //           CircleAvatar(
-    //             radius: 25,
-    //             child: Image.asset("assets/logo.png"), 
-                
-    //             ),
-    //             Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text(clientsName[index],), 
-    //                 Text("Descriptions"),
-    //               ],
-    //             ),
-    //             ElevatedButton(
-    //               style: ElevatedButton.styleFrom(
-    //                 primary: Colors.green
-    //               ),
-    //               onPressed: (){}, 
-    //             child: Text("Accept")),
-    //             //SizedBox(width: 5,),
-    //             ElevatedButton(
-    //                style: ElevatedButton.styleFrom(
-    //                 primary: Colors.red,
-    //               ),
-    //               onPressed: (){}, 
-    //             child: Text("Decline"),)
-    //         ],
-    //       )
-    //     ),
-    //   );
-    // }),
-    // );
-  //}
 }
