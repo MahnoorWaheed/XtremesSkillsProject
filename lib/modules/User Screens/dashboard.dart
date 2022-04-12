@@ -1,5 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:developer';
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -21,6 +24,7 @@ class DasboardUser extends StatefulWidget {
 }
 
 class _DasboardUserState extends State<DasboardUser> {
+
   @override
   void initState() {
     // TODO: implement initState
@@ -147,7 +151,7 @@ class _DasboardUserState extends State<DasboardUser> {
                             children: <Widget>[
                                GestureDetector(  onTap: () {
                                  
-                                          // Get.to()
+                                        log(skills['Name']);
                                        },
                                 child: Container(
                                   width: MediaQuery.of(context).size.width * 0.4,
@@ -172,18 +176,25 @@ class _DasboardUserState extends State<DasboardUser> {
                                             topRight: Radius.circular(16.0),
                                           ),
                                         ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            
+                                        Text(
+                                          skills['Name'],
+                                          style: TextStyle(
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'Times New Roman'),
+                                        ),
+                                        GestureDetector(
+                                          onTap: (){
+                                           
+                                          },
+                                          child: Icon(Icons.chat,))
+                                          ],
+                                        )
                         
-                                        Center(
-                                          child: Text(
-                                            skills['Name'],
-                                            style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'Times New Roman'),
-                                          ),
-                                          
-                                      
-                                      ),
                                       
                                       ],
                                     ),
