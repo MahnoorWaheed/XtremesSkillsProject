@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "5510108356-49al4rdnihqh99905s8vgib68ieo6o1s.apps.googleusercontent.com",
+          "client_id": "5510108356-ecnfs72efmtpdlripmbvqpu1tvkgi282.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.xtremessoft.xtremesSkills",
-            "certificate_hash": "dd410ec938b33c927daed78ce79203d2d850522b"
+            "certificate_hash": "430fefc0eef0f7c6832556abe7e75baa232a4309"
           }
         },
         {

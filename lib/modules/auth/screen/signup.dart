@@ -667,7 +667,7 @@ String address = "";
                            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>skills()));
                              dispose();
 
-                           Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const LocationData()));
+                          //  Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const LocationData()));
                    
                               }                     
                           
