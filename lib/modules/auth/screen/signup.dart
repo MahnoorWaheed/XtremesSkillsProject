@@ -34,7 +34,8 @@ class _signupState extends State<signup> {
    final FirebaseFirestore _firestore= FirebaseFirestore.instance;
    GlobalKey<FormState> formKey = GlobalKey<FormState>();
     DateTime dateOfBirth = DateTime.now();
-    String Location = "";
+    String Location_latitude = "";
+     String Location_longtitude = "";
 String address = "";
  String location ='Null, Press Button';
   String Address = 'search';
@@ -117,7 +118,8 @@ String address = "";
       required String email,
       required String confirmpass,
       required String phone,
-      required String address,
+      required String LAT,
+      required String long,
       required String gender,
       required String dob,
       required String city,
@@ -147,7 +149,8 @@ String address = "";
             'Date of Birth':dob,
             'city': city,
             'phone' : phone,
-            'address': address,
+            'lat': LAT,
+            'long': long,
             'FCM token': token
          }).then((value) async {
            SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -622,13 +625,19 @@ String address = "";
                              
                             ),
                           ),
-                      Text("position: $Location"),
+                      Column(
+                        children: [
+                          Text("position: $Location_latitude"),
+                          Text("position: $Location_longtitude"),
+                        ],
+                      ),
             Text("ADDRESS : $address" ),
           ActionButton(
             // text: "",
             ontap: () async{
             Position position = await _determinePosition();
-            Location = 'LAT: ${position.latitude}, long: ${position.longitude}';
+            Location_latitude = 'LAT: ${position.latitude}';
+            Location_longtitude= 'long: ${position.longitude}';
             // GetAddressFromLatLong(position);
             
             setState(() {
@@ -655,7 +664,7 @@ String address = "";
                           setState(() {
                           isLoading=true;
                           });
-                           String res = await signup(firstname: firstname.text, lastname: lastname.text, cnic: cnic.text, email: email.text, confirmpass: cpass.text, gender: data,dob: formatedate,city: selectcity, phone:ph.text, address: Location);
+                           String res = await signup(firstname: firstname.text, lastname: lastname.text, cnic: cnic.text, email: email.text, confirmpass: cpass.text, gender: data,dob: formatedate,city: selectcity, phone:ph.text, LAT: Location_latitude, long: Location_longtitude);
                               setState(() {
                             isLoading=false;
                           });
@@ -745,8 +754,14 @@ Future<Position> _determinePosition() async {
 }
 
 Future<void> GetAddressFromLatLong(Position position)async {
+
     List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+    print("placemarks data");
     print(placemarks);
+    // print("latitude data");
+    // var lat = position.latitude;
+    // print("longitude data");
+    // var long = position.longitude;
     Placemark place = placemarks[0];
     Address = '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
     setState(()  {

@@ -6,6 +6,7 @@
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 <uses-permission android:name="android.permission.INTERNET"/>
 
+<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
    <application
         android:label="xtremes_skills"
         android:name="${applicationName}"
@@ -47,8 +48,9 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
-             <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyC-LKVa-GH_B0LZOl0w-EJGpJIvxqGYlFY"/>
+          
+      <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyCojGJiSLoys9s88rnl5muwwSG5NLb1nbo"/>
 
                
     </application>
