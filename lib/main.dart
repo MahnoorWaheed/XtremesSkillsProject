@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +8,7 @@ import 'package:geocoding/geocoding.dart';
 
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xtremes_skills/modules/User%20Screens/dashboard.dart';
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
 import 'package:xtremes_skills/modules/User%20Screens/live_location.dart';
 import 'package:xtremes_skills/modules/User%20Screens/location.dart';
@@ -43,6 +46,7 @@ Future<void> main() async {
     FirebaseMessaging.onBackgroundMessage((_firebaseMessagingBackgroundHandler));
     SharedPreferences prefs = await SharedPreferences.getInstance();
      var email =prefs.getString('email');
+     print(email);
     
    
 
@@ -65,7 +69,7 @@ Future<void> main() async {
       ),
 
 
-  //  home: email== null ? currentpage: skills()));
+  //  home: email!= khan ? FirstScreen(): skills()));
 
 
       //  home: Login())
@@ -77,7 +81,17 @@ Future<void> main() async {
 
       //  home: NearbyWorkers()));
 
+
        home: skills()));
+
+       home: FirstScreen()));
+
+
+//        home: signup()));
+
+//        home: Order()));
+
+
 
 
 }
