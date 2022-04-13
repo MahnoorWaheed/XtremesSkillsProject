@@ -23,6 +23,9 @@ import 'package:xtremes_skills/modules/auth/screen/login.dart';
 import 'package:xtremes_skills/modules/auth/screen/signup.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/notification.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/welcome.dart';
+import 'package:xtremes_skills/widgets/formwidget/skills_details.dart';
+import 'package:xtremes_skills/widgets/formwidget/tryscreen.dart';
+import 'package:xtremes_skills/widgets/formwidget/tryskills.dart';
 
 import 'modules/User Screens/place_order.dart';
 import 'modules/Worker Dashboard/order.dart';
@@ -74,7 +77,7 @@ Future<void> main() async {
 
       //  home: NearbyWorkers()));
 
-       home: Order()));
+       home: skills()));
 
 
 }

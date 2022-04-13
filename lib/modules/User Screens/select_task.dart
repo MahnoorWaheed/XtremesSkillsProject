@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:xtremes_skills/modules/User%20Screens/live_location.dart';
 import 'package:xtremes_skills/modules/User%20Screens/selectservice.dart';
 import 'package:xtremes_skills/widgets/action_button.dart';
 
@@ -15,6 +16,8 @@ class NearbyWorkers extends StatefulWidget {
 }
 
 class _NearbyWorkersState extends State<NearbyWorkers> {
+
+ var lati,longi;
 
 
   @override
@@ -62,18 +65,31 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
                                Text(workerlist['lastname']),
                              ],
                            ),
-                            Text("Address: ${workerlist['address']}", 
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: GoogleFonts.poppins(
-                              fontSize: 11,
-                            ),
+                            Column(
+                              children: [
+                                Text("Address: ${workerlist['lat']}\n${workerlist['long']}", 
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 11,
+                                ),
+                                ),
+                              ],
                             ),
                             Text(workerlist['city'].toString()),
                       
                          ]),
                          trailing: IconButton(icon: Icon(Icons.location_on), 
-                         onPressed: (){},
+                         onPressed: (){
+                             Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => LiveLocation(
+                                  
+                               lati= workerlist['lat'],
+                               longi= workerlist['long'],
+                               
+                                  ),
+                                ));
+                         },
                          ),
                         ),
                       );
