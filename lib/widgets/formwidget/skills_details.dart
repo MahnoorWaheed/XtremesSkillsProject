@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:xtremes_skills/model/workermodel.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/dashboard.dart';
 import 'package:xtremes_skills/widgets/action_button.dart';
 import 'package:xtremes_skills/utils/utils.dart';
@@ -43,31 +44,38 @@ class _Skill_DetailsState extends State<Skill_Details> {
  
   String service = '';
 
- String userName = '';
-  String userEmail = '';
+ String workerfirstName = '';
+  String workerlastname = '';
+  String workercity = '';
+  String workerlati = '';
+  String workerlongi = '';
   bool isLoading = true;
   @override
   void initState() {
-    // getUserData();
+    getUserData();
     super.initState();
   }
 
-  //  getUserData() async {
-  //   await FirebaseFirestore.instance
-  //       .collection('worker')
-  //       .where('email', isEqualTo: FirebaseAuth.instance.currentUser?.email)
-  //       .get()
-  //       .then((value) {
-  //     print(value.docs.first.data()['firstname']);
-  //     print(value.docs.first.data()['lastname']);
-  //     print(value.docs.first.data()['email']);
-  //     userName = value.docs.first.data()['firstname'];
-  //     userEmail = value.docs.first.data()['email'];
-  //   });
-  //   setState(() {
-  //     isLoading = false;
-  //   });
- // }
+   getUserData() async {
+    await FirebaseFirestore.instance
+        .collection('worker')
+        .where('email', isEqualTo: FirebaseAuth.instance.currentUser?.email)
+        .get()
+        .then((value) {
+      print(value.docs.first.data()['firstname']);
+      print(value.docs.first.data()['lastname']);
+      print(value.docs.first.data()['email']);
+      workerfirstName = value.docs.first.data()['firstname'];
+      workerlastname = value.docs.first.data()['lastname'];
+       workercity = value.docs.first.data()['city'];
+      workerlati = value.docs.first.data()['lat'];
+       workerlongi = value.docs.first.data()['long'];
+     
+    });
+    setState(() {
+      isLoading = false;
+    });
+ }
 String Price = '';
 String time = '';
 String Price2 = '';
@@ -82,8 +90,24 @@ String servicedes = '';
 String servicetime = '';
 String serviceprice = '';
 
+List<workerdetails> myAllData = [];
+
+
+  List<Map<String, String>> _selectedProducts = <Map<String, String>>[];
+  int _total = 0;
+  List<Map<String, String>> get selectedProducts => _selectedProducts;
+
+  void add(Map<String, String> value) {
+    _selectedProducts.add(value);
+    
+    print("Rimsha is best");
+    print(value);
+    // notifyListeners();
+  }
+
   @override
   Widget build(BuildContext context) {
+    getUserData();
     print("Skill name 2"+ widget.SkillName,);
     return Scaffold(
       appBar: AppBar(
@@ -112,102 +136,82 @@ String serviceprice = '';
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                        children: [                 
-                      CheckboxListTile(  
-                       
+                      CheckboxListTile(                        
                       secondary: const Icon(Icons.electrical_services, color: Colors.blue,),  
                       title: Text(widget.Service1,
                       style: TextStyle(
-                        color: Colors.blue.shade900,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18
-                      ),),  
-                      // subtitle: Text(widget.details1,
-                      // style: TextStyle(
-                      //  color: Colors.blue,
-                      // ),),  
-                      value: this.valuefirst,
+                      color: Colors.blue.shade900,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),),                      
+                      subtitle: Column(
+                      children: [
+                      SizedBox(height: 10),
+                      TextFormField(
+                      minLines: 2,
+                      maxLines: 5,
+                      keyboardType: TextInputType.multiline,
+                      decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      hintText : "Service Description",
+                      hintStyle: TextStyle(
+                      color: Colors.blue[800],),
+                      border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderSide: const BorderSide(color: Colors.blue)),
+                      enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue))),
                       onChanged: (value){
-                        setState(() {  
-                          this.valuefirst = value!;
-                            
-                        }); 
-                         
-                       }),
-                        TextFormField(
-                             minLines: 2,
-                             maxLines: 5,
-                             keyboardType: TextInputType.multiline,
-                             decoration: InputDecoration(
-                                fillColor: Colors.white,
-                   hintText : "Service Description",
-                   hintStyle: TextStyle(
-                     color: Colors.blue[800],
-                     
-                   ),
-                
-                   border: OutlineInputBorder(
-                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                      borderSide: const BorderSide(color: Colors.blue),
-                   ),
-                    enabledBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.blue))),
-                             
-                  // onEditingComplete: () {
-                  //   // FocusScope.of(context).requestFocus(_nodeEmail);
-                  // },
-                            onChanged: (value){
                   //  setState(() {
                        txtdata = value;
                   //  });
                              
                             },
                             ),
-                  Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                height: screenHeight(context)*0.06,
-                               width: screenWidth(context)*0.43,
-                                margin: const EdgeInsets.only(top: 20),
-                                child: TextFormField(
-                             
-                                // controller: firstname,
-                                 
-                                  
-                                   keyboardType: TextInputType.name,
-                                cursorColor: Colors.black,
-                                decoration: InputDecoration(
-                                    prefixIcon: Icon(Icons.lock_clock, color: Colors.blue.shade900,),
-                                    labelText: "work timing",
-                                    labelStyle: TextStyle(color: Colors.blue[800]),
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(18),
-                                      borderSide: const BorderSide(color: Colors.blue),
-                                    ),
-                                    enabledBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.blue))),
-                              //            validator: (value){
-                              //   if(value!.isEmpty ){
-                              //     return "Field cannot be empty";
-                              //   }
-                              //   return null;
-                              // },
-                                           
-                                   onChanged: (value){
-                                      setState(() {
-                                       time = value;
-                                     });
-// time = value;
-                                        },
+                            SizedBox(height: 10,),
+                            Row(
+                              children: [
+                                Container(
+                                     height: screenHeight(context)*0.06,
+                               width: screenWidth(context)*0.29,
+                                  child: TextFormField(
+                                   
+                                   
+                                       
+                                        
+                                         keyboardType: TextInputType.name,
+                                      cursorColor: Colors.black,
+                                      decoration: InputDecoration(
+                                          prefixIcon: Icon(Icons.lock_clock, color: Colors.blue.shade900,),
+                                          labelText: "work timing",
+                                          labelStyle: TextStyle(color: Colors.blue[800]),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(18),
+                                            borderSide: const BorderSide(color: Colors.blue),
+                                          ),
+                                          enabledBorder: const OutlineInputBorder(
+                                              borderSide: BorderSide(color: Colors.blue))),
+                                    //            validator: (value){
+                                    //   if(value!.isEmpty ){
+                                    //     return "Field cannot be empty";
+                                    //   }
+                                    //   return null;
+                                    // },
+                                                 
+                                         onChanged: (value){
+                                            setState(() {
+                                             time = value;
+                                           });
+
+                                              },
+                                      ),
                                 ),
-                              ),
-                             const  SizedBox(width: 10,),
-                             Container(
-                                height: screenHeight(context)*0.06,
-                               width: screenWidth(context)*0.43,
-                                margin: const EdgeInsets.only(top: 20),
+                                SizedBox(width: 5,),
+                                 Container(
+                                   height: screenHeight(context)*0.06,
+                               width: screenWidth(context)*0.29,
+                                
                                 child: TextFormField(
                              
                                 // controller: lastname,
@@ -243,45 +247,23 @@ String serviceprice = '';
                                  
                                 ),
                               ),
-                             
-                            ],
-                          ),
-                
-                      // CheckboxListTile(  
-                      // controlAffinity: ListTileControlAffinity.trailing,  
-                      // secondary: const Icon(Icons.alarm),  
-                      // title: Text("Other"),  
-                      // subtitle: Text("Enter your own service"),  
-                      // value: this.valuefourth,  
-                      // onChanged: (value) {  
-                      //   setState(() {  
-                      //     this.valuefourth = value!;  
-                      //   });
-                      //   openDialog2();
-                      //   }),
-                
-                        // ActionButton(ontap: (){
-                        //     openDialog();
-                
-                        // }, text: "Continue")
+                              ],
+                            ),
+//                             
+                        ],
+                      ), 
+                      value: this.valuefirst,
+                      onChanged: (value){
+                        setState(() {  
+                          this.valuefirst = value!;
+                          
+                        }); 
+                        myAllData.add(new workerdetails(servicename: widget.Service1, desc: txtdata, time: time, price: Price));
+                       }),
+                       
+                 
                       ]
                     )
-                    // TextFormField(
-                    //   initialValue: widget.user.service,
-                    //   onSaved: (val) => widget.user.service = val!,
-                    //   validator: (val) =>
-                    //       val!.length > 7 ? null : 'Service feild is invalaid',
-                    //   cursorColor: Colors.black,
-                    //   decoration: InputDecoration(
-                    //     labelText: 'Service',
-                    //     // hintText: 'Enter your Service',
-                    //     icon: Icon(
-                    //       Icons.miscellaneous_services,
-                    //       color: Colors.lightBlue,
-                    //     ),
-                    //     isDense: true,
-                    //   ),
-                    // ),
                   ),
                 ),
                Card(
@@ -289,27 +271,18 @@ String serviceprice = '';
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                        children: [                 
-                      CheckboxListTile(  
-                       
+                                            CheckboxListTile(                        
                       secondary: const Icon(Icons.electrical_services, color: Colors.blue,),  
                       title: Text(widget.Service2,
                       style: TextStyle(
                         color: Colors.blue.shade900,
                         fontWeight: FontWeight.bold,
                         fontSize: 18
-                      ),),  
-                      // subtitle: Text(widget.details1,
-                      // style: TextStyle(
-                      //  color: Colors.blue,
-                      // ),),  
-                      value: this.valuesecond,
-                      onChanged: (value){
-                        setState(() {  
-                          this.valuesecond = value!;  
-                        }); 
-                         
-                       }),
-                        TextFormField(
+                      ),),                      
+                      subtitle: Column(
+                        children: [
+                          SizedBox(height: 10),
+                           TextFormField(
                              minLines: 2,
                              maxLines: 5,
                              keyboardType: TextInputType.multiline,
@@ -328,9 +301,7 @@ String serviceprice = '';
                     enabledBorder: const OutlineInputBorder(
                                         borderSide: BorderSide(color: Colors.blue))),
                              
-                  // onEditingComplete: () {
-                  //   // FocusScope.of(context).requestFocus(_nodeEmail);
-                  // },
+                 
                             onChanged: (value){
                   //  setState(() {
                        txtdata2 = value;
@@ -338,53 +309,51 @@ String serviceprice = '';
                              
                             },
                             ),
-                  Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                height: screenHeight(context)*0.06,
-                               width: screenWidth(context)*0.43,
-                                margin: const EdgeInsets.only(top: 20),
-                                child: TextFormField(
-                             
-                                // controller: firstname,
-                                 
-                                  
-                                   keyboardType: TextInputType.name,
-                                cursorColor: Colors.black,
-                                decoration: InputDecoration(
-                                    prefixIcon: Icon(Icons.lock_clock, color: Colors.blue.shade900,),
-                                    labelText: "work timing",
-                                    labelStyle: TextStyle(color: Colors.blue[800]),
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(18),
-                                      borderSide: const BorderSide(color: Colors.blue),
-                                    ),
-                                    enabledBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.blue))),
-                                        onChanged: (value){
-                                           setState(() {
-                                    time2 = value;
-                                     });
+                            SizedBox(height: 10,),
+                            Row(
+                              children: [
+                                Container(
+                                     height: screenHeight(context)*0.06,
+                               width: screenWidth(context)*0.29,
+                                  child: TextFormField(
+                                   
+                                   
+                                       
+                                        
+                                         keyboardType: TextInputType.name,
+                                      cursorColor: Colors.black,
+                                      decoration: InputDecoration(
+                                          prefixIcon: Icon(Icons.lock_clock, color: Colors.blue.shade900,),
+                                          labelText: "work timing",
+                                          labelStyle: TextStyle(color: Colors.blue[800]),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(18),
+                                            borderSide: const BorderSide(color: Colors.blue),
+                                          ),
+                                          enabledBorder: const OutlineInputBorder(
+                                              borderSide: BorderSide(color: Colors.blue))),
+                                    //            validator: (value){
+                                    //   if(value!.isEmpty ){
+                                    //     return "Field cannot be empty";
+                                    //   }
+                                    //   return null;
+                                    // },
+                                                 
+                                         onChanged: (value){
+                                            setState(() {
+                                             time2 = value;
+                                           });
 
-                                        },
-                              //            validator: (value){
-                              //   if(value!.isEmpty ){
-                              //     return "Field cannot be empty";
-                              //   }
-                              //   return null;
-                              // },
-                                           
-                                 
+                                              },
+                                      ),
                                 ),
-                              ),
-                             const  SizedBox(width: 10,),
-                             Container(
-                                height: screenHeight(context)*0.06,
-                               width: screenWidth(context)*0.43,
-                                margin: const EdgeInsets.only(top: 20),
+                                SizedBox(width: 5,),
+                                 Container(
+                                   height: screenHeight(context)*0.06,
+                               width: screenWidth(context)*0.29,
+                                
                                 child: TextFormField(
                              
                                 // controller: lastname,
@@ -410,8 +379,8 @@ String serviceprice = '';
                               //   }
                               //   return null;
                               // },
-                                onChanged: (value){
-                                   setState(() {
+                                 onChanged: (value){
+                                    setState(() {
                                        Price2 = value;
                                      });
 
@@ -420,45 +389,27 @@ String serviceprice = '';
                                  
                                 ),
                               ),
-                             
-                            ],
-                          ),
-                
-                      // CheckboxListTile(  
-                      // controlAffinity: ListTileControlAffinity.trailing,  
-                      // secondary: const Icon(Icons.alarm),  
-                      // title: Text("Other"),  
-                      // subtitle: Text("Enter your own service"),  
-                      // value: this.valuefourth,  
-                      // onChanged: (value) {  
-                      //   setState(() {  
-                      //     this.valuefourth = value!;  
-                      //   });
-                      //   openDialog2();
-                      //   }),
-                
-                        // ActionButton(ontap: (){
-                        //     openDialog();
-                
-                        // }, text: "Continue")
+                              ],
+                            ),
+//                             
+                        ],
+                      ), 
+                      value: this.valuesecond,
+                      onChanged: (value){
+                        setState(() {  
+                          this.valuesecond = value!;
+                            
+                        }); 
+              //             myALLadd({
+              //           "service": "${widget.Service2}",
+              //           "des": "${txtdata2}",
+              //           "Price": "${Price2.toString()}",
+              //           "Time": "${time2.toString()}",
+              //   //"timestamp": getTime
+              // });
+                       }),
                       ]
                     )
-                    // TextFormField(
-                    //   initialValue: widget.user.service,
-                    //   onSaved: (val) => widget.user.service = val!,
-                    //   validator: (val) =>
-                    //       val!.length > 7 ? null : 'Service feild is invalaid',
-                    //   cursorColor: Colors.black,
-                    //   decoration: InputDecoration(
-                    //     labelText: 'Service',
-                    //     // hintText: 'Enter your Service',
-                    //     icon: Icon(
-                    //       Icons.miscellaneous_services,
-                    //       color: Colors.lightBlue,
-                    //     ),
-                    //     isDense: true,
-                    //   ),
-                    // ),
                   ),
                 ),
                 Card(
@@ -466,27 +417,18 @@ String serviceprice = '';
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                        children: [                 
-                      CheckboxListTile(  
-                       
+                                           CheckboxListTile(                        
                       secondary: const Icon(Icons.electrical_services, color: Colors.blue,),  
-                      title: Text(widget.Service3,
+                      title: Text(widget.Service1,
                       style: TextStyle(
                         color: Colors.blue.shade900,
                         fontWeight: FontWeight.bold,
                         fontSize: 18
-                      ),),  
-                      // subtitle: Text(widget.details1,
-                      // style: TextStyle(
-                      //  color: Colors.blue,
-                      // ),),  
-                      value: this.valuethird,
-                      onChanged: (value){
-                        setState(() {  
-                          this.valuethird = value!;  
-                        }); 
-                         
-                       }),
-                        TextFormField(
+                      ),),                      
+                      subtitle: Column(
+                        children: [
+                          SizedBox(height: 10),
+                           TextFormField(
                              minLines: 2,
                              maxLines: 5,
                              keyboardType: TextInputType.multiline,
@@ -505,62 +447,59 @@ String serviceprice = '';
                     enabledBorder: const OutlineInputBorder(
                                         borderSide: BorderSide(color: Colors.blue))),
                              
-                  // onEditingComplete: () {
-                  //   // FocusScope.of(context).requestFocus(_nodeEmail);
-                  // },
+                 
                             onChanged: (value){
                   //  setState(() {
-                       txtdata3 = value;
+                       txtdata = value;
                   //  });
                              
                             },
                             ),
-                  Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                height: screenHeight(context)*0.06,
-                               width: screenWidth(context)*0.43,
-                                margin: const EdgeInsets.only(top: 20),
-                                child: TextFormField(
-                             
-                                // controller: firstname,
-                                 
-                                  
-                                   keyboardType: TextInputType.name,
-                                cursorColor: Colors.black,
-                                decoration: InputDecoration(
-                                    prefixIcon: Icon(Icons.lock_clock, color: Colors.blue.shade900,),
-                                    labelText: "work timing",
-                                    labelStyle: TextStyle(color: Colors.blue[800]),
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(18),
-                                      borderSide: const BorderSide(color: Colors.blue),
-                                    ),
-                                    enabledBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.blue))),
-                              //            validator: (value){
-                              //   if(value!.isEmpty ){
-                              //     return "Field cannot be empty";
-                              //   }
-                              //   return null;
-                              // },
-                                          onChanged: (value){
-                                             setState(() {
-                                      time3 = value;
-                                     });
+                            SizedBox(height: 10,),
+                            Row(
+                              children: [
+                                Container(
+                                     height: screenHeight(context)*0.06,
+                               width: screenWidth(context)*0.29,
+                                  child: TextFormField(
+                                   
+                                   
+                                       
+                                        
+                                         keyboardType: TextInputType.name,
+                                      cursorColor: Colors.black,
+                                      decoration: InputDecoration(
+                                          prefixIcon: Icon(Icons.lock_clock, color: Colors.blue.shade900,),
+                                          labelText: "work timing",
+                                          labelStyle: TextStyle(color: Colors.blue[800]),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(18),
+                                            borderSide: const BorderSide(color: Colors.blue),
+                                          ),
+                                          enabledBorder: const OutlineInputBorder(
+                                              borderSide: BorderSide(color: Colors.blue))),
+                                    //            validator: (value){
+                                    //   if(value!.isEmpty ){
+                                    //     return "Field cannot be empty";
+                                    //   }
+                                    //   return null;
+                                    // },
+                                                 
+                                         onChanged: (value){
+                                            setState(() {
+                                             time = value;
+                                           });
 
-                                        },   
-                                 
+                                              },
+                                      ),
                                 ),
-                              ),
-                             const  SizedBox(width: 10,),
-                             Container(
-                                height: screenHeight(context)*0.06,
-                               width: screenWidth(context)*0.43,
-                                margin: const EdgeInsets.only(top: 20),
+                                SizedBox(width: 5,),
+                                 Container(
+                                   height: screenHeight(context)*0.06,
+                               width: screenWidth(context)*0.29,
+                                
                                 child: TextFormField(
                              
                                 // controller: lastname,
@@ -586,55 +525,31 @@ String serviceprice = '';
                               //   }
                               //   return null;
                               // },
-                               
-                                   onChanged: (value){
-                                     setState(() {
-                                       Price3 = value;
+                                 onChanged: (value){
+                                    setState(() {
+                                       Price = value;
                                      });
 
-                                        }, 
+                                        },
+                                  
                                  
                                 ),
                               ),
-                             
-                            ],
-                          ),
-                
-                      // CheckboxListTile(  
-                      // controlAffinity: ListTileControlAffinity.trailing,  
-                      // secondary: const Icon(Icons.alarm),  
-                      // title: Text("Other"),  
-                      // subtitle: Text("Enter your own service"),  
-                      // value: this.valuefourth,  
-                      // onChanged: (value) {  
-                      //   setState(() {  
-                      //     this.valuefourth = value!;  
-                      //   });
-                      //   openDialog2();
-                      //   }),
-                
-                        // ActionButton(ontap: (){
-                        //     openDialog();
-                
-                        // }, text: "Continue")
+                              ],
+                            ),
+//                             
+                        ],
+                      ), 
+                      value: this.valuethird,
+                      onChanged: (value){
+                        setState(() {  
+                          this.valuethird = value!;
+                            
+                        }); 
+                         
+                       }),
                       ]
                     )
-                    // TextFormField(
-                    //   initialValue: widget.user.service,
-                    //   onSaved: (val) => widget.user.service = val!,
-                    //   validator: (val) =>
-                    //       val!.length > 7 ? null : 'Service feild is invalaid',
-                    //   cursorColor: Colors.black,
-                    //   decoration: InputDecoration(
-                    //     labelText: 'Service',
-                    //     // hintText: 'Enter your Service',
-                    //     icon: Icon(
-                    //       Icons.miscellaneous_services,
-                    //       color: Colors.lightBlue,
-                    //     ),
-                    //     isDense: true,
-                    //   ),
-                    // ),
                   ),
                 ),
                 GestureDetector(
@@ -662,6 +577,8 @@ String serviceprice = '';
                   ),
                 ),
                   ActionButton(ontap: (){
+                    print("my all data");
+                    print(myAllData);
                             // openDialog();
 //                             String Price = '';
 // String time = '';
@@ -676,14 +593,20 @@ String serviceprice = '';
 // List<dynamic> list = {[widget.Service1,time,Price],[widget.Service1,time2,Price2],[widget.Service1,time3,Price3]} as List;
 if(time != null && Price != null && time2 != null && Price2 != null && time3 != null && Price3 != null){
 Map<String,dynamic> ourData = {
+  'firstname':workerfirstName,
+  'lastname':workerlastname,
+  'city':workercity,
+  'lat':workerlati,
+   'long':workerlongi,
   'SkillName': widget.SkillName,
-"key": {"Service": widget.Service1,"description": txtdata,"time": time, "Price": Price,},
+  // "keyarry": [0]["Service: ${widget.Service1}","description: ${txtdata}", "time: ${time}","Price: ${Price}",];
+"key": ["Service: ${widget.Service1}","description: ${txtdata}", "time: ${time}","Price: ${Price}",],
 "key1": {"Service": widget.Service2,"description": txtdata2,"time": time2, "Price": Price2},
 "key2": {"Service": widget.Service3,"description": txtdata3,"time": time3, "Price": Price3},
 "other": {"Service": servicename,"description": servicedes,"time": servicetime, "Price": serviceprice},
 // "${widget.Service3}": {"time": time3, "Price": Price3},
 };
-  _firestore.collection('worker').doc('rimi@gmail.com').collection("worker_skills").doc("rimi@gmail.com").set(ourData);
+  _firestore.collection('worker_skill').doc('haseeb@gmail.com').set(ourData);
                                    Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const Dashboard()));
                      
                         
