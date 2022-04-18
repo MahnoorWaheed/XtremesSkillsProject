@@ -12,11 +12,14 @@ import 'package:xtremes_skills/modules/User%20Screens/dashboard.dart';
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
 import 'package:xtremes_skills/modules/User%20Screens/live_location.dart';
 import 'package:xtremes_skills/modules/User%20Screens/location.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/bottom_nav.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/dashboard.dart';
 
 import 'package:xtremes_skills/modules/Worker%20Dashboard/dialogbox.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/mychats.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/review.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/show_chatrooms.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/showrating.dart';
 import 'package:xtremes_skills/modules/User%20Screens/select_task.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
@@ -78,7 +81,7 @@ Future<void> main() async {
 
       //  home: NearbyWorkers()));
 
-       home: FirstScreen()));
+       home: Dashboard()));
 
 
 //        home: signup()));

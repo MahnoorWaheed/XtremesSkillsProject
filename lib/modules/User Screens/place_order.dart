@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-=======
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -22,8 +21,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
   var price = 300;
 
     final FirebaseFirestore _firestore= FirebaseFirestore.instance;
-=======
-  final FirebaseFirestore _firestore= FirebaseFirestore.instance;
+
 
   @override
   Widget build(BuildContext context) {
@@ -257,15 +255,15 @@ WalletMethod(
   String? usertoken = await FirebaseMessaging.instance.getToken();
          _firestore.collection('orderstry').doc().set({      
 
-                ontap: () async{
-                  String? usertoken =await FirebaseMessaging.instance.getToken();
-                  _firestore.collection('orders').doc().set(
-                   {
-                      'name':"Muhib",
-                    'description': "hjkhjkh",
-                    'userFCM_token': usertoken,
-                   }
-                  ); 
+                // ontap: () async{
+                //   String? usertoken =await FirebaseMessaging.instance.getToken();
+                //   _firestore.collection('orders').doc().set(
+                //    {
+                //       'name':"Muhib",
+                //     'description': "hjkhjkh",
+                //     'userFCM_token': usertoken,
+                //    }
+                //   ); 
 
 
             'name':"hammad",

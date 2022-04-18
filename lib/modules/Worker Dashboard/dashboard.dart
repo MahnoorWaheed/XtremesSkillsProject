@@ -1,14 +1,17 @@
 
 
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:xtremes_skills/modules/auth/screen/signup.dart';
 import 'package:xtremes_skills/utils/utils.dart';
 import 'package:xtremes_skills/widgets/worker_dashboard_widgets/earning_container.dart';
@@ -26,10 +29,48 @@ class _DashboardState extends State<Dashboard> {
  final FirebaseAuth auth = FirebaseAuth.instance;
  List<Map<String, dynamic>> personaldata = [];
  bool Loading=true;
+ bool imagesuccessfull=false;
+ var loadimage = false;
+  File? _image;
+     final pickedFile = ImagePicker();
+     String? downloadURL;
+     String image='';
 
 // storeNotificationToken(){
 //   ScrollDragController.momentumRetainStationaryDurationThreshold
 // }
+   Future chooseimage() async {
+      log('call');
+    final pick = await pickedFile.pickImage(source: ImageSource.gallery);
+    if (pick != null) {
+      _image = File(pick.path);
+      uploadImage();
+    }
+    loadimage = true;
+  }
+
+/*  upload image to the firebase storage  and get the url and
+    add the url to firestore database
+    
+*/
+  Future uploadImage() async {
+    final postID = DateTime.now().millisecondsSinceEpoch.toString();
+    Reference ref = FirebaseStorage.instance
+        .ref()
+        .child("dasborad/chats")
+        .child("post_$postID");
+    await ref.putFile(_image!);
+    log('its ok');
+    downloadURL = await ref.getDownloadURL(); 
+    if (downloadURL!.isNotEmpty) {
+     
+    FirebaseFirestore.instance.collection('image').doc(FirebaseAuth.instance.currentUser!.email).set({
+      'image':downloadURL,
+    });
+
+      downloadURL = "";
+    }
+  }
 
 
   @override
@@ -40,11 +81,21 @@ class _DashboardState extends State<Dashboard> {
   FirebaseMessaging.onMessage.listen(((event) {
     print("FCM message received");
   }));
+  getImage();
     getCurrentUser();
+  
+    
   }
+   Future getImage() async{
+     await firestore.collection('image').doc(auth.currentUser!.email).get().then((value) {
+          image=value['image'];
+          imagesuccessfull=true;
+
+     });
+     log(image);
+   }
   
    getCurrentUser() async {
-     log("function call");
      log(auth.currentUser!.uid);
     await firestore
         .collection("worker")
@@ -55,7 +106,6 @@ class _DashboardState extends State<Dashboard> {
         personaldata.add({
           "fname": map['firstname'],
           "lname": map['lastname'],
-          "address": map['address'],
           "cnic": map['cnic'],
           "ph": map['phone'],
           "email": map['email'],
@@ -81,43 +131,61 @@ class _DashboardState extends State<Dashboard> {
          child: Column(
            crossAxisAlignment: CrossAxisAlignment.start,
            children: [
-             Padding(
-               padding: const EdgeInsets.symmetric(vertical:8.0),
-               child: Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                 children: [
-                  //  Text("Ali khan", 
-                  //  style: GoogleFonts.poppins(),
-                  //  ),
-                      Container(
-                      
-                        child: Flexible(
-                child: ListView.builder(
-                  
-                    itemCount: personaldata.length,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                        return   Padding(
-                          padding: const EdgeInsets.only(left: 50.0),
-                          child: Row(children: [
-                          
-                            Text(personaldata[index]['fname'],style: GoogleFonts.poppins(),),
-                            Text(personaldata[index]['lname'],style: GoogleFonts.poppins(),),
-                          ],)
-                        );
-                        
-                    })),
-                      ),
+             Row(
+               mainAxisAlignment: MainAxisAlignment.spaceAround,
+               children: [
+                //  Text("Ali khan", 
+                //  style: GoogleFonts.poppins(),
+                //  ),
+                    Container(
                     
+                      child: Flexible(
+              child: ListView.builder(
+                
+                  itemCount: personaldata.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                      return   Padding(
+                        padding: const EdgeInsets.only(left: 50.0),
+                        child: Row(children: [
+                        
+                          Text(personaldata[index]['fname'],style: GoogleFonts.poppins(fontWeight: FontWeight.bold),),
+                          Text(personaldata[index]['lname'],style: GoogleFonts.poppins(fontWeight: FontWeight.bold),),
+                        ],)
+                      );
+                      
+                  })),
+                    ),
+                  
 
-                   const Padding(
-                     padding:  EdgeInsets.only(right: 50.0),
-                     child:  CircleAvatar(radius: 25,
-                     child: Text("Picture of worker"),),
-                   )
-                 ],              
-               ),
+               Stack(
+                 children: [
+                   
+                     Container(
+// color: Colors.blue,
+                     height: 100,
+                     width: 120,
+
+                   child: Padding(
+                     
+                     padding: const EdgeInsets.only(right: 50),
+                     child: CircleAvatar(radius: 25,
+                     backgroundImage: imagesuccessfull?NetworkImage(image):NetworkImage('https://www.google.com/url?sa=i&url=https%3A%2F%2Fsaiuniversity.edu.in%2Fteam%2Fsunita-kikeri%2F&psig=AOvVaw0SN0l_oA4hXRJh8kyK-hMn&ust=1650351364903000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCLCsiYmEnfcCFQAAAAAdAAAAABAa'),
+                     ),
+                   ),
+                 ),
+                 Positioned(
+                     top: 70,
+                     left: 50,
+                     child: GestureDetector(
+                       onTap: (){
+                          chooseimage();
+                       },
+                       child: Container(child: Icon(Icons.add_a_photo,size: 20,)))),
+                 ],
+               )
+               ],              
              ),
              Padding(
       padding: const EdgeInsets.all(8.0),
@@ -202,26 +270,26 @@ class _DashboardState extends State<Dashboard> {
                     })),
                       ),
 
-                     Container(
+                //      Container(
                       
-                        child: Flexible(
-                child: ListView.builder(
-                    itemCount: personaldata.length,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                        return   Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                            Text("ADDRESS:",style: GoogleFonts.poppins(color: Colors.white),),
-                            Text(personaldata[index]['address'],style: GoogleFonts.poppins(color: Colors.white),),
-                          ],)
-                        );
+                //         child: Flexible(
+                // child: ListView.builder(
+                //     itemCount: personaldata.length,
+                //     shrinkWrap: true,
+                //     physics: NeverScrollableScrollPhysics(),
+                //     itemBuilder: (context, index) {
+                //         return   Padding(
+                //           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                //           child: Row(
+                //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //             children: [
+                //             Text("ADDRESS:",style: GoogleFonts.poppins(color: Colors.white),),
+                //             Text(personaldata[index]['address'],style: GoogleFonts.poppins(color: Colors.white),),
+                //           ],)
+                //         );
                         
-                    })),
-                      ),
+                //     })),
+                //       ),
 
           
         ],)
