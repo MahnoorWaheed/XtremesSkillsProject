@@ -22,9 +22,9 @@ class _UserRegistrationState extends State<UserRegistration> {
   void storename({
     required String name,
   }){
-    firestore.collection('customer').doc(widget.phone).set({
+    firestore.collection('customer').doc('+92'+widget.phone).set({
        'name': name,
-        'number':widget.phone
+        'number':'+92'+widget.phone
     });
   }
   @override

@@ -182,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
            
             // await FirebaseFirestore.instance.collection('PhoneNumber').doc(phoneController.text).get();
             // log('success');
-            final snapShot = await FirebaseFirestore.instance.collection('customer').doc(phoneController.text).get();
+            final snapShot = await FirebaseFirestore.instance.collection('customer').doc('+92'+phoneController.text).get();
 
    if (snapShot.exists){
         // Document already exists

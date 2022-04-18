@@ -24,7 +24,6 @@ class _PlaceOrderState extends State<PlaceOrder> {
     final FirebaseFirestore _firestore= FirebaseFirestore.instance;
 
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -256,15 +255,15 @@ WalletMethod(
 
     
 
-                ontap: () async{
-                  String? usertoken =await FirebaseMessaging.instance.getToken();
-                  _firestore.collection('orders').doc().set(
-                   {
-                      'name':"Muhib",
-                    'description': "hjkhjkh",
-                    'userFCM_token': usertoken,
-                   }
-                  ); 
+                // ontap: () async{
+                //   String? usertoken =await FirebaseMessaging.instance.getToken();
+                //   _firestore.collection('orders').doc().set(
+                //    {
+                //       'name':"Muhib",
+                //     'description': "hjkhjkh",
+                //     'userFCM_token': usertoken,
+                //    }
+                //   ); 
 
 
 

@@ -18,8 +18,8 @@ class _ReviewState extends State<Review> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   // List<Map<String, dynamic>> personaldata = [];
 
-  final List<String> names=["Luqman", "Ahmed", "Salman", "Ali ","Mustafa", "Qureshi"];
-  final List<String> days=["8 days ago","4 days ago","5 days ago","8 days ago","1 days ago"," Now"];
+  // final List<String> names=["Luqman", "Ahmed", "Salman", "Ali ","Mustafa", "Qureshi"];
+  // final List<String> days=["8 days ago","4 days ago","5 days ago","8 days ago","1 days ago"," Now"];
 
   
 
@@ -47,7 +47,8 @@ class _ReviewState extends State<Review> {
              
 
               Expanded(
-                child: StreamBuilder<QuerySnapshot>(stream: FirebaseFirestore.instance.collection("reviews").snapshots(),
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance.collection("reviews").snapshots(),
                 builder: (context,snapshot){
                   if(!snapshot.hasData){
                     return const Center(
@@ -78,15 +79,10 @@ class _ReviewState extends State<Review> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(days[index], 
-                                style: GoogleFonts.poppins(
-                                  fontSize: 9,
-                                  color: Colors.grey,
-                                ),
-                                ),
+                               
                                 Text(
                                   
-                                  names[index],
+                                  customer_review['name'],
                                 // personaldata[index]['fname'], 
                                 style: GoogleFonts.poppins(
                                   fontSize: 11,
