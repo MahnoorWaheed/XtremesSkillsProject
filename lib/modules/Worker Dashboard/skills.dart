@@ -113,11 +113,11 @@ class _skillsState extends State<skills> {
                                    Service1 = skills['Service1'],
                                    Service2 = skills['Service2'],
                                    Service3 = skills['Service3'],
-                                   Service4 = skills['Service4'],
-                                   details1 = skills['details1'],
-                                   details2 = skills['details2'],
-                                   details3 = skills['details3'],
-                                   details4 = skills['details4'],
+                                
+                                  //  details1 = skills['details1'],
+                                  //  details2 = skills['details2'],
+                                  //  details3 = skills['details3'],
+                                  //  details4 = skills['details4'],
                                
                                
                                   ),
@@ -167,19 +167,7 @@ class _skillsState extends State<skills> {
                                       // ),
 
                                     ),
-                                    SizedBox(
-                                      height:  MediaQuery.of(context).size.height * 0.02,
-                                    ),
-
-                                    Center(
-                                      child: Text(
-                                        skills['Name'],
-                                        style: const TextStyle(
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'Times New Roman'),
-                                      ),
-                                    )
+                                  
 
                                     ],
                                   ),

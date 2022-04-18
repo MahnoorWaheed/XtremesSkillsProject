@@ -1,12 +1,22 @@
 import 'dart:async';
-
+import 'dart:math' show sin, cos, sqrt, atan2;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:vector_math/vector_math.dart';
+import 'package:geocoding/geocoding.dart';
 
 class LiveLocation extends StatefulWidget {
  
+  final String lati;
+  final String longi;
+
+
+
+ LiveLocation(this.lati,this.longi,  
+
+ );
 
  
 
@@ -16,7 +26,7 @@ class LiveLocation extends StatefulWidget {
 
 class _LiveLocationState extends State<LiveLocation> {
   
-  Completer<GoogleMapController> _controllerGoogleMap=Completer();
+  Completer<GoogleMapController> _controllerGoogleMap = Completer();
 late GoogleMapController newGoogleMapController;
 
 GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -28,12 +38,36 @@ double bottomPaddingOfMap = 0;
 // // var currentLocation = myLocation;
 // //Using pLat and pLng as dummy location
 // double pLat = 22.8965265;   double pLng = 76.2545445; 
+//  var lataddress;
 
+// Future getDocs() async{
+//   QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection("worker").get();
+//   for(int i=0; i<querySnapshot.docs.length; i++){
+//     var a = querySnapshot.docs[i];
+//     print(a['lat']);
+//     print(a['address']);
+//     setState(() {
+//       lataddress= a['address'];
+//     });
+    
+//   }
+// }
 
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // getDocs();
+    print("lati: ${widget.lati}");
+    print("longi: ${widget.longi}");
+   
+  }
 
-
-void locatePosition() async
+void locatePosition(String latitude, String longitude) async
 {
+  //  print("hello world");
+  //   print(lataddress);
+
   Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   currentPosition = position;
 
@@ -54,9 +88,7 @@ void locatePosition() async
   //  print("helllloooooo worlddd : $distanceInMeters");
 }
 
-static final CameraPosition _kGooglePlex = CameraPosition(
-  target:  LatLng(34.025917, 71.560135),
-  zoom: 14.4746,
+static final CameraPosition _kGooglePlex = CameraPosition( target:  LatLng(34.025917, 71.560135),zoom: 14.4746,
 );
 
 
@@ -95,7 +127,7 @@ Future<void> GetAddressFromLatLng(Position position) async{
               setState(() {
                 bottomPaddingOfMap = 265.0;
               });
- locatePosition();
+ locatePosition(widget.lati,widget.longi);
 
              },
            ),
@@ -103,4 +135,25 @@ Future<void> GetAddressFromLatLng(Position position) async{
       ),
     );
   }
+
+// Widget data(){
+//   return Scaffold(
+//   body: StreamBuilder<QuerySnapshot>(stream: FirebaseFirestore.instance.collection("worker").snapshots(),
+//                 builder: (context,snapshot){
+//                   if(!snapshot.hasData){
+//                     return const Center(
+//                       child: CircularProgressIndicator(),
+//                     );
+//                   }
+//                   return ListView.builder(
+//                   itemCount: snapshot.data!.docs.length,
+//                   itemBuilder: (ctx,index){
+//                     DocumentSnapshot workersdetails=snapshot.data!.docs[index];
+//                    print("worker address: ${ workersdetails['address']}");
+//                    return Container();
+//                   });}),
+//   );
+// }
+
+
 }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -250,10 +251,9 @@ WalletMethod(
                 bordersidecolor: Colors.blue.shade900,
                 color: Colors.blue.shade900,
 
-                ontap: () async {
+              
 
-  String? usertoken = await FirebaseMessaging.instance.getToken();
-         _firestore.collection('orderstry').doc().set({      
+    
 
                 // ontap: () async{
                 //   String? usertoken =await FirebaseMessaging.instance.getToken();
@@ -266,22 +266,14 @@ WalletMethod(
                 //   ); 
 
 
-            'name':"hammad",
-            'description': "dfhfgdfhdfjjh",
-            'userFCM_token': usertoken
-         });
 
                   
                   // Navigator.push(
                   //   context,
                   //   MaterialPageRoute(builder: (context) => PayNow()),
                   // );
-                },
-              ),
-            ),
-          )
-        ],
-      ),
-    );
+                })))])
+                );
+            
   }
 }

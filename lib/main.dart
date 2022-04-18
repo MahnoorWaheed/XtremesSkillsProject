@@ -12,8 +12,11 @@ import 'package:xtremes_skills/modules/User%20Screens/dashboard.dart';
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
 import 'package:xtremes_skills/modules/User%20Screens/live_location.dart';
 import 'package:xtremes_skills/modules/User%20Screens/location.dart';
+
 import 'package:xtremes_skills/modules/Worker%20Dashboard/bottom_nav.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/dashboard.dart';
+import 'package:xtremes_skills/modules/User%20Screens/selectservice.dart';
+
 
 import 'package:xtremes_skills/modules/Worker%20Dashboard/dialogbox.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
@@ -29,6 +32,9 @@ import 'package:xtremes_skills/modules/auth/screen/login.dart';
 import 'package:xtremes_skills/modules/auth/screen/signup.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/notification.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/welcome.dart';
+import 'package:xtremes_skills/widgets/formwidget/skills_details.dart';
+import 'package:xtremes_skills/widgets/formwidget/tryscreen.dart';
+import 'package:xtremes_skills/widgets/formwidget/tryskills.dart';
 
 import 'modules/User Screens/place_order.dart';
 import 'modules/Worker Dashboard/order.dart';
@@ -81,12 +87,16 @@ Future<void> main() async {
 
       //  home: NearbyWorkers()));
 
-       home: FirstScreen()));
+
+       home: skills()));
+
+//        home: FirstScreen()));
 
 
 //        home: signup()));
 
 //        home: Order()));
+
 
 
 
