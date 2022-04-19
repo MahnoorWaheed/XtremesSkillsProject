@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xtremes_skills/model/workermodel.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/bottom_nav.dart';
 import 'package:xtremes_skills/widgets/formwidget/skills_details.dart';
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
@@ -16,8 +17,9 @@ class skills extends StatefulWidget {
 }
 
 class _skillsState extends State<skills> {
+    WorkerModel cart = new WorkerModel();
  final FirebaseAuth _firebaseAuth=FirebaseAuth.instance;
-
+  //  WorkerModel cart ;
   var SkillName,Service1,Service2,Service3,Service4,details1,details2,details3,details4;
 
  String workerEmail = '';
@@ -113,6 +115,7 @@ class _skillsState extends State<skills> {
                                    Service1 = skills['Service1'],
                                    Service2 = skills['Service2'],
                                    Service3 = skills['Service3'],
+                                  cart,
                                 
                                   //  details1 = skills['details1'],
                                   //  details2 = skills['details2'],

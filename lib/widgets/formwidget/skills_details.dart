@@ -1,17 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:xtremes_skills/model/user.dart';
 import 'package:xtremes_skills/model/workermodel.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/dashboard.dart';
 import 'package:xtremes_skills/widgets/action_button.dart';
 import 'package:xtremes_skills/utils/utils.dart';
 
+enum ViewState { loading, idle }
 
+var cartState = ViewState.idle;
 class Skill_Details extends StatefulWidget {
+  WorkerModel cart;
   final String SkillName;
   final String Service1;
   final String Service2;
   final String Service3;
+
+  // var workerfirstName;
+
+  // var workerlastname;
+
+  // var workercity;
+
+  // var workerlati;
+
+  // var workerlongi;
+
+  // var workeremail;
   // final String Service4;
   // final String details1;
   // final String details2;
@@ -21,16 +38,18 @@ class Skill_Details extends StatefulWidget {
   // String prc;
   // int ct = 1;
 
- Skill_Details(this.SkillName,this.Service1, this.Service2, this.Service3, 
+ Skill_Details(this.SkillName,this.Service1, this.Service2, this.Service3, this.cart
 //  this.Service4, 
  //this.Service2, this.Service3, this.Service4,
  );
+
 
   @override
   State<Skill_Details> createState() => _Skill_DetailsState();
 }
 
 class _Skill_DetailsState extends State<Skill_Details> {
+
    final form = GlobalKey<FormState>();
  bool valuefirst = false;  
   bool valuesecond = false; 
@@ -44,17 +63,22 @@ class _Skill_DetailsState extends State<Skill_Details> {
  
   String service = '';
 
- String workerfirstName = '';
+
+  bool isLoading = true;
+  // late QuerySnapshot namee;
+   String workerfirstName = '';
   String workerlastname = '';
   String workercity = '';
   String workerlati = '';
   String workerlongi = '';
-  bool isLoading = true;
+   String workeremail = '';
   @override
   void initState() {
     getUserData();
     super.initState();
   }
+
+
 
    getUserData() async {
     await FirebaseFirestore.instance
@@ -67,10 +91,10 @@ class _Skill_DetailsState extends State<Skill_Details> {
       print(value.docs.first.data()['email']);
       workerfirstName = value.docs.first.data()['firstname'];
       workerlastname = value.docs.first.data()['lastname'];
-       workercity = value.docs.first.data()['city'];
+      workercity = value.docs.first.data()['city'];
       workerlati = value.docs.first.data()['lat'];
-       workerlongi = value.docs.first.data()['long'];
-     
+      workerlongi = value.docs.first.data()['long'];
+     workeremail = value.docs.first.data()['email'];
     });
     setState(() {
       isLoading = false;
@@ -90,20 +114,26 @@ String servicedes = '';
 String servicetime = '';
 String serviceprice = '';
 
-List<workerdetails> myAllData = [];
+// List<workerdetails> myAllData = [];
 
 
-  List<Map<String, String>> _selectedProducts = <Map<String, String>>[];
-  int _total = 0;
-  List<Map<String, String>> get selectedProducts => _selectedProducts;
+  // List<Map<String, String>> _selectedProducts = <Map<String, String>>[];
+  // int _total = 0;
+  // List<Map<String, String>> get selectedProducts => _selectedProducts;
 
-  void add(Map<String, String> value) {
-    _selectedProducts.add(value);
+  // void add(Map<String, String> value) {
+  //   _selectedProducts.add(value);
     
-    print("Rimsha is best");
-    print(value);
-    // notifyListeners();
-  }
+  //   print("Rimsha is best");
+  //   print(value);
+  //   // notifyListeners();
+  // }
+
+  
+
+  // List<Map<String, String>> SelectedProducts = <Map<String, String>>[];
+  // List<Map<String, String>> get selectedProducts => SelectedProducts;
+  List<mySReportDetails2> myAllData = [];
 
   @override
   Widget build(BuildContext context) {
@@ -160,112 +190,122 @@ List<workerdetails> myAllData = [];
                       borderSide: const BorderSide(color: Colors.blue)),
                       enabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blue))),
-                      onChanged: (value){
-                  //  setState(() {
-                       txtdata = value;
-                  //  });
-                             
-                            },
-                            ),
-                            SizedBox(height: 10,),
-                            Row(
-                              children: [
-                                Container(
-                                     height: screenHeight(context)*0.06,
-                               width: screenWidth(context)*0.29,
-                                  child: TextFormField(
-                                   
-                                   
-                                       
-                                        
-                                         keyboardType: TextInputType.name,
-                                      cursorColor: Colors.black,
-                                      decoration: InputDecoration(
-                                          prefixIcon: Icon(Icons.lock_clock, color: Colors.blue.shade900,),
-                                          labelText: "work timing",
-                                          labelStyle: TextStyle(color: Colors.blue[800]),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(18),
-                                            borderSide: const BorderSide(color: Colors.blue),
-                                          ),
-                                          enabledBorder: const OutlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.blue))),
-                                    //            validator: (value){
+                      onChanged: (value){ 
+                        setState(() {
+                          txtdata = value;
+                        });
+                         },),
+                      SizedBox(height: 10,),
+                      Row(
+                      children: [
+                      Container(
+                      height: screenHeight(context)*0.06,
+                      width: screenWidth(context)*0.29,
+                      child: TextFormField(
+                      keyboardType: TextInputType.name,
+                      cursorColor: Colors.black,
+                      decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.lock_clock, color: Colors.blue.shade900,),
+                      labelText: "work timing",
+                      labelStyle: TextStyle(color: Colors.blue[800]),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(18),
+                      borderSide: const BorderSide(color: Colors.blue),),
+                      enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue))),
+                  //            validator: (value){
                                     //   if(value!.isEmpty ){
                                     //     return "Field cannot be empty";
                                     //   }
                                     //   return null;
                                     // },
                                                  
-                                         onChanged: (value){
-                                            setState(() {
-                                             time = value;
-                                           });
-
-                                              },
-                                      ),
-                                ),
-                                SizedBox(width: 5,),
-                                 Container(
-                                   height: screenHeight(context)*0.06,
-                               width: screenWidth(context)*0.29,
-                                
-                                child: TextFormField(
-                             
-                                // controller: lastname,
-                                 
-                                  
-                                   keyboardType: TextInputType.name,
-                                cursorColor: Colors.black,
-                                decoration: InputDecoration(
-                                    prefixIcon: Icon(Icons.payment, color: Colors.blue.shade900,),
-                                    labelText: "Price",
-                                    labelStyle: TextStyle(color: Colors.blue[800]),
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(18),
-                                      borderSide: const BorderSide(color: Colors.blue),
-                                    ),
-                                    enabledBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.blue))),
+                      onChanged: (value){
+                      setState(() {time = value;});},),),
+                      SizedBox(width: 5,),
+                      Container(
+                      height: screenHeight(context)*0.06,
+                      width: screenWidth(context)*0.29,
+                      child: TextFormField(
+                      keyboardType: TextInputType.name,
+                      cursorColor: Colors.black,
+                      decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.payment, color: Colors.blue.shade900,),
+                      labelText: "Price",
+                      labelStyle: TextStyle(color: Colors.blue[800]),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(18),
+                      borderSide: const BorderSide(color: Colors.blue),),
+                      enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue))),
                               //              validator: (value){
                               //   if(value!.isEmpty ){
                               //     return "Field cannot be empty";
                               //   }
                               //   return null;
                               // },
-                                 onChanged: (value){
-                                    setState(() {
-                                       Price = value;
-                                     });
-
-                                        },
-                                  
-                                 
-                                ),
-                              ),
-                              ],
-                            ),
-//                             
-                        ],
-                      ), 
+                      onChanged: (value){
+                      setState(() {
+                      Price = value;
+                      });},),),],),],), 
                       value: this.valuefirst,
                       onChanged: (value){
-                        setState(() {  
-                          this.valuefirst = value!;
+                     
+                      setState(() {  
+                      this.valuefirst = value!;
+
+                      // Provider.of<WorkerModel>(context, listen: false).add({
+                             
+                      //        "Service" : "${widget.Service1}",
+                      //        "description":"${txtdata.toString()}",
+                      //        "time":"${time.toString()}",
+                      //        "Price":"${Price.toString()}",
+
+                      //     // "Service: ${widget.Service1}",
+                      //     // "description: ${txtdata}", 
+                      //     // "time: ${time}",
+                      //     // "Price: ${Price}",
+                      //       //"timestamp": getTime
+                         
+                      //     });
                           
                         }); 
-                        myAllData.add(new workerdetails(servicename: widget.Service1, desc: txtdata, time: time, price: Price));
+                        
+                            
+                      
                        }),
+                       ActionButton(ontap: (){
+                       myAllData.add(new mySReportDetails2(Service: widget.Service1, description: txtdata, time: time, Price: Price));
+                        // myAllData.add(new mySReportDetails2 (Service: se ));
+                        // Provider.of<WorkerModel>(context, listen: false).add({
+                             
+                        //      "Service" : "${widget.Service1}",
+                        //      "description":"${txtdata}",
+                        //      "time":"${time}",
+                        //      "Price":"${Price}",
+
+                        //   // "Service: ${widget.Service1}",
+                        //   // "description: ${txtdata}", 
+                        //   // "time: ${time}",
+                        //   // "Price: ${Price}",
+                        //     //"timestamp": getTime
+                         
+                        //   });
+
+                       }, text: "Add Service")
+                       ] )), 
+                       
+                       ),
                        
                  
-                      ]
-                    )
-                  ),
-                ),
+                      
+                   
+                  
+               
                Card(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -408,6 +448,22 @@ List<workerdetails> myAllData = [];
               //   //"timestamp": getTime
               // });
                        }),
+                       ActionButton(ontap: (){
+                          Provider.of<WorkerModel>(context, listen: false).add({
+                             
+                             "Service" : "${widget.Service2}",
+                             "description":"${txtdata2}",
+                             "time":"${time2}",
+                             "Price":"${Price2}",
+
+                          // "Service: ${widget.Service1}",
+                          // "description: ${txtdata}", 
+                          // "time: ${time}",
+                          // "Price: ${Price}",
+                            //"timestamp": getTime
+                         
+                          });
+                       }, text: 'Add Service')
                       ]
                     )
                   ),
@@ -417,7 +473,7 @@ List<workerdetails> myAllData = [];
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                        children: [                 
-                                           CheckboxListTile(                        
+                     CheckboxListTile(                        
                       secondary: const Icon(Icons.electrical_services, color: Colors.blue,),  
                       title: Text(widget.Service1,
                       style: TextStyle(
@@ -576,10 +632,35 @@ List<workerdetails> myAllData = [];
                               
                   ),
                 ),
-                  ActionButton(ontap: (){
+
+
+               
+                  ActionButton(ontap: () async {
+
+                     
                     print("my all data");
-                    print(myAllData);
-                            // openDialog();
+                     print(myAllData);
+                    //     print(txtdata);
+                    //     print(time);
+                    //     print(Price);
+
+                         await widget.cart.createRecord(
+                                      widget.cart,
+                                      widget.SkillName,
+                                      workerfirstName,
+                                      
+                                      // widget.cart,
+                                      workerlastname,
+                                      workercity,
+                                      workerlati,
+                                      workerlongi,
+                                      workeremail,
+                                  
+                                      
+                                      );
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const Dashboard()));
+
+                       // openDialog();
 //                             String Price = '';
 // String time = '';
 // String Price2 = '';
@@ -590,34 +671,48 @@ List<workerdetails> myAllData = [];
 //   bool valuesecond = false; 
 //     bool valuethird = false; 
 
-// List<dynamic> list = {[widget.Service1,time,Price],[widget.Service1,time2,Price2],[widget.Service1,time3,Price3]} as List;
-if(time != null && Price != null && time2 != null && Price2 != null && time3 != null && Price3 != null){
-Map<String,dynamic> ourData = {
-  'firstname':workerfirstName,
-  'lastname':workerlastname,
-  'city':workercity,
-  'lat':workerlati,
-   'long':workerlongi,
-  'SkillName': widget.SkillName,
-  // "keyarry": [0]["Service: ${widget.Service1}","description: ${txtdata}", "time: ${time}","Price: ${Price}",];
-"key": ["Service: ${widget.Service1}","description: ${txtdata}", "time: ${time}","Price: ${Price}",],
-"key1": {"Service": widget.Service2,"description": txtdata2,"time": time2, "Price": Price2},
-"key2": {"Service": widget.Service3,"description": txtdata3,"time": time3, "Price": Price3},
-"other": {"Service": servicename,"description": servicedes,"time": servicetime, "Price": serviceprice},
-// "${widget.Service3}": {"time": time3, "Price": Price3},
-};
-  _firestore.collection('worker_skill').doc('haseeb@gmail.com').set(ourData);
-                                   Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const Dashboard()));
+// List<dynamic> list = {[widget.Service1,timegit branchgii,Price],[widget.Service1,time2,Price2],[widget.Service1,time3,Price3]} as List;
+// if(time != null && Price != null && time2 != null && Price2 != null && time3 != null && Price3 != null){
+// Map<String,dynamic> ourData = {
+//   'firstname':workerfirstName,
+//   'lastname':workerlastname,
+//   'city':workercity,
+//   'lat':workerlati,
+//    'long':workerlongi,
+//   'SkillName': widget.SkillName,
+//   // "keyarry": [0]["Service: ${widget.Service1}","description: ${txtdata}", "time: ${time}","Price: ${Price}",];
+// "key": ["Service: ${widget.Service1}","description: ${txtdata}", "time: ${time}","Price: ${Price}",],
+// "key1": {"Service": widget.Service2,"description": txtdata2,"time": time2, "Price": Price2},
+// "key2": {"Service": widget.Service3,"description": txtdata3,"time": time3, "Price": Price3},
+// "other": {"Service": servicename,"description": servicedes,"time": servicetime, "Price": serviceprice},
+// // "${widget.Service3}": {"time": time3, "Price": Price3},
+// };
+//   _firestore.collection('worker_skill').doc('haseeb@gmail.com').set(ourData);
+//                                    Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const Dashboard()));
                      
                         
-}
+// }
 
    }, text: "Continue"
 
 // print("list of data: ${list}");
                   
-                        )
-              ],
+                        ),
+
+
+                //           Consumer<WorkerModel>(builder: (context, cart, child) {
+                //         int total = 0;
+                //         return Expanded(
+                //                 child: ListView.builder(
+                //                     itemCount: cart.selectedProducts.length,
+                //                     itemBuilder:
+                //                         (BuildContext context, int index) {
+                //                       return cartTile(cart);
+                //                     }),
+                //               );
+                //  },
+                //          )
+                          ],
             ),
           ),
         ),
@@ -651,7 +746,20 @@ Future openDialog2(){
          Navigator.of(context).pop();
        }, child: Text("Cancle")),
        TextButton(onPressed: (){
-       
+        Provider.of<WorkerModel>(context, listen: false).add({
+                             
+                             "Service" : "${servicename}",
+                             "description":"${servicedes}",
+                             "time":"${servicetime}",
+                             "Price":"${serviceprice}",
+
+                          // "Service: ${widget.Service1}",
+                          // "description: ${txtdata}", 
+                          // "time: ${time}",
+                          // "Price: ${Price}",
+                            //"timestamp": getTime
+                         
+                          });
 
          
        }, child: Text("OK")),
@@ -744,3 +852,9 @@ Future openDialog2(){
        });
 }
 }
+// cartTile(Map<String, String> cart) {
+//     // print("anmol is best ");
+//     // print(cart['Customer Name']);
+//     return cart;
+   
+//   }
