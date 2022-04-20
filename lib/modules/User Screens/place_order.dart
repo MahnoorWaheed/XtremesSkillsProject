@@ -250,6 +250,7 @@ WalletMethod(
                 text: 'PAY NOW',
                 bordersidecolor: Colors.blue.shade900,
                 color: Colors.blue.shade900,
+                ontap: (){},
 
               
 
@@ -272,7 +273,10 @@ WalletMethod(
                   //   context,
                   //   MaterialPageRoute(builder: (context) => PayNow()),
                   // );
-                })))])
+                
+                )
+                )
+                )])
                 );
             
   }

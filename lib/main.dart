@@ -90,7 +90,7 @@ Future<void> main() async {
 
        home: skills()));
 
-//        home: FirstScreen()));
+      //  home: DialogBox()));
 
 
 //        home: signup()));
@@ -125,7 +125,7 @@ class _MyAppState extends State<MyApp> {
         
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
+          const Text(
               'You have pushed the button this many times:',
             ),
          
