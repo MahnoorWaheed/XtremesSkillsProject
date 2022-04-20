@@ -137,8 +137,10 @@ class _UserChatState extends State<UserChat> {
           child: Column(
             children: [
               Container(
+                // color: Colors.red,
               
-                 height: 670,
+                 height: MediaQuery.of(context).size.height *0.835,
+                 width: MediaQuery.of(context).size.width,
                  child: StreamBuilder<QuerySnapshot>(
                         stream: FirebaseFirestore.instance.collection('newchat').doc(widget.chatid).collection('chats').orderBy("time",descending: false).snapshots(),
                    builder: (context, snapshot) {

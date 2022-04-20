@@ -72,10 +72,13 @@ class _ReviewState extends State<Review> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            CircleAvatar(
-                              radius: 25,
-                              child: Image.asset("assets/logo.png",),
+                            Flexible(
+                              child: CircleAvatar(
+                                radius: 25,
+                                child: Image.asset("assets/logo.png",),
+                              ),
                             ),
+                            const SizedBox(width: 10,),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -98,16 +101,17 @@ class _ReviewState extends State<Review> {
                               ],
                             ),
                             Column(
+                              
                               children: [
                            
                                 Row(
-                                  
+                                
                                   children: List.generate(5, (index) => IconButton(onPressed: (){}, icon: index < customer_review['rating'] ?const Icon(Icons.star,size: 15,):const Icon(Icons.star_border_outlined, size: 15))),
                                 ),
                                 
                                 Container(
                                   width: 200,
-                                  margin: EdgeInsets.symmetric(horizontal: 5),
+                                  margin:const EdgeInsets.symmetric(horizontal: 5),
                                   child: Text(customer_review['review'],
                                    style: GoogleFonts.poppins(fontSize: 13),
                                    maxLines: 4,
