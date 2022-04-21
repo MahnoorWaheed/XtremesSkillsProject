@@ -84,7 +84,7 @@ Future<void> main() async {
 
       //  home: NearbyWorkers()));
 
-       home: skills()
+       home: NearbyWorkers()
        )
        ));
 

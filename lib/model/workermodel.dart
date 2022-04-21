@@ -24,6 +24,7 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -58,11 +59,13 @@ class WorkerModel extends ChangeNotifier {
 
   // List<Map<String, String>> get customerName => _customerName;
 List<Map<String, String>> workervalue = <Map<String, String>>[];
+  List<Map<String, String>> get worker => workervalue;
   void add(Map<String, String> value) {
     SelectedProducts.add(value);
 
-    workerdata(value);
+ 
     data();
+      createRecord(); 
     
     print("Rimsha is best");
     print(value);
@@ -74,19 +77,21 @@ List<Map<String, String>> workervalue = <Map<String, String>>[];
   }
 
   
- workerdata(Map<String, String> value){
+void addAll(Map<String, String> value1){
+  workervalue.add(value1);
  
   //  myallData.add(value);
-   print("Rimsha is best1");
-   print(SelectedProducts);
+  //  print("Rimsha is best1");
+  //  print(selectedProducts);
 
         print("Rimsha is best2");
-    print(value);
+    print(value1);
+      createRecord(); 
 }
 
 data(){
      print("Rimsha is best4");
-   print(SelectedProducts);
+   print(selectedProducts);
 
 }
 
@@ -132,14 +137,69 @@ data(){
   // deleteRecord(total, cart) async {
   //   _selectedProducts.clear();
   //   notifyListeners();
-  // }
 
-  createRecord(cart,String workerfirstName, String workerlastname, String workercity, String workerlati, String workerlongi, String skillName, String workeremail,) async {
+
+
+  // }
+  //    String workerfirstName = '';
+  // String workerlastname = '';
+  // String workercity = '';
+  // String workerlati = '';
+  // String workerlongi = '';
+  //  String workeremail = '';
+
+
+//    getUserData() async {
+//     await FirebaseFirestore.instance
+//         .collection('worker')
+//         .where('email', isEqualTo: FirebaseAuth.instance.currentUser?.email)
+//         .get()
+//         .then((value) {
+//       print(value.docs.first.data()['firstname']);
+//       print(value.docs.first.data()['lastname']);
+//       print(value.docs.first.data()['email']);
+//       workerfirstName = value.docs.first.data()['firstname'];
+//       workerlastname = value.docs.first.data()['lastname'];
+//       workercity = value.docs.first.data()['city'];
+//       workerlati = value.docs.first.data()['lat'];
+//       workerlongi = value.docs.first.data()['long'];
+//      workeremail = value.docs.first.data()['email'];
+//     });
+//     // setState(() {
+//     //   isLoading = false;
+//     // });
+//  }
+
+
+
+createRecord() async {
     // print("@CreateRecord/CartData");
     // print('In create Record $customerName');
       print("Rimsha is best3");
-       print(SelectedProducts);
+       print(selectedProducts);
    
+    print("Rimsha is best5");
+   print(worker);
+ var workeremail;
+  var workerfirstName;
+  var workerlastname ;
+  var workercity;
+  var workerlati;
+  var workerlongi;
+  var workerSkillname;
+ 
+
+   for(var a in worker){
+
+   workeremail = a['workeremail'];
+   workerfirstName = a['firstname']; 
+   workerlastname = a['lastname']; 
+   workercity = a['city']; 
+   workerlati = a['worker_lati']; 
+   workerlongi = a['worker_longi'];
+   workerSkillname = a['Skill Name'];
+   print("workeremail");
+   print(workeremail);
 
     const _chars =
         'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
@@ -164,31 +224,12 @@ data(){
       "city":workercity,
       "lat":workerlati,
       "long":workerlongi,
-      "skillname":skillName,
-      'services': FieldValue.arrayUnion(SelectedProducts),
+      "skillname":workerSkillname,
+     
+      'services': FieldValue.arrayUnion(selectedProducts),
   
       });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  print("check data");
     print(selectedProducts.toString());
     notifyListeners();
   }
@@ -214,4 +255,5 @@ data(){
   //       // ignore: deprecated_member_use
   //       .get();
   // }
+}
 }

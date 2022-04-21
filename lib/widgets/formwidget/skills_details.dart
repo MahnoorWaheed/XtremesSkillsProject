@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xtremes_skills/model/user.dart';
 import 'package:xtremes_skills/model/workermodel.dart';
+import 'package:xtremes_skills/modules/User%20Screens/select_task.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/dashboard.dart';
 import 'package:xtremes_skills/widgets/action_button.dart';
 import 'package:xtremes_skills/utils/utils.dart';
@@ -279,22 +280,22 @@ String serviceprice = '';
                       
                        }),
                        ActionButton(ontap: (){
-                       myAllData.add(new mySReportDetails2(Service: widget.Service1, description: txtdata, time: time, Price: Price));
+                      //  myAllData.add(new mySReportDetails2(Service: widget.Service1, description: txtdata, time: time, Price: Price));
                         // myAllData.add(new mySReportDetails2 (Service: se ));
-                        // Provider.of<WorkerModel>(context, listen: false).add({
+                        Provider.of<WorkerModel>(context, listen: false).add({
                              
-                        //      "Service" : "${widget.Service1}",
-                        //      "description":"${txtdata}",
-                        //      "time":"${time}",
-                        //      "Price":"${Price}",
+                             "Service" : "${widget.Service1}",
+                             "description":"${txtdata}",
+                             "time":"${time}",
+                             "Price":"${Price}",
 
-                        //   // "Service: ${widget.Service1}",
-                        //   // "description: ${txtdata}", 
-                        //   // "time: ${time}",
-                        //   // "Price: ${Price}",
-                        //     //"timestamp": getTime
+                          // "Service: ${widget.Service1}",
+                          // "description: ${txtdata}", 
+                          // "time: ${time}",
+                          // "Price: ${Price}",
+                            //"timestamp": getTime
                          
-                        //   });
+                          });
 
                        }, text: "Add Service")
                        ] )), 
@@ -640,25 +641,51 @@ String serviceprice = '';
                      
                     print("my all data");
                      print(myAllData);
+
+                         Provider.of<WorkerModel>(context, listen: false).addAll({
+                             
+                             "Skill Name" : "${ widget.SkillName}",
+                             "firstname":"${workerfirstName}",
+                             "lastname":"${workerlastname}",
+                             "city":"${workercity}",
+                              "worker_lati":"${workerlati}",
+                             "worker_longi":"${workerlongi}",
+                               "workeremail":"${workeremail}",
+                             
+                                      
+                                      // widget.cart,
+                                   
+                                     
+
+
+
+                          // "Service: ${widget.Service1}",
+                          // "description: ${txtdata}", 
+                          // "time: ${time}",
+                          // "Price: ${Price}",
+                            //"timestamp": getTime
+                         
+                          });
+
                     //     print(txtdata);
                     //     print(time);
                     //     print(Price);
 
-                         await widget.cart.createRecord(
-                                      widget.cart,
-                                      widget.SkillName,
-                                      workerfirstName,
+                        //  await widget.cart.createRecord(
+                        //               // widget.cart,
+                        //               widget.SkillName,
+                        //               workerfirstName,
                                       
-                                      // widget.cart,
-                                      workerlastname,
-                                      workercity,
-                                      workerlati,
-                                      workerlongi,
-                                      workeremail,
+                        //               // widget.cart,
+                        //               workerlastname,
+                        //               workercity,
+                        //               workerlati,
+                        //               workerlongi,
+                        //               workeremail,
                                   
                                       
-                                      );
-                                      Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const Dashboard()));
+                        //               );
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> NearbyWorkers()));
 
                        // openDialog();
 //                             String Price = '';
