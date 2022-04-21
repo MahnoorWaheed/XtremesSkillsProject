@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/bottom_nav.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
 
 import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
@@ -20,9 +21,11 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
+
 class _LoginState extends State<Login> {
  
 //  final _controller= Get.put(LoginController());
+bool _isobsecure=false;
 bool isLoading= false;
   final FirebaseAuth _auth= FirebaseAuth.instance;
    GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -62,13 +65,7 @@ bool isLoading= false;
 
   @override
   Widget build(BuildContext context) {
-    bool _isobsecure = true;
     
-    void _toggle() {
-    setState(() {
-      _isobsecure = !_isobsecure;
-    });
-  }
     
     return Scaffold(
        backgroundColor: Colors.white,
@@ -135,7 +132,7 @@ bool isLoading= false;
                 width: screenWidth(context)*0.7,
                             margin: const EdgeInsets.only(top: 20),
                             child: TextFormField(
-                              obscureText: _isobsecure,
+                              obscureText: !_isobsecure,
                          
                             controller: pass,
                              
@@ -144,9 +141,15 @@ bool isLoading= false;
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                                 prefixIcon:  Icon(Icons.lock, color: Colors.blue.shade900,),
-                                suffix:  InkWell(
-                                  onTap: _toggle,
-                                  child: Icon(_isobsecure? Icons.visibility:Icons.visibility_off)),
+                                suffix:  IconButton(onPressed: (){
+                                  setState(() {
+                                    log('hello');
+                                  _isobsecure=! _isobsecure;
+                                  print(_isobsecure);
+                                  });
+                                }, icon: Icon(
+                                  _isobsecure?Icons.visibility:Icons.visibility_off
+                                )),
                                 labelText: "Password",
                                 labelStyle: TextStyle(color: Colors.blue[800]),
                                 filled: true,
@@ -207,7 +210,8 @@ bool isLoading= false;
                       else{
                    
 
-                             Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>  skills()));
+                            //  Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>  skills()));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>  BottomNav()));
                             dispose();
 
                             //  Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const LocationData()));

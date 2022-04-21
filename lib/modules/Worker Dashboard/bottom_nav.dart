@@ -1,5 +1,10 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:xtremes_skills/modules/User%20Screens/userchat.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/dashboard.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/mychats.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/order.dart';
@@ -13,14 +18,20 @@ class BottomNav extends StatefulWidget {
 }
 
 class _BottomNavState extends State<BottomNav> {
+  
 
+  
+  
    int selectedpage = 0;
   final _pageOption = [
     Dashboard(),
     Order(),
     Review(),
     MyChat(),
+    // UserChat(chatid: personaldata[index][], name: name, current_name: current_name)
+   
   ];
+  
 
   @override
   Widget build(BuildContext context) {

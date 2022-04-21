@@ -1,12 +1,20 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:developer';
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xtremes_skills/modules/User%20Screens/location.dart';
+import 'package:xtremes_skills/modules/User%20Screens/userchat.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/bottom_nav.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/mychats.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/review.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/notification.dart';
 import 'package:xtremes_skills/utils/utils.dart';
 import 'package:xtremes_skills/widgets/action_button.dart';
@@ -21,16 +29,60 @@ class DasboardUser extends StatefulWidget {
 }
 
 class _DasboardUserState extends State<DasboardUser> {
+  List<Map<String,dynamic>> personaldata=[];
+  
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getPhone();
+  
+    
      FirebaseMessaging.instance.getInitialMessage();
     FirebaseMessaging.onMessage.listen((event) {
       LocalNotificationService.display(event);
+      
     });
+    
   }
- 
+  void getPhone() async{
+    
+  // var num = await FirebaseAuth.instance.currentUser!.phoneNumber;
+  // print(num);
+    await FirebaseFirestore.instance.collection("customer").doc(FirebaseAuth.instance.currentUser!.phoneNumber).get().then((map){
+      setState(() {
+        
+        personaldata.add({
+        'name': map['name'],
+         'number':map['number'],
+      });
+      });
+    } );
+  
+}
+ String chatRoomId(String user1,String user2){
+   if(user1[0].toLowerCase().codeUnits[0]>
+      user2.toLowerCase().codeUnits[0]   
+   ){
+     return "$user1$user2";
+   }
+   else{
+     return "$user2$user1";
+   }
+ }
+ void createchatroom(String workername,currentname,id ){
+    
+    List<String> users=[workername,currentname];
+    Map<String,dynamic> ChatRoomMap={
+      'users':users,
+       'chatroomid':id
+    };
+    FirebaseFirestore.instance.collection('newchat').doc(id).set(ChatRoomMap);
+   
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -145,9 +197,10 @@ class _DasboardUserState extends State<DasboardUser> {
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: <Widget>[
+                              
                                GestureDetector(  onTap: () {
                                  
-                                          // Get.to()
+                                        log(skills['Name']);
                                        },
                                 child: Container(
                                   width: MediaQuery.of(context).size.width * 0.4,
@@ -167,23 +220,52 @@ class _DasboardUserState extends State<DasboardUser> {
                                             height: MediaQuery.of(context).size.height * 0.17,
                                            
                                           ),
-                                          borderRadius: BorderRadius.only(
+                                          borderRadius: const BorderRadius.only(
                                             topLeft: Radius.circular(16.0),
                                             topRight: Radius.circular(16.0),
                                           ),
                                         ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            
+                                        Text(
+                                          skills['Name'],
+                                          style: const TextStyle(
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'Times New Roman'),
+                                        ),
+                                        GestureDetector(
+                                          onTap: (){
+                                            
+                                            log(skills['wname']);
+                                             
+                                        
+                                       log(personaldata[index]['name']);
+                                            
+                                            String roomId = chatRoomId(skills['wname'], personaldata[index]['name']);
+                                            log('success');
+                                            log(roomId);
+
+
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(builder: (_)=> UserChat(chatid: roomId, current_name: personaldata[index]['name'], ))
+                                            );
+                                              createchatroom(skills['wname'],personaldata[index]['name'],roomId);
+
+                                            // FirebaseFirestore.instance.collection('chats').doc(skills['email']).set({
+                                            //           'chatid':roomId,
+                                            //           'workername':skills['wname'],
+                                            //           'username': personaldata[index]['name']
+                                            // });
+                                        //  Get.to(BottomNav());
+                                                   
+                                          },
+                                          child: Icon(Icons.chat,))
+                                          ],
+                                        )
                         
-                                        Center(
-                                          child: Text(
-                                            skills['Name'],
-                                            style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'Times New Roman'),
-                                          ),
-                                          
-                                      
-                                      ),
                                       
                                       ],
                                     ),

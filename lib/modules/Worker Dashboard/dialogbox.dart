@@ -37,14 +37,16 @@ String username="";
 
      getCurrentUser() async {
     await _firestore
-        .collection("worker")
-        .doc(_auth.currentUser!.email)
+        .collection("customer")
+        .doc(_auth.currentUser!.phoneNumber)
         .get()
         .then((value) {
             setState(() {
-              username= value['firstname'];           
+              username= value['name'];           
       });     
     });
+    log('okkkkkkk');
+    log(username);
   }
   
   double rating=0;
@@ -59,6 +61,7 @@ String username="";
            
            
       });
+      
     }
     _displayDialog(BuildContext context) async {  
     return showDialog(  
@@ -99,7 +102,7 @@ String username="";
                 dispose();
                 Navigator.of(context)
                       .push(MaterialPageRoute(
-                          builder: (context) => BottomNav(),
+                          builder: (context) => const BottomNav(),
                               ));
                           
                   

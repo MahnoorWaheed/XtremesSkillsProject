@@ -24,7 +24,6 @@ class _PlaceOrderState extends State<PlaceOrder> {
     final FirebaseFirestore _firestore= FirebaseFirestore.instance;
 
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -251,20 +250,21 @@ WalletMethod(
                 text: 'PAY NOW',
                 bordersidecolor: Colors.blue.shade900,
                 color: Colors.blue.shade900,
+                ontap: (){},
 
               
 
     
 
-                ontap: () async{
-                  String? usertoken =await FirebaseMessaging.instance.getToken();
-                  _firestore.collection('orders').doc().set(
-                   {
-                      'name':"Muhib",
-                    'description': "hjkhjkh",
-                    'userFCM_token': usertoken,
-                   }
-                  ); 
+                // ontap: () async{
+                //   String? usertoken =await FirebaseMessaging.instance.getToken();
+                //   _firestore.collection('orders').doc().set(
+                //    {
+                //       'name':"Muhib",
+                //     'description': "hjkhjkh",
+                //     'userFCM_token': usertoken,
+                //    }
+                //   ); 
 
 
 
@@ -273,7 +273,10 @@ WalletMethod(
                   //   context,
                   //   MaterialPageRoute(builder: (context) => PayNow()),
                   // );
-                })))])
+                
+                )
+                )
+                )])
                 );
             
   }

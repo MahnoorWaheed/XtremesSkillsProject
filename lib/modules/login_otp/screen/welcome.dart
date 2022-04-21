@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,9 +8,12 @@ import "package:flutter/material.dart";
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xtremes_skills/modules/User%20Screens/dashboard.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/skills.dart';
 import 'package:xtremes_skills/modules/login_otp/controller/otp_controller.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/otp_screen.dart';
+import 'package:xtremes_skills/modules/login_otp/screen/registration.dart';
 
 
 enum MobileVerificationState {
@@ -22,6 +27,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+
+
+
+// Assign widget based on availability of currentUser
+
+
   MobileVerificationState currentState =
       MobileVerificationState.SHOW_MOBILE_FORM_STATE;
     
@@ -31,12 +43,36 @@ class _LoginScreenState extends State<LoginScreen> {
   final nameController= TextEditingController();
 
   FirebaseAuth _auth = FirebaseAuth.instance;
-  String? dialCodeDigit ="+00";
+  String? dialCodeDigit ="+92";
 
   String? verificationId;
 
   bool showLoading = false;
   int? forceResendingToken;
+  var number='';
+
+  getDoc() async{
+   var a = await FirebaseFirestore.instance.collection('PhoneNumber').doc(phoneController.text).get();
+   if(a.exists){
+     Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>OTPControllerScreen(
+              phone: phoneController.text,
+              codedigits: dialCodeDigit.toString(),
+            )));
+     print('Exists');
+     return a;
+   }
+   if(!a.exists){
+     Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>UserRegistration(
+              phone: phoneController.text,
+              code: dialCodeDigit.toString(),
+            )));
+     print('Not exists');
+     return null;
+   }
+
+  }
+
+ 
 
   void signInWithPhoneAuthCredential(
       PhoneAuthCredential phoneAuthCredential) async {
@@ -75,9 +111,9 @@ class _LoginScreenState extends State<LoginScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         // const Spacer(),
-        Text("Registration",
+        Text("Welcome",
         style: GoogleFonts.poppins(
-          fontSize: 25, 
+          fontSize: 30, 
           fontWeight:FontWeight.bold,
         ),
         ),
@@ -85,9 +121,9 @@ class _LoginScreenState extends State<LoginScreen> {
         height: MediaQuery.of(context).size.height*0.2,
         fit: BoxFit.contain,
         ),
-         Text("Add Phone Number to Verify you are not a Robot", 
+         Text("Please enter your Mobile Number to\nLOGIN or to REGISTER your account.", 
          style: GoogleFonts.poppins(
-           fontSize: 14,
+           fontSize: 16,
            
          ),
          
@@ -102,7 +138,8 @@ class _LoginScreenState extends State<LoginScreen> {
                  dialCodeDigit = country.dialCode;
                });
              },
-             initialSelection: "IT",
+             initialSelection: "pk",
+             
              showCountryOnly: false,
              showOnlyCountryWhenClosed: false,
              favorite: ["+1", "US", "+92", "Pak"],
@@ -142,10 +179,30 @@ class _LoginScreenState extends State<LoginScreen> {
                     
         ElevatedButton(
           onPressed: () async {
-            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>OTPControllerScreen(
+           
+            // await FirebaseFirestore.instance.collection('PhoneNumber').doc(phoneController.text).get();
+            // log('success');
+            final snapShot = await FirebaseFirestore.instance.collection('customer').doc('+92'+phoneController.text).get();
+
+   if (snapShot.exists){
+        // Document already exists
+         Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>OTPControllerScreen(
               phone: phoneController.text,
               codedigits: dialCodeDigit.toString(),
             )));
+        log('exists');
+   }
+   else{
+        // Document doesn't exist
+        Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>UserRegistration(
+              phone: phoneController.text,
+              code: dialCodeDigit.toString(),
+            )));
+        log('not exists');
+   }
+
+          
+           
             
           },
           child: const Text("SEND"),

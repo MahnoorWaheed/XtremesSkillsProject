@@ -18,8 +18,8 @@ class _ReviewState extends State<Review> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   // List<Map<String, dynamic>> personaldata = [];
 
-  final List<String> names=["Luqman", "Ahmed", "Salman", "Ali ","Mustafa", "Qureshi"];
-  final List<String> days=["8 days ago","4 days ago","5 days ago","8 days ago","1 days ago"," Now"];
+  // final List<String> names=["Luqman", "Ahmed", "Salman", "Ali ","Mustafa", "Qureshi"];
+  // final List<String> days=["8 days ago","4 days ago","5 days ago","8 days ago","1 days ago"," Now"];
 
   
 
@@ -47,7 +47,8 @@ class _ReviewState extends State<Review> {
              
 
               Expanded(
-                child: StreamBuilder<QuerySnapshot>(stream: FirebaseFirestore.instance.collection("reviews").snapshots(),
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance.collection("reviews").snapshots(),
                 builder: (context,snapshot){
                   if(!snapshot.hasData){
                     return const Center(
@@ -71,22 +72,20 @@ class _ReviewState extends State<Review> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            CircleAvatar(
-                              radius: 25,
-                              child: Image.asset("assets/logo.png",),
+                            Flexible(
+                              child: CircleAvatar(
+                                radius: 25,
+                                child: Image.asset("assets/logo.png",),
+                              ),
                             ),
+                            const SizedBox(width: 10,),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(days[index], 
-                                style: GoogleFonts.poppins(
-                                  fontSize: 9,
-                                  color: Colors.grey,
-                                ),
-                                ),
+                               
                                 Text(
                                   
-                                  names[index],
+                                  customer_review['name'],
                                 // personaldata[index]['fname'], 
                                 style: GoogleFonts.poppins(
                                   fontSize: 11,
@@ -102,16 +101,17 @@ class _ReviewState extends State<Review> {
                               ],
                             ),
                             Column(
+                              
                               children: [
                            
                                 Row(
-                                  
+                                
                                   children: List.generate(5, (index) => IconButton(onPressed: (){}, icon: index < customer_review['rating'] ?const Icon(Icons.star,size: 15,):const Icon(Icons.star_border_outlined, size: 15))),
                                 ),
                                 
                                 Container(
                                   width: 200,
-                                  margin: EdgeInsets.symmetric(horizontal: 5),
+                                  margin:const EdgeInsets.symmetric(horizontal: 5),
                                   child: Text(customer_review['review'],
                                    style: GoogleFonts.poppins(fontSize: 13),
                                    maxLines: 4,
