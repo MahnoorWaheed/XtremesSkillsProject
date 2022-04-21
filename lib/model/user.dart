@@ -18,3 +18,26 @@ class User {
 //   }
 // }
 
+
+class mySReportDetails2{
+  String Service,description,time,Price;
+
+mySReportDetails2({
+  required this.Service,
+  required this.description,
+  required this.time,
+  required this.Price,
+});
+
+// mySReport({
+//   required this.itemName,
+//   required this.quantity,
+//   required this.unitPrice,
+//   required this.idtotalPrice;
+
+
+// });
+
+  static fromJson(i) {}
+
+}

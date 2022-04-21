@@ -7,8 +7,13 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geocoding/geocoding.dart';
 
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:xtremes_skills/model/workermodel.dart';
+
 import 'package:xtremes_skills/modules/User%20Screens/dashboard.dart';
+
 import 'package:xtremes_skills/modules/User%20Screens/first_screen.dart';
 import 'package:xtremes_skills/modules/User%20Screens/live_location.dart';
 import 'package:xtremes_skills/modules/User%20Screens/location.dart';
@@ -67,7 +72,11 @@ Future<void> main() async {
     //    badge: true,
     //    sound: true);
 
-     runApp(GetMaterialApp(
+      runApp(ChangeNotifierProvider<WorkerModel>(
+    create: (context) => WorkerModel(),
+    child: 
+    
+    GetMaterialApp(
        debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -86,6 +95,11 @@ Future<void> main() async {
 
 
       //  home: NearbyWorkers()));
+
+
+       home: NearbyWorkers()
+       )
+       ));
 
 
        home: skills()));
