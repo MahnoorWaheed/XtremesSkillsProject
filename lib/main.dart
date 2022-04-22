@@ -21,9 +21,6 @@ import 'package:xtremes_skills/modules/User%20Screens/location.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/bottom_nav.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/dashboard.dart';
 import 'package:xtremes_skills/modules/User%20Screens/selectservice.dart';
-
-
-import 'package:xtremes_skills/modules/Worker%20Dashboard/dialogbox.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/location.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/mychats.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/review.dart';
@@ -97,12 +94,14 @@ Future<void> main() async {
       //  home: NearbyWorkers()));
 
 
+
        home: NearbyWorkers()
        )
        ));
 
 
-       home: skills()));
+//        home: skills()));
+
 
       //  home: DialogBox()));
 
