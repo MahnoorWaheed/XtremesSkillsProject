@@ -15,18 +15,14 @@ import 'package:xtremes_skills/widgets/action_button.dart';
 import 'package:xtremes_skills/widgets/wallet_method.dart';
 
 class PlaceOrder extends StatefulWidget {
-
-
+  
 var total_amount;
 
  PlaceOrder(this.total_amount, 
 
+
  );
-
   
-  const PlaceOrder({ Key? key }) : super(key: key);
-  
-
 
   @override
   _PlaceOrderState createState() => _PlaceOrderState();
@@ -161,7 +157,7 @@ String username="";
                     margin: const EdgeInsets.only(left: 20, right: 10),
                     child: const Icon(Icons.arrow_back_ios),
                   ),
-                  Text('Total Bill: Rs 300',
+                  Text('Total Bill: Rs ${widget.total_amount}',
                       style: kBlackTextStyle.copyWith(fontSize: 17,  fontFamily: 'Montserrat',))
                 ],
               ),
@@ -194,23 +190,6 @@ String username="";
                   ],
                 ),
               ),
-
-              Text('Total Bill: Rs ${widget.total_amount}',
-                  style: kBlackTextStyle.copyWith(fontSize: 17,  fontFamily: 'Montserrat',))
-            ],
-          ),
-          SizedBox(height: 20),
-          Container(
-            margin: EdgeInsets.only(left: 15, right: 15),
-            height: MediaQuery.of(context).size.height * 0.08,
-            width: MediaQuery.of(context).size.width,
-            child: Row(
-              children: [
-                Image(
-                  image: AssetImage('assets/worker.jpg'),
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.1,
-
               Container(
                 margin: const EdgeInsets.only(left: 15, right: 15),
                 height: MediaQuery.of(context).size.height * 0.10,
@@ -239,7 +218,6 @@ String username="";
                       ],
                     )
                   ],
-
                 ),
               ),
               Container(
@@ -348,100 +326,6 @@ String username="";
                   height: MediaQuery.of(context).size.height * 0.07,
                   width: MediaQuery.of(context).size.height * 0.07,
                 ),
-
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 15),
-            child: Text('Wallet Method',
-                style: kBlackTextStyle.copyWith(fontSize: 15, fontFamily: 'Montserrat',)),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 10),
-            child: Column(
-            children: [
-WalletMethod(
-            image: Image(
-              image: AssetImage('assets/paypal.png'),
-              height: MediaQuery.of(context).size.height * 0.07,
-              width: MediaQuery.of(context).size.height * 0.07,
-            ),
-            title: 'Pay Pal',
-          ),
-          WalletMethod(
-            image: Image(
-              image: AssetImage('assets/jazz.png'),
-              height: MediaQuery.of(context).size.height * 0.07,
-              width: MediaQuery.of(context).size.height * 0.07,
-            ),
-            title: 'Jazz Cash',
-          ),
-          WalletMethod(
-            image: Image(
-              image: AssetImage('assets/easypaisa.png'),
-              height: MediaQuery.of(context).size.height * 0.07,
-              width: MediaQuery.of(context).size.height * 0.07,
-            ),
-            title: 'Easy Paisa',
-          ),
-            ],
-          )),
-          // WalletMethod(
-          //   image: Image(
-          //     image: AssetImage('assets/images/phone.png'),
-          //     height: MediaQuery.of(context).size.height * 0.07,
-          //     width: MediaQuery.of(context).size.height * 0.07,
-          //   ),
-          //   title: 'Phone Pay',
-          // ),
-          // WalletMethod(
-          //   image: Image(
-          //     image: AssetImage('assets/images/google.png'),
-          //     height: MediaQuery.of(context).size.height * 0.07,
-          //     width: MediaQuery.of(context).size.height * 0.07,
-          //   ),
-          //   title: 'Google Pay',
-          // ),
-          // WalletMethod(
-          //   image: Image(
-          //     image: AssetImage('assets/images/payPal.png'),
-          //     height: MediaQuery.of(context).size.height * 0.07,
-          //     width: MediaQuery.of(context).size.height * 0.07,
-          //   ),
-          //   title: 'Pay Pal',
-          // ),
-          Center(
-            child: Container(
-              margin: EdgeInsets.only(top: 10),
-              child: ActionButton(
-                text: 'PAY NOW',
-                bordersidecolor: Colors.blue.shade900,
-                color: Colors.blue.shade900,
-                // ontap: (){},  
-
-                ontap: () async{
-                  String? usertoken =await FirebaseMessaging.instance.getToken();
-                  _firestore.collection('orders').doc().set(
-                   {
-                      'name':"Muhib",
-                    'description': "hjkhjkh",
-                    'userFCM_token': usertoken,
-                   }
-                  ); 
-
-
-
-                  
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => PayNow()),
-                  // );
-                
-                }),
-                )
-                )])
-
                 title: 'Jazz Cash',
               ),
               WalletMethod(
@@ -513,13 +397,21 @@ WalletMethod(
                     text: 'PAY NOW',
                     bordersidecolor: Colors.blue.shade900,
                     color: Colors.blue.shade900,
-                    ontap: (){
+                    ontap: () async{
                       var snackBar;
                        
                          print(_checkbox);
                     
                          _checkbox?     _displayDialog(context):  snackBar = SnackBar(content: Text('Please select payment method'));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
+           String? usertoken =await FirebaseMessaging.instance.getToken();
+                      _firestore.collection('orders').doc().set(
+                       {
+                          'name':"Muhib",
+                        'description': "hjkhjkh",
+                        'userFCM_token': usertoken,
+                       }
+                      ); 
                        
                     },
         
@@ -550,7 +442,6 @@ WalletMethod(
                     )]),
         ),
       )
-
                 );
             
   }
