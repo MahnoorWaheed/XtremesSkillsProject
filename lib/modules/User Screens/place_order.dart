@@ -10,7 +10,12 @@ import 'package:xtremes_skills/widgets/action_button.dart';
 import 'package:xtremes_skills/widgets/wallet_method.dart';
 
 class PlaceOrder extends StatefulWidget {
-  const PlaceOrder({ Key? key }) : super(key: key);
+
+var total_amount;
+
+ PlaceOrder(this.total_amount, 
+
+ );
 
   @override
   _PlaceOrderState createState() => _PlaceOrderState();
@@ -38,7 +43,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
                 margin: EdgeInsets.only(left: 20, right: 10),
                 child: Icon(Icons.arrow_back_ios),
               ),
-              Text('Total Bill: Rs 300',
+              Text('Total Bill: Rs ${widget.total_amount}',
                   style: kBlackTextStyle.copyWith(fontSize: 17,  fontFamily: 'Montserrat',))
             ],
           ),
@@ -250,21 +255,17 @@ WalletMethod(
                 text: 'PAY NOW',
                 bordersidecolor: Colors.blue.shade900,
                 color: Colors.blue.shade900,
-                ontap: (){},
+                // ontap: (){},  
 
-              
-
-    
-
-                // ontap: () async{
-                //   String? usertoken =await FirebaseMessaging.instance.getToken();
-                //   _firestore.collection('orders').doc().set(
-                //    {
-                //       'name':"Muhib",
-                //     'description': "hjkhjkh",
-                //     'userFCM_token': usertoken,
-                //    }
-                //   ); 
+                ontap: () async{
+                  String? usertoken =await FirebaseMessaging.instance.getToken();
+                  _firestore.collection('orders').doc().set(
+                   {
+                      'name':"Muhib",
+                    'description': "hjkhjkh",
+                    'userFCM_token': usertoken,
+                   }
+                  ); 
 
 
 
@@ -274,7 +275,7 @@ WalletMethod(
                   //   MaterialPageRoute(builder: (context) => PayNow()),
                   // );
                 
-                )
+                }),
                 )
                 )])
                 );

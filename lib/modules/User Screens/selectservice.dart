@@ -21,6 +21,8 @@ String skillname;
 }
 
 class _NearbyState extends State<Nearby> {
+  var total_amount;
+
 @override
   void initState() {
     // TODO: implement initState
@@ -55,6 +57,8 @@ bool valuefirst = false;
   String valueText = ''; 
 
     bool _checkboxListTile = false;
+     int total = 0;
+      int addval = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -71,38 +75,72 @@ bool valuefirst = false;
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          height: screenHeight(context)*0.1,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text("Total Amount",
-                  style: GoogleFonts.poppins(
-                                    fontSize: 10,
-                                    color: Colors.blue.shade900
-                                  ),
-                  ), 
-                  // Text(widget.service13+widget.service23+widget.service33, 
-                  // style: GoogleFonts.poppins(
-                  //                   fontSize: 16, fontWeight: FontWeight.bold,
-                  //                   color: Colors.blue.shade900
-                  //                 ),
-                ]),
-                ],
-              ),
-              // ActionButton(ontap: (){
-              //   Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>PlaceOrder()));
-              // }, text: "Place order", 
-              // bordersidecolor: Colors.transparent,
-              // color: Colors.blue.shade900,
-              // )
+        child: Card(
+                                 color: Colors.blue.shade900,
+                                 elevation: 5,
+                                  child: ListTile(
+                                    
+                                                        title:  Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text("Total Amount :",
+                                                            style: TextStyle(
+                                                            color: Colors.white ),),
+                                                           
+                                                        //     Text("Quantity",style: TextStyle(
+                                                        // color: Colors.white )),
+                                                        //       Text("Unit Price",style: TextStyle(
+                                                        // color: Colors.white )),
+                                                          Text("$total . Rs",style: TextStyle(
+                                                        color: Colors.white )),
+                                                         ElevatedButton(onPressed: (){
+                                                            Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => PlaceOrder(
+                                      total_amount = total,
+                                      
+                                    ),
+                                  ));
+                                                         }, child: Text("Place Order"))
+                                                          ],
+                                                        ), 
+                                                                                                             
+                                                       
+                                                            ),
+                                ),
+        
+        // Container(
+        //   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        //   height: screenHeight(context)*0.1,
+        //   decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.circular(20)
+        //   ),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //     children: [
+        //       Text("Total Amount",
+        //       style: GoogleFonts.poppins(
+        //                         fontSize: 20,
+        //                         color: Colors.blue.shade900,
+        //                         fontWeight: FontWeight.bold,
+        //                       ),
+        //       ),
+        //       Text("$total . Rs",
+        //       style: GoogleFonts.poppins(
+        //                         fontSize: 20,
+        //                         color: Colors.blue.shade900,
+        //                         fontWeight: FontWeight.bold,
+        //                       ),
+        //       ),
+        //         ],
+        //       ),
+        //       // ActionButton(ontap: (){
+        //       //   Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>PlaceOrder()));
+        //       // }, text: "Place order", 
+        //       // bordersidecolor: Colors.transparent,
+        //       // color: Colors.blue.shade900,
+        //       // )
        
-          ),
+        //   ),
         ),
 
 body: Card(
@@ -178,11 +216,28 @@ body: Card(
 //                             
                           ],
                         ), 
-                       value:widget.workerlist[index]['value'] as bool,
+                       value:widget.workerlist[index]['value'],
                        onChanged: (value) {
                        setState(() {
                       widget.workerlist[index]['value'] = value;
-                              
+                      if(value==true){
+                          addval = int.parse(widget.workerlist[index]['Price']); 
+                          total += addval; 
+                         
+                      }
+                          print(addval);
+                          print("total value");
+                          print(total);
+                      // if(value==true){
+                      //    for(int i=0;i<=widget.workerlist[index];i++){
+                      //    total+= widget.workerlist[index]['Price'];
+                      //  }
+                      // }
+                      //  for(int i=0;i<=widget.workerlist[index];i++){
+                      //    total+= widget.workerlist[index]['Price'];
+                      //  }
+                      //  print("total");
+                      //    print(total);     
                           }); 
                 //             myALLadd({
                 //           "service": "${widget.Service2}",
