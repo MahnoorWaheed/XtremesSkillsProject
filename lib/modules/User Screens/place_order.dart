@@ -198,7 +198,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
             margin: EdgeInsets.only(left: 10),
             child: Column(
             children: [
-WalletMethod(
+            WalletMethod(
             image: Image(
               image: AssetImage('assets/paypal.png'),
               height: MediaQuery.of(context).size.height * 0.07,
