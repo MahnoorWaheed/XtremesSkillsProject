@@ -91,12 +91,12 @@ Future<void> main() async {
 
 
 
-       home: NearbyWorkers()
+       home: FirstScreen(),
 
 
       //  home: SplashScreen()
 
-       home: NearbyWorkers()
+       
 
        )
        ));

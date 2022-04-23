@@ -281,15 +281,17 @@ class _LoginScreenState extends State<LoginScreen> {
     return SafeArea(
       child: Scaffold(
           key: _scaffoldKey,
-          body: Container(
-            child: showLoading
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : currentState == MobileVerificationState.SHOW_MOBILE_FORM_STATE
-                    ? getMobileFormWidget(context)
-                    : getOtpFormWidget(context),
-            padding: const EdgeInsets.all(16),
+          body: SingleChildScrollView(
+            child: Container(
+              child: showLoading
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : currentState == MobileVerificationState.SHOW_MOBILE_FORM_STATE
+                      ? getMobileFormWidget(context)
+                      : getOtpFormWidget(context),
+              padding: const EdgeInsets.all(16),
+            ),
           )),
     );
   }
