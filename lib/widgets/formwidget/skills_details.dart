@@ -289,7 +289,7 @@ String serviceprice = '';
                              "description":"${txtdata}",
                              "time":"${time}",
                              "Price":"${Price}",
-                             "value": value.toString(),
+                             "value": value,
 
                           // "Service: ${widget.Service1}",
                           // "description: ${txtdata}", 
@@ -458,7 +458,7 @@ String serviceprice = '';
                              "description":"${txtdata2}",
                              "time":"${time2}",
                              "Price":"${Price2}",
-                              "value": value.toString(),
+                              "value": value,
 
                           // "Service: ${widget.Service1}",
                           // "description: ${txtdata}", 
@@ -477,9 +477,9 @@ String serviceprice = '';
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                        children: [                 
-                     CheckboxListTile(                        
+                                            CheckboxListTile(                        
                       secondary: const Icon(Icons.electrical_services, color: Colors.blue,),  
-                      title: Text(widget.Service1,
+                      title: Text(widget.Service3,
                       style: TextStyle(
                         color: Colors.blue.shade900,
                         fontWeight: FontWeight.bold,
@@ -510,7 +510,7 @@ String serviceprice = '';
                  
                             onChanged: (value){
                   //  setState(() {
-                       txtdata = value;
+                       txtdata3 = value;
                   //  });
                              
                             },
@@ -549,7 +549,7 @@ String serviceprice = '';
                                                  
                                          onChanged: (value){
                                             setState(() {
-                                             time = value;
+                                             time3 = value;
                                            });
 
                                               },
@@ -587,7 +587,7 @@ String serviceprice = '';
                               // },
                                  onChanged: (value){
                                     setState(() {
-                                       Price = value;
+                                       Price3 = value;
                                      });
 
                                         },
@@ -606,8 +606,31 @@ String serviceprice = '';
                           this.valuethird = value!;
                             
                         }); 
-                         
+              //             myALLadd({
+              //           "service": "${widget.Service2}",
+              //           "des": "${txtdata2}",
+              //           "Price": "${Price2.toString()}",
+              //           "Time": "${time2.toString()}",
+              //   //"timestamp": getTime
+              // });
                        }),
+                       ActionButton(ontap: (){
+                          Provider.of<WorkerModel>(context, listen: false).add({
+                             
+                             "Service" : "${widget.Service3}",
+                             "description":"${txtdata3}",
+                             "time":"${time3}",
+                             "Price":"${Price3}",
+                              "value": value,
+
+                          // "Service: ${widget.Service1}",
+                          // "description: ${txtdata}", 
+                          // "time: ${time}",
+                          // "Price: ${Price}",
+                            //"timestamp": getTime
+                         
+                          });
+                       }, text: 'Add Service')
                       ]
                     )
                   ),
@@ -782,6 +805,8 @@ Future openDialog2(){
                              "description":"${servicedes}",
                              "time":"${servicetime}",
                              "Price":"${serviceprice}",
+                             "value": value,
+
 
                           // "Service: ${widget.Service1}",
                           // "description: ${txtdata}", 
