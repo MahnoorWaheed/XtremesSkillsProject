@@ -9,10 +9,10 @@ import 'package:xtremes_skills/widgets/action_button.dart';
 class Nearby extends StatefulWidget {
 
 List workerlist;
-// String skillname;
+String skillname;
 
  Nearby(this.workerlist, 
-//  this.skillname
+ this.skillname
 
  );
 
@@ -54,13 +54,15 @@ bool valuefirst = false;
     String codeDialog = '';
   String valueText = ''; 
 
+    bool _checkboxListTile = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lightBlue.shade100,
       appBar: AppBar(
         backgroundColor: Colors.blue.shade900,
-         title: Text("Skill name"),
+         title: Text(widget.skillname),
         centerTitle: true,
         actions: [
           IconButton(
@@ -171,15 +173,15 @@ body: Card(
                           fontSize: 18
                         ),),
                           ],
-                        )           
+                        ),           
                            
 //                             
                           ],
                         ), 
-                        value: this.valuesecond,
-                        onChanged: (value){
-                          setState(() {  
-                            this.valuesecond = value!;
+                       value:widget.workerlist[index]['value'] as bool,
+                       onChanged: (value) {
+                       setState(() {
+                      widget.workerlist[index]['value'] = value;
                               
                           }); 
                 //             myALLadd({

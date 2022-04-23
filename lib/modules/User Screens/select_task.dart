@@ -58,8 +58,9 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
                           print(workerlist['services']);
                              Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => Nearby(
-                                      // skillname = workerlist['skillname'],
+                                     
                                       workerlist['services'],
+                                      skillname = workerlist['skillname'],
                                     ),
                                   ));
                         },

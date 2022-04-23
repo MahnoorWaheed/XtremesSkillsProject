@@ -135,6 +135,7 @@ String serviceprice = '';
   // List<Map<String, String>> SelectedProducts = <Map<String, String>>[];
   // List<Map<String, String>> get selectedProducts => SelectedProducts;
   List<mySReportDetails2> myAllData = [];
+  bool value = false;
 
   @override
   Widget build(BuildContext context) {
@@ -288,6 +289,7 @@ String serviceprice = '';
                              "description":"${txtdata}",
                              "time":"${time}",
                              "Price":"${Price}",
+                             "value": value.toString(),
 
                           // "Service: ${widget.Service1}",
                           // "description: ${txtdata}", 
@@ -456,6 +458,7 @@ String serviceprice = '';
                              "description":"${txtdata2}",
                              "time":"${time2}",
                              "Price":"${Price2}",
+                              "value": value.toString(),
 
                           // "Service: ${widget.Service1}",
                           // "description: ${txtdata}", 
