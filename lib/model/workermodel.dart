@@ -50,17 +50,17 @@ class WorkerModel extends ChangeNotifier {
   }
 
   final databaseReference = FirebaseFirestore.instance;
-  List<Map<String, String>> SelectedProducts = <Map<String, String>>[];
+  List<Map<String, dynamic>> SelectedProducts = <Map<String, dynamic>>[];
   int _total = 0;
-  List<Map<String, String>> get selectedProducts => SelectedProducts;
+  List<Map<String, dynamic>> get selectedProducts => SelectedProducts;
   List<dynamic> myallData = [];
 
   // List<Map<String, String>> _customerName = List<Map<String, String>>();
 
   // List<Map<String, String>> get customerName => _customerName;
-List<Map<String, String>> workervalue = <Map<String, String>>[];
-  List<Map<String, String>> get worker => workervalue;
-  void add(Map<String, String> value) {
+List<Map<String, dynamic>> workervalue = <Map<String, dynamic>>[];
+  List<Map<String, dynamic>> get worker => workervalue;
+  void add(Map<String, dynamic> value) {
     SelectedProducts.add(value);
 
  
@@ -77,7 +77,7 @@ List<Map<String, String>> workervalue = <Map<String, String>>[];
   }
 
   
-void addAll(Map<String, String> value1){
+void addAll(Map<String, dynamic> value1){
   workervalue.add(value1);
  
   //  myallData.add(value);
