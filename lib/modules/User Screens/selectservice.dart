@@ -36,6 +36,7 @@ class _NearbyState extends State<Nearby> {
   }
 // var sum;
 
+
 // void add(price1){
 // print(price1);
 // for(int i=0; i<price1.length;i++){
