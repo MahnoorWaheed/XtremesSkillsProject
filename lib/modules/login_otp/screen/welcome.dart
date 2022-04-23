@@ -108,108 +108,118 @@ class _LoginScreenState extends State<LoginScreen> {
 
   getMobileFormWidget(context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // const Spacer(),
-        Text("Welcome",
-        style: GoogleFonts.poppins(
-          fontSize: 30, 
-          fontWeight:FontWeight.bold,
-        ),
-        ),
-        SvgPicture.asset("assets/phone.svg", 
-        height: MediaQuery.of(context).size.height*0.2,
-        fit: BoxFit.contain,
-        ),
-         Text("Please enter your Mobile Number to\nLOGIN or to REGISTER your account.", 
-         style: GoogleFonts.poppins(
-           fontSize: 16,
-           
-         ),
-         
-         ),
-         Container(
-           width: 400,
-           height: 60,
-          //  color: Colors.red,
-           child: CountryCodePicker(
-             onChanged: (country){
-               setState(() {
-                 dialCodeDigit = country.dialCode;
-               });
-             },
-             initialSelection: "pk",
+        IconButton(onPressed: (){
+          Navigator.of(context).pop();
+        }, icon: Icon(Icons.arrow_back)),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            // const Spacer(),
+            Text("Welcome",
+            style: GoogleFonts.poppins(
+              fontSize: 30, 
+              fontWeight:FontWeight.bold,
+            ),
+            ),
+             SizedBox(height: 30,),
+            SvgPicture.asset("assets/phone.svg", 
+            height: MediaQuery.of(context).size.height*0.2,
+            fit: BoxFit.contain,
+            ),
+            SizedBox(height: 30,),
+             Text("Please enter your Mobile Number to\nLOGIN or to REGISTER your account.", 
+             style: GoogleFonts.poppins(
+               fontSize: 16,
+               
+             ),
              
-             showCountryOnly: false,
-             showOnlyCountryWhenClosed: false,
-             favorite: ["+1", "US", "+92", "Pak"],
-           ),
-         ),
-         Container(
+             ),
+             Container(
+               width: 400,
+               height: 60,
+              //  color: Colors.red,
+               child: CountryCodePicker(
+                 onChanged: (country){
+                   setState(() {
+                     dialCodeDigit = country.dialCode;
+                   });
+                 },
+                 initialSelection: "pk",
+                 
+                 showCountryOnly: false,
+                 showOnlyCountryWhenClosed: false,
+                 favorite: ["+1", "US", "+92", "Pak"],
+               ),
+             ),
+             Container(
  child:  TextFormField(
-         controller: phoneController,
-                      keyboardType: TextInputType.phone,
-                      
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      decoration: InputDecoration(
-                        hintText: "Enter Phone Number",
-                        hintStyle: TextStyle(
-                          color: Colors.black38, 
-                          fontSize: 15
+             controller: phoneController,
+                          keyboardType: TextInputType.phone,
+                          
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          decoration: InputDecoration(
+                            hintText: "Enter Phone Number",
+                            hintStyle: TextStyle(
+                              color: Colors.black38, 
+                              fontSize: 15
+                            ),
+                            prefix: Padding(
+                              padding: EdgeInsets.all(4),
+                              child: Text(dialCodeDigit!),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black12),
+                                borderRadius: BorderRadius.circular(10)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black12),
+                                borderRadius: BorderRadius.circular(10)),
+                            
+                          ),
+                          maxLength: 12,
                         ),
-                        prefix: Padding(
-                          padding: EdgeInsets.all(4),
-                          child: Text(dialCodeDigit!),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black12),
-                            borderRadius: BorderRadius.circular(10)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black12),
-                            borderRadius: BorderRadius.circular(10)),
+             ),
+        
                         
-                      ),
-                      maxLength: 12,
-                    ),
-         ),
-    
-                    
-        ElevatedButton(
-          onPressed: () async {
-           
-            // await FirebaseFirestore.instance.collection('PhoneNumber').doc(phoneController.text).get();
-            // log('success');
-            final snapShot = await FirebaseFirestore.instance.collection('customer').doc('+92'+phoneController.text).get();
+            ElevatedButton(
+              onPressed: () async {
+               
+                // await FirebaseFirestore.instance.collection('PhoneNumber').doc(phoneController.text).get();
+                // log('success');
+                final snapShot = await FirebaseFirestore.instance.collection('customer').doc('+92'+phoneController.text).get();
 
    if (snapShot.exists){
-        // Document already exists
-         Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>OTPControllerScreen(
-              phone: phoneController.text,
-              codedigits: dialCodeDigit.toString(),
-            )));
-        log('exists');
+            // Document already exists
+             Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>OTPControllerScreen(
+                  phone: phoneController.text,
+                  codedigits: dialCodeDigit.toString(),
+                )));
+            log('exists');
    }
    else{
-        // Document doesn't exist
-        Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>UserRegistration(
-              phone: phoneController.text,
-              code: dialCodeDigit.toString(),
-            )));
-        log('not exists');
+            // Document doesn't exist
+            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>UserRegistration(
+                  phone: phoneController.text,
+                  code: dialCodeDigit.toString(),
+                )));
+            log('not exists');
    }
 
-          
-           
-            
-          },
-          child: const Text("SEND"),
-          // color: Colors.blue,
-          // textColor: Colors.white,
+              
+               
+                
+              },
+              child: const Text("SEND"),
+              // color: Colors.blue,
+              // textColor: Colors.white,
+            ),
+            // Spacer(),
+          ],
         ),
-        // Spacer(),
       ],
     );
   }
