@@ -15,11 +15,10 @@ class Nearby extends StatefulWidget {
 
 List workerlist;
 String skillname;
-String workername;
-
-
+String worker_token;
  Nearby(this.workerlist, 
- this.skillname,this.workername
+ this.skillname,this.worker_token,
+
 
  );
 
@@ -28,9 +27,9 @@ String workername;
 }
 
 class _NearbyState extends State<Nearby> {
-  var total_amount;
-  String name='';
-   List<Map<String,dynamic>> personaldata=[];
+
+  var total_amount, worker_token;
+
 
 @override
   void initState() {
@@ -168,6 +167,8 @@ bool valuefirst = false;
                                                             Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => PlaceOrder(
                                       total_amount = total,
+                                      worker_token = widget.worker_token,
+
                                       
                                     ),
                                   ));

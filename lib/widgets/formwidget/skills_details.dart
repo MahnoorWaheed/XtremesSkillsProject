@@ -73,7 +73,8 @@ class _Skill_DetailsState extends State<Skill_Details> {
   String workercity = '';
   String workerlati = '';
   String workerlongi = '';
-   String workeremail = '';
+  String workeremail = '';
+  String workerfcmtoken = '';
   @override
   void initState() {
     getUserData();
@@ -97,6 +98,7 @@ class _Skill_DetailsState extends State<Skill_Details> {
       workerlati = value.docs.first.data()['lat'];
       workerlongi = value.docs.first.data()['long'];
      workeremail = value.docs.first.data()['email'];
+     workerfcmtoken = value.docs.first.data()['FCM token'];
     });
     setState(() {
       isLoading = false;
@@ -200,62 +202,7 @@ String serviceprice = '';
                         });
                          },),
                       SizedBox(height: 10,),
-                      Row(
-                      children: [
-                      Container(
-                      height: screenHeight(context)*0.06,
-                      width: screenWidth(context)*0.29,
-                      child: TextFormField(
-                      keyboardType: TextInputType.name,
-                      cursorColor: Colors.black,
-                      decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.lock_clock, color: Colors.blue.shade900,),
-                      labelText: "work timing",
-                      labelStyle: TextStyle(color: Colors.blue[800]),
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(18),
-                      borderSide: const BorderSide(color: Colors.blue),),
-                      enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue))),
-                                      //            validator: (value){
-                                    //   if(value!.isEmpty ){
-                                    //     return "Field cannot be empty";
-                                    //   }
-                                    //   return null;
-                                    // },
-                                                 
-                      onChanged: (value){
-                      setState(() {time = value;});},),),
-                      SizedBox(width: 5,),
-                      Container(
-                      height: screenHeight(context)*0.06,
-                      width: screenWidth(context)*0.29,
-                      child: TextFormField(
-                      keyboardType: TextInputType.name,
-                      cursorColor: Colors.black,
-                      decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.payment, color: Colors.blue.shade900,),
-                      labelText: "Price",
-                      labelStyle: TextStyle(color: Colors.blue[800]),
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(18),
-                      borderSide: const BorderSide(color: Colors.blue),),
-                      enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue))),
-                              //              validator: (value){
-                              //   if(value!.isEmpty ){
-                              //     return "Field cannot be empty";
-                              //   }
-                              //   return null;
-                              // },
-                      onChanged: (value){
-                      setState(() {
-                      Price = value;
-                      });},),),],),],), 
+                     ],), 
                       value: this.valuefirst,
                       onChanged: (value){
                      
@@ -282,6 +229,65 @@ String serviceprice = '';
                             
                       
                        }),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                      Container(
+                      height: MediaQuery.of(context).size.height*0.06,
+                      width: MediaQuery.of(context).size.width*0.33,
+                      child: TextFormField(
+                      keyboardType: TextInputType.name,
+                      cursorColor: Colors.black,
+                      decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.lock_clock, color: Colors.blue.shade900,),
+                      labelText: "Timing",
+                      labelStyle: TextStyle(color: Colors.blue[800],
+                      fontSize: 14),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(18),
+                      borderSide: const BorderSide(color: Colors.blue),),
+                      enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue))),
+                                      //            validator: (value){
+                                    //   if(value!.isEmpty ){
+                                    //     return "Field cannot be empty";
+                                    //   }
+                                    //   return null;
+                                    // },
+                                                 
+                      onChanged: (value){
+                      setState(() {time = value;});},),),
+                      SizedBox(width: 5,),
+                      Container(
+                      height: MediaQuery.of(context).size.height*0.06,
+                      width: MediaQuery.of(context).size.width*0.33,
+                      child: TextFormField(
+                      keyboardType: TextInputType.name,
+                      cursorColor: Colors.black,
+                      decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.payment, color: Colors.blue.shade900,),
+                      labelText: "Price",
+                      labelStyle: TextStyle(color: Colors.blue[800],
+                      fontSize: 14),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(18),
+                      borderSide: const BorderSide(color: Colors.blue),),
+                      enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue))),
+                              //              validator: (value){
+                              //   if(value!.isEmpty ){
+                              //     return "Field cannot be empty";
+                              //   }
+                              //   return null;
+                              // },
+                      onChanged: (value){
+                      setState(() {
+                      Price = value;
+                      });},),),],),
                        ActionButton(ontap: (){
                       //  myAllData.add(new mySReportDetails2(Service: widget.Service1, description: txtdata, time: time, Price: Price));
                         // myAllData.add(new mySReportDetails2 (Service: se ));
@@ -356,11 +362,30 @@ String serviceprice = '';
                             },
                             ),
                             SizedBox(height: 10,),
-                            Row(
+                           
+//                             
+                        ],
+                      ), 
+                      value: this.valuesecond,
+                      onChanged: (value){
+                        setState(() {  
+                          this.valuesecond = value!;
+                            
+                        }); 
+              //             myALLadd({
+              //           "service": "${widget.Service2}",
+              //           "des": "${txtdata2}",
+              //           "Price": "${Price2.toString()}",
+              //           "Time": "${time2.toString()}",
+              //   //"timestamp": getTime
+              // });
+                       }),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
                                      height: screenHeight(context)*0.06,
-                               width: screenWidth(context)*0.29,
+                               width: screenWidth(context)*0.33,
                                   child: TextFormField(
                                    
                                    
@@ -370,8 +395,10 @@ String serviceprice = '';
                                       cursorColor: Colors.black,
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(Icons.lock_clock, color: Colors.blue.shade900,),
-                                          labelText: "work timing",
-                                          labelStyle: TextStyle(color: Colors.blue[800]),
+                                          labelText: "Timing",
+                                          labelStyle: TextStyle(color: Colors.blue[800],
+                                          fontSize: 14,
+                                          ),
                                           filled: true,
                                           fillColor: Colors.white,
                                           border: OutlineInputBorder(
@@ -398,7 +425,7 @@ String serviceprice = '';
                                 SizedBox(width: 5,),
                                  Container(
                                    height: screenHeight(context)*0.06,
-                               width: screenWidth(context)*0.29,
+                               width: screenWidth(context)*0.33,
                                 
                                 child: TextFormField(
                              
@@ -410,7 +437,9 @@ String serviceprice = '';
                                 decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.payment, color: Colors.blue.shade900,),
                                     labelText: "Price",
-                                    labelStyle: TextStyle(color: Colors.blue[800]),
+                                    labelStyle: TextStyle(color: Colors.blue[800],
+                                    fontSize: 14,
+                                    ),
                                     filled: true,
                                     fillColor: Colors.white,
                                     border: OutlineInputBorder(
@@ -437,23 +466,6 @@ String serviceprice = '';
                               ),
                               ],
                             ),
-//                             
-                        ],
-                      ), 
-                      value: this.valuesecond,
-                      onChanged: (value){
-                        setState(() {  
-                          this.valuesecond = value!;
-                            
-                        }); 
-              //             myALLadd({
-              //           "service": "${widget.Service2}",
-              //           "des": "${txtdata2}",
-              //           "Price": "${Price2.toString()}",
-              //           "Time": "${time2.toString()}",
-              //   //"timestamp": getTime
-              // });
-                       }),
                        ActionButton(ontap: (){
                           Provider.of<WorkerModel>(context, listen: false).add({
                              
@@ -519,11 +531,30 @@ String serviceprice = '';
                             },
                             ),
                             SizedBox(height: 10,),
-                            Row(
+                           
+//                             
+                        ],
+                      ), 
+                      value: this.valuethird,
+                      onChanged: (value){
+                        setState(() {  
+                          this.valuethird = value!;
+                            
+                        }); 
+              //             myALLadd({
+              //           "service": "${widget.Service2}",
+              //           "des": "${txtdata2}",
+              //           "Price": "${Price2.toString()}",
+              //           "Time": "${time2.toString()}",
+              //   //"timestamp": getTime
+              // });
+                       }),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                     height: screenHeight(context)*0.06,
-                               width: screenWidth(context)*0.29,
+                               height: screenHeight(context)*0.06,
+                               width: screenWidth(context)*0.33,
                                   child: TextFormField(
                                    
                                    
@@ -533,8 +564,9 @@ String serviceprice = '';
                                       cursorColor: Colors.black,
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(Icons.lock_clock, color: Colors.blue.shade900,),
-                                          labelText: "work timing",
-                                          labelStyle: TextStyle(color: Colors.blue[800]),
+                                          labelText: "Timing",
+                                          labelStyle: TextStyle(color: Colors.blue[800],
+                                          fontSize: 14),
                                           filled: true,
                                           fillColor: Colors.white,
                                           border: OutlineInputBorder(
@@ -561,7 +593,7 @@ String serviceprice = '';
                                 SizedBox(width: 5,),
                                  Container(
                                    height: screenHeight(context)*0.06,
-                               width: screenWidth(context)*0.29,
+                               width: screenWidth(context)*0.33,
                                 
                                 child: TextFormField(
                              
@@ -573,7 +605,8 @@ String serviceprice = '';
                                 decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.payment, color: Colors.blue.shade900,),
                                     labelText: "Price",
-                                    labelStyle: TextStyle(color: Colors.blue[800]),
+                                    labelStyle: TextStyle(color: Colors.blue[800],
+                                    fontSize: 14),
                                     filled: true,
                                     fillColor: Colors.white,
                                     border: OutlineInputBorder(
@@ -600,23 +633,6 @@ String serviceprice = '';
                               ),
                               ],
                             ),
-//                             
-                        ],
-                      ), 
-                      value: this.valuethird,
-                      onChanged: (value){
-                        setState(() {  
-                          this.valuethird = value!;
-                            
-                        }); 
-              //             myALLadd({
-              //           "service": "${widget.Service2}",
-              //           "des": "${txtdata2}",
-              //           "Price": "${Price2.toString()}",
-              //           "Time": "${time2.toString()}",
-              //   //"timestamp": getTime
-              // });
-                       }),
                        ActionButton(ontap: (){
                           Provider.of<WorkerModel>(context, listen: false).add({
                              
@@ -677,9 +693,10 @@ String serviceprice = '';
                              "firstname":"${workerfirstName}",
                              "lastname":"${workerlastname}",
                              "city":"${workercity}",
-                              "worker_lati":"${workerlati}",
+                            "worker_lati":"${workerlati}",
                              "worker_longi":"${workerlongi}",
                                "workeremail":"${workeremail}",
+                               "worker_token": workerfcmtoken,
                              
                                       
                                       // widget.cart,

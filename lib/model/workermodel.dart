@@ -187,6 +187,7 @@ createRecord() async {
   var workerlati;
   var workerlongi;
   var workerSkillname;
+  var worker_token;
  
 
    for(var a in worker){
@@ -198,6 +199,7 @@ createRecord() async {
    workerlati = a['worker_lati']; 
    workerlongi = a['worker_longi'];
    workerSkillname = a['Skill Name'];
+   worker_token = a[worker_token];
    print("workeremail");
    print(workeremail);
 
@@ -225,6 +227,7 @@ createRecord() async {
       "lat":workerlati,
       "long":workerlongi,
       "skillname":workerSkillname,
+      "worker_token":worker_token,
      
       'services': FieldValue.arrayUnion(selectedProducts),
   

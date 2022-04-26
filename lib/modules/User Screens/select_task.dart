@@ -20,8 +20,9 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
  var lati,longi;
 
 
-  var skillname;
-  var workername;
+
+  var skillname,worker_token;
+
 
 
   @override
@@ -51,6 +52,12 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
             return ListView.builder(
              itemCount: snapshot.data!.docs.length,
               itemBuilder: (ctx, i){
+                 String? token;
+                  try{
+                    token = snapshot.data!.docs[i].get('worker_token');
+                  }catch(e){
+                    print("error");
+                  }
                  DocumentSnapshot workerlist = snapshot.data!.docs[i];
                 //  print("Location: ${workerlist['Location']}");
                       return GestureDetector(
@@ -60,9 +67,11 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
                              Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => Nearby(
                                      
+                                      
                                       workerlist['services'],
                                       skillname = workerlist['skillname'],
-                                      workername= workerlist['firstname'],
+
+                                      worker_token = token!,
                                     ),
                                   ));
                         },
