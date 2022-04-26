@@ -21,7 +21,7 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
 
 
 
-  var skillname,worker_token;
+  var skillname,worker_token, workername;
 
 
 
@@ -70,6 +70,7 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
                                       
                                       workerlist['services'],
                                       skillname = workerlist['skillname'],
+                                      workername = workerlist['firstname'],
 
                                       worker_token = token!,
                                     ),
