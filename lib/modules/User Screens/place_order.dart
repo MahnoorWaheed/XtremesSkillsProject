@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,13 +15,12 @@ import 'package:xtremes_skills/modules/Worker%20Dashboard/bottom_nav.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/dashboard.dart';
 import 'package:xtremes_skills/widgets/action_button.dart';
 import 'package:xtremes_skills/widgets/wallet_method.dart';
-import 'package:http/http.dart' as http;
 
 class PlaceOrder extends StatefulWidget {
   
-var total_amount,worker_token;
+var total_amount;
 
- PlaceOrder(this.total_amount, this.worker_token
+ PlaceOrder(this.total_amount, 
 
 
  );
@@ -151,44 +149,7 @@ String username="";
       TextStyle(color: Colors.black, );
   var price = 300;
 
-   sendNotification(String title, String token) async{
-
-final data = {
-  'click_action':"FLUTTER_NOTIFICATION_CLICK",
-  'id': '1',
-  'status': 'done',
-  'message': title,
-};
-
-try{
-http.Response response = await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
-
-headers: <String, String>{
-  'Content-Type':'application/json',
-  'Authorization': 'key=AAAAAUhtlMQ:APA91bEv2M94s6ESLHWi7bt_ytwJpHY87O7wpuIqJab9Lc8ciMstM6LSK-hfEl8p-xv9rvGdOCrpcBkPhGRTNKVJBWCJFzF28d1-ZODt_SYPUvD2hz7Od3KOiQNVRqizTXyRb-TFFBt7',
-},
-body: jsonEncode(<String, dynamic>{
-'notification': <String, dynamic>{
-  'title': title,
-  'body':'Order Place'},
-  'priority': 'high',
-  'data': data,
-  'to':'$token',
-
-}));
-if(response.statusCode == 200){
-  print("success");
-   print(response.body);
-}else{
-  print("error");
-}
-
-
-
-}catch(e){}
-
-
-  }
+   
 
 
   @override
@@ -456,16 +417,8 @@ if(response.statusCode == 200){
                     
                          _checkbox?     _displayDialog(context):  snackBar = SnackBar(content: Text('Please select payment method'));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-           String? usertoken =await FirebaseMessaging.instance.getToken();
-                      _firestore.collection('orders').doc().set(
-                       {
-                          'name':"Muhib",
-                        'description': "hjkhjkh",
-                        'userFCM_token': usertoken,
-                       }
-                      ); 
-                        sendNotification("New Order", widget.worker_token);
+       
+                       
                     },
         
                   
