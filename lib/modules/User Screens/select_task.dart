@@ -7,8 +7,9 @@ import 'package:xtremes_skills/widgets/action_button.dart';
 
 class NearbyWorkers extends StatefulWidget {
   String? data = '';
+  String? skillname;
    NearbyWorkers({ Key? key, 
-  this.data
+  this.data,this.skillname,
    }) : super(key: key);
 
   @override
@@ -20,9 +21,8 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
  var lati,longi;
 
 
-
-  var skillname,worker_token;
-
+  var skillname;
+  var workername;
 
 
   @override
@@ -41,7 +41,7 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
       ), 
       
       body: StreamBuilder<QuerySnapshot>(
-         stream: FirebaseFirestore.instance.collection("worker_skills").snapshots(),
+         stream: FirebaseFirestore.instance.collection("worker_skills").where('skillname',isEqualTo: widget.skillname ).snapshots(),
           
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
@@ -52,12 +52,6 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
             return ListView.builder(
              itemCount: snapshot.data!.docs.length,
               itemBuilder: (ctx, i){
-                 String? token;
-                  try{
-                    token = snapshot.data!.docs[i].get('worker_token');
-                  }catch(e){
-                    print("error");
-                  }
                  DocumentSnapshot workerlist = snapshot.data!.docs[i];
                 //  print("Location: ${workerlist['Location']}");
                       return GestureDetector(
@@ -67,11 +61,9 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
                              Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => Nearby(
                                      
-                                      
                                       workerlist['services'],
                                       skillname = workerlist['skillname'],
-
-                                      worker_token = token!,
+                                      workername= workerlist['firstname'],
                                     ),
                                   ));
                         },

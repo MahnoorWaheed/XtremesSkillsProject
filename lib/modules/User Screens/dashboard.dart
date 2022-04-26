@@ -176,7 +176,9 @@ class _DasboardUserState extends State<DasboardUser> {
                                  
                                         log(skills['Name']);
                                         Navigator.of(context).push(
-                                              MaterialPageRoute(builder: (_)=> NearbyWorkers())
+                                              MaterialPageRoute(builder: (_)=> NearbyWorkers(
+                                                skillname: skills['Name'],
+                                              ))
                                             );
                                        },
                                 child: Container(
