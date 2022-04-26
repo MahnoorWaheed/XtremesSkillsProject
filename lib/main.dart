@@ -84,7 +84,7 @@ Future<void> main() async {
 
 
 
-       home: SplashScreen(),
+       home: DasboardUser(),
 
 
  
