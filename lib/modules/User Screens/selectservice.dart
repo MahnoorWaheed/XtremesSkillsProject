@@ -13,13 +13,13 @@ import 'package:xtremes_skills/widgets/action_button.dart';
 
 class Nearby extends StatefulWidget {
 
-List? workerlist;
-String? skillname;
-String? worker_token;
-String? workername;
+List workerlist;
+String skillname;
+ // String worker_token;
+String workername;
  Nearby(this.workerlist, 
- this.skillname,this.worker_token,this.workername
-
+ this.skillname,this.workername
+ // this.worker_token,
 
  );
 
@@ -115,7 +115,7 @@ bool valuefirst = false;
       backgroundColor: Colors.lightBlue.shade100,
       appBar: AppBar(
         backgroundColor: Colors.blue.shade900,
-         title: Text(widget.skillname!),
+         title: Text(widget.skillname),
         centerTitle: true,
         actions: [
           IconButton(
@@ -126,14 +126,14 @@ bool valuefirst = false;
                                         
                                      
                                             
-                                            String roomId = chatRoomId(widget.workername!, name);
+                                            String roomId = chatRoomId(widget.workername, name);
                                        
 
 
                                             Navigator.of(context).push(
                                               MaterialPageRoute(builder: (_)=> UserChat(chatid: roomId, current_name: name ))
                                             );
-                                              createchatroom(widget.workername!,name,roomId);
+                                              createchatroom(widget.workername,name,roomId);
 
                                             // FirebaseFirestore.instance.collection('chats').doc(skills['email']).set({
                                             //           'chatid':roomId,
@@ -168,7 +168,7 @@ bool valuefirst = false;
                                                             Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => PlaceOrder(
                                       total_amount = total,
-                                      worker_token = widget.worker_token,
+                                      //  worker_token = widget.worker_token,
 
                                       
                                     ),
@@ -187,7 +187,7 @@ bool valuefirst = false;
 body: Card(
   child: ListView.builder(
   
-    itemCount: widget.workerlist!.length,
+    itemCount: widget.workerlist.length,
   
     itemBuilder: (context, index){
   
@@ -203,7 +203,7 @@ body: Card(
                          children: [                 
                         CheckboxListTile(                        
                         secondary: const Icon(Icons.electrical_services, color: Colors.blue,),  
-                        title: Text(widget.workerlist![index]['Service'],
+                        title: Text(widget.workerlist[index]['Service'],
                         style: TextStyle(
                           color: Colors.blue.shade900,
                           fontWeight: FontWeight.bold,
@@ -213,7 +213,7 @@ body: Card(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(height: 10),
-                            Text(widget.workerlist![index]['description'],
+                            Text(widget.workerlist[index]['description'],
                         style: TextStyle(
                           color: Colors.blue.shade900,
                           // fontWeight: FontWeight.bold,
@@ -228,7 +228,7 @@ body: Card(
                           fontSize: 18
                         ),),
                         SizedBox(width: 10,),
-                         Text(widget.workerlist![index]['description'],
+                         Text(widget.workerlist[index]['description'],
                         style: TextStyle(
                           color: Colors.blue.shade900,
                           // fontWeight: FontWeight.bold,
@@ -245,7 +245,7 @@ body: Card(
                           fontSize: 18
                         ),),
                         SizedBox(width: 10,),
-                         Text(widget.workerlist![index]['Price'],
+                         Text(widget.workerlist[index]['Price'],
                         style: TextStyle(
                           color: Colors.blue.shade900,
                           // fontWeight: FontWeight.bold,
@@ -257,12 +257,12 @@ body: Card(
 //                             
                           ],
                         ), 
-                       value:widget.workerlist![index]['value'],
+                       value:widget.workerlist[index]['value'],
                        onChanged: (value) {
                        setState(() {
-                      widget.workerlist![index]['value'] = value;
+                      widget.workerlist[index]['value'] = value;
                       if(value==true){
-                          addval = int.parse(widget.workerlist![index]['Price']); 
+                          addval = int.parse(widget.workerlist[index]['Price']); 
                           total += addval; 
                          
                       }
