@@ -81,41 +81,19 @@ Future<void> main() async {
       ),
 
 
-  //  home: email!= khan ? FirstScreen(): skills()));
-
-
-      //  home: Login())
-
-      //  home: PickLocation()));
 
 
 
+       home: SplashScreen(),
 
-       home: NearbyWorkers(),
 
-
-      //  home: SplashScreen()
+ 
 
        
 
        )
        ));
-
-
-
-      //  home: skills()));
-
-//        home: skills()));
-
-
-
-      //  home: DialogBox()));
-
-
-//        home: signup()));
-
-//        home: Order()));
-
+  
 
 
 
@@ -154,34 +132,8 @@ class _MyAppState extends State<MyApp> {
      
     );
   }
-// void getToken(){
-//   _messaging.getToken().then((value){
-//    String? token = value;
-//    print(token);
-//   });
-// }
 
-// void initMessaging(){
-//   var androiInit = AndroidInitializationSettings("assets/logo.png");
-//   var iosInit = IOSInitializationSettings();
-//   var initSetting = InitializationSettings(android: androiInit, iOS: iosInit);
-//   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-//   flutterLocalNotificationsPlugin.initialize(initSettings);
-//   var androidDetails = AndroidNotificationDetails('1', 'Default',
-//   channelDescription: "Channel Description",
-//   importance: Importance.high,
-//   priority: Priority.high
-//   );
-//   var iosDetails = IOSNotificationDetails();
-//   var generalNotificationDetails = NotificationDetails(android: androidDetails, iOS: iosDetails);
-//   FirebaseMessaging.onMessage.listen((event) {
-//     RemoteNotification notification = message!.notification;
-//     AndroidNotification android = message.notification!.android;
-//     if(notification != null && android != null){
-//       flutterLocalNotificationsPlugin.show(notification.hashCode, notification.title,notification.body, generalNotificationDetails);
-//     }
-//    });
-// }
+
 
 
 
