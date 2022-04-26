@@ -1,7 +1,12 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xtremes_skills/modules/User%20Screens/live_location.dart';
 import 'package:xtremes_skills/modules/User%20Screens/place_order.dart';
+import 'package:xtremes_skills/modules/User%20Screens/userchat.dart';
 import 'package:xtremes_skills/utils/utils.dart';
 import 'package:xtremes_skills/widgets/action_button.dart';
 
@@ -11,9 +16,9 @@ class Nearby extends StatefulWidget {
 List workerlist;
 String skillname;
 String worker_token;
-
  Nearby(this.workerlist, 
  this.skillname,this.worker_token,
+
 
  );
 
@@ -22,7 +27,9 @@ String worker_token;
 }
 
 class _NearbyState extends State<Nearby> {
+
   var total_amount, worker_token;
+
 
 @override
   void initState() {
@@ -30,10 +37,49 @@ class _NearbyState extends State<Nearby> {
     super.initState();
     // getDocs();
     // print(widget.skillname.toString());
- print("array receive");
+     getPhone();
  
-    print(widget.workerlist[0]);
    
+  }
+  void getPhone() async{
+    
+  // var num = await FirebaseAuth.instance.currentUser!.phoneNumber;
+  // print(num);
+    await FirebaseFirestore.instance.collection("customer").doc(FirebaseAuth.instance.currentUser!.phoneNumber).get().then((value){
+      // setState(() {
+        
+      //   personaldata.add({
+      //   'name': map['name'],
+      //    'number':map['number'],
+      // });
+      // });
+       setState(() {
+          name= value.data()!['name'];
+       });
+       log(name);
+    } );
+  
+}
+String chatRoomId(String user1,String user2){
+   if(user1[0].toLowerCase().codeUnits[0]>
+      user2.toLowerCase().codeUnits[0]   
+   ){
+     return "$user1$user2";
+   }
+   else{
+     return "$user2$user1";
+   }
+ }
+ void createchatroom(String workername,currentname,id ){
+    
+    List<String> users=[workername,currentname];
+    Map<String,dynamic> ChatRoomMap={
+      'users':users,
+       'chatroomid':id
+    };
+    FirebaseFirestore.instance.collection('newchat').doc(id).set(ChatRoomMap);
+   
+
   }
 // var sum;
 
@@ -72,7 +118,29 @@ bool valuefirst = false;
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: (){},
+            onPressed: (){
+               print(widget.workername);
+               print(name);
+                                             
+                                        
+                                     
+                                            
+                                            String roomId = chatRoomId(widget.workername, name);
+                                       
+
+
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(builder: (_)=> UserChat(chatid: roomId, current_name: name ))
+                                            );
+                                              createchatroom(widget.workername,name,roomId);
+
+                                            // FirebaseFirestore.instance.collection('chats').doc(skills['email']).set({
+                                            //           'chatid':roomId,
+                                            //           'workername':skills['wname'],
+                                            //           'username': personaldata[index]['name']
+                                            // });
+                                        //  Get.to(BottomNav());
+            },
             icon: Icon(Icons.chat),)
         ],
       ),

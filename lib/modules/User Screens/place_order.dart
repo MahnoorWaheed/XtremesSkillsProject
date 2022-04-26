@@ -11,7 +11,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:xtremes_skills/modules/User%20Screens/dashboard.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/bottom_nav.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/dashboard.dart';
 import 'package:xtremes_skills/widgets/action_button.dart';
 import 'package:xtremes_skills/widgets/wallet_method.dart';
 import 'package:http/http.dart' as http;
@@ -83,6 +85,14 @@ String username="";
       
     }
     _displayDialog(BuildContext context) async {  
+          String? usertoken =await FirebaseMessaging.instance.getToken();
+                      _firestore.collection('orders').doc().set(
+                       {
+                          'name':username,
+                        'description': "order place",
+                        'userFCM_token': usertoken,
+                       }
+                      ); 
     await Future.delayed(const Duration(milliseconds: 1000)); showDialog(  
         context: context,  
         builder: (context) {  
@@ -122,6 +132,9 @@ String username="";
                   Navigator.of(context).pop();  
                    var snackBar = const SnackBar(content: Text('Thank you for giving feedback'));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
+             Navigator.of(context).push(
+                                              MaterialPageRoute(builder: (_)=> DasboardUser())
+                                            );
                 
                 // Navigator.of(context)
                 //       .push(MaterialPageRoute(
@@ -443,6 +456,7 @@ if(response.statusCode == 200){
                     
                          _checkbox?     _displayDialog(context):  snackBar = SnackBar(content: Text('Please select payment method'));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
            String? usertoken =await FirebaseMessaging.instance.getToken();
                       _firestore.collection('orders').doc().set(
                        {

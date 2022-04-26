@@ -20,7 +20,9 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
  var lati,longi;
 
 
+
   var skillname,worker_token;
+
 
 
   @override
@@ -68,6 +70,7 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
                                       
                                       workerlist['services'],
                                       skillname = workerlist['skillname'],
+
                                       worker_token = token!,
                                     ),
                                   ));
@@ -127,11 +130,7 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
                         ),
                       );
             });
-          
-                        
-         
-       
-         
+                 
           },
       ),
     );
