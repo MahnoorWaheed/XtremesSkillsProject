@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:xtremes_skills/model/user.dart';
 import 'package:xtremes_skills/model/workermodel.dart';
 import 'package:xtremes_skills/modules/User%20Screens/select_task.dart';
+import 'package:xtremes_skills/modules/Worker%20Dashboard/bottom_nav.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/dashboard.dart';
 import 'package:xtremes_skills/widgets/action_button.dart';
 import 'package:xtremes_skills/utils/utils.dart';
@@ -185,6 +186,7 @@ String serviceprice = '';
                       maxLines: 5,
                       keyboardType: TextInputType.multiline,
                       decoration: InputDecoration(
+                      
                       fillColor: Colors.white,
                       hintText : "Service Description",
                       hintStyle: TextStyle(
@@ -248,7 +250,7 @@ String serviceprice = '';
                       borderSide: const BorderSide(color: Colors.blue),),
                       enabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blue))),
-                  //            validator: (value){
+                                      //            validator: (value){
                                     //   if(value!.isEmpty ){
                                     //     return "Field cannot be empty";
                                     //   }
@@ -296,6 +298,7 @@ String serviceprice = '';
                              "time":"${time}",
                              "Price":"${Price}",
                              "value": value,
+                            
 
                           // "Service: ${widget.Service1}",
                           // "description: ${txtdata}", 
@@ -728,7 +731,7 @@ String serviceprice = '';
                                   
                                       
                         //               );
-                                      Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> NearbyWorkers()));
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> BottomNav()));
 
                        // openDialog();
 //                             String Price = '';
@@ -814,7 +817,7 @@ Future openDialog2(){
       actions: <Widget>[
        TextButton(onPressed: (){
          Navigator.of(context).pop();
-       }, child: Text("Cancle")),
+       }, child: Text("Cancel")),
        TextButton(onPressed: (){
         Provider.of<WorkerModel>(context, listen: false).add({
                              
