@@ -33,6 +33,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:xtremes_skills/modules/auth/screen/login.dart';
 import 'package:xtremes_skills/modules/auth/screen/signup.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/notification.dart';
+import 'package:xtremes_skills/modules/login_otp/screen/otp_screen.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/welcome.dart';
 import 'package:xtremes_skills/splashscreen.dart';
 import 'package:xtremes_skills/widgets/formwidget/skills_details.dart';
@@ -91,7 +92,7 @@ Future<void> main() async {
 
 
 
-       home: NearbyWorkers(),
+       home: SplashScreen(),
 
 
       //  home: SplashScreen()

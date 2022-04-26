@@ -21,6 +21,7 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
 
 
   var skillname;
+  var workername;
 
 
   @override
@@ -61,6 +62,7 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
                                      
                                       workerlist['services'],
                                       skillname = workerlist['skillname'],
+                                      workername= workerlist['firstname'],
                                     ),
                                   ));
                         },
@@ -119,11 +121,7 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
                         ),
                       );
             });
-          
-                        
-         
-       
-         
+                 
           },
       ),
     );

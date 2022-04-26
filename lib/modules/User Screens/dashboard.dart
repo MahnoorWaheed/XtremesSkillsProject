@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xtremes_skills/modules/User%20Screens/location.dart';
+import 'package:xtremes_skills/modules/User%20Screens/select_task.dart';
+import 'package:xtremes_skills/modules/User%20Screens/selectservice.dart';
 import 'package:xtremes_skills/modules/User%20Screens/userchat.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/bottom_nav.dart';
 import 'package:xtremes_skills/modules/Worker%20Dashboard/mychats.dart';
@@ -29,14 +31,14 @@ class DasboardUser extends StatefulWidget {
 }
 
 class _DasboardUserState extends State<DasboardUser> {
-  List<Map<String,dynamic>> personaldata=[];
+ 
   
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getPhone();
+   
   
     
      FirebaseMessaging.instance.getInitialMessage();
@@ -46,60 +48,30 @@ class _DasboardUserState extends State<DasboardUser> {
     });
     
   }
-  void getPhone() async{
-    
-  // var num = await FirebaseAuth.instance.currentUser!.phoneNumber;
-  // print(num);
-    await FirebaseFirestore.instance.collection("customer").doc(FirebaseAuth.instance.currentUser!.phoneNumber).get().then((map){
-      setState(() {
-        
-        personaldata.add({
-        'name': map['name'],
-         'number':map['number'],
-      });
-      });
-    } );
   
-}
- String chatRoomId(String user1,String user2){
-   if(user1[0].toLowerCase().codeUnits[0]>
-      user2.toLowerCase().codeUnits[0]   
-   ){
-     return "$user1$user2";
-   }
-   else{
-     return "$user2$user1";
-   }
- }
- void createchatroom(String workername,currentname,id ){
-    
-    List<String> users=[workername,currentname];
-    Map<String,dynamic> ChatRoomMap={
-      'users':users,
-       'chatroomid':id
-    };
-    FirebaseFirestore.instance.collection('newchat').doc(id).set(ChatRoomMap);
-   
-
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Container(
+  
           child: Stack(
             overflow:Overflow.visible,
             children: [
               Container(
+                
                 height: MediaQuery.of(context).size.height,
                 child: ListView(
                  children:[Container(
+                   
                           decoration:BoxDecoration(
                             color:Colors.blue.shade900,
                           ),
                           width: MediaQuery.of(context).size.width,
                           child: Container(
+                            
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,6 +80,7 @@ class _DasboardUserState extends State<DasboardUser> {
 
                                 Column(children: [
                                   Container(
+                                    
                                     width: double.infinity,
                                     padding: const EdgeInsets.only(
                                         left: 20, top: 25, bottom: 10),
@@ -171,6 +144,7 @@ class _DasboardUserState extends State<DasboardUser> {
                         ),
              Text("Hello World"),
                         Container(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
                           height: MediaQuery.of(context).size.height,
                           child: StreamBuilder<QuerySnapshot>(
                              stream: FirebaseFirestore.instance.collection("Skills").snapshots(),
@@ -201,6 +175,9 @@ class _DasboardUserState extends State<DasboardUser> {
                                GestureDetector(  onTap: () {
                                  
                                         log(skills['Name']);
+                                        Navigator.of(context).push(
+                                              MaterialPageRoute(builder: (_)=> NearbyWorkers())
+                                            );
                                        },
                                 child: Container(
                                   width: MediaQuery.of(context).size.width * 0.4,
@@ -236,33 +213,34 @@ class _DasboardUserState extends State<DasboardUser> {
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'Times New Roman'),
                                         ),
-                                        GestureDetector(
-                                          onTap: (){
+                                      //   GestureDetector(
+                                      //     onTap: (){
                                             
-                                            log(skills['wname']);
+                                      //       log(skills['wname']);
                                              
                                         
-                                       log(personaldata[index]['name']);
+                                      //  log(personaldata[index]['name']);
                                             
-                                            String roomId = chatRoomId(skills['wname'], personaldata[index]['name']);
-                                            log('success');
-                                            log(roomId);
+                                      //       String roomId = chatRoomId(skills['wname'], personaldata[index]['name']);
+                                      //       log('success');
+                                      //       log(roomId);
 
 
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(builder: (_)=> UserChat(chatid: roomId, current_name: personaldata[index]['name'], ))
-                                            );
-                                              createchatroom(skills['wname'],personaldata[index]['name'],roomId);
+                                      //       Navigator.of(context).push(
+                                      //         MaterialPageRoute(builder: (_)=> UserChat(chatid: roomId, current_name: personaldata[index]['name'], ))
+                                      //       );
+                                      //         createchatroom(skills['wname'],personaldata[index]['name'],roomId);
 
-                                            // FirebaseFirestore.instance.collection('chats').doc(skills['email']).set({
-                                            //           'chatid':roomId,
-                                            //           'workername':skills['wname'],
-                                            //           'username': personaldata[index]['name']
-                                            // });
-                                        //  Get.to(BottomNav());
+                                      //       // FirebaseFirestore.instance.collection('chats').doc(skills['email']).set({
+                                      //       //           'chatid':roomId,
+                                      //       //           'workername':skills['wname'],
+                                      //       //           'username': personaldata[index]['name']
+                                      //       // });
+                                      //   //  Get.to(BottomNav());
                                                    
-                                          },
-                                          child: Icon(Icons.chat,))
+                                      //     },
+                                      //     child: Icon(Icons.chat,),
+                                      //     )
                                           ],
                                         )
                         
