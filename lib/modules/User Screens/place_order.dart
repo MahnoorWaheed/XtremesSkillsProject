@@ -22,7 +22,7 @@ var total_amount;
 
  // String worker_token;
 
- PlaceOrder(this.total_amount, 
+ 
 //this.worker_token 
 
 String name;
