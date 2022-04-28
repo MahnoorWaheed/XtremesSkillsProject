@@ -19,8 +19,9 @@ import 'package:xtremes_skills/widgets/wallet_method.dart';
 class PlaceOrder extends StatefulWidget {
   
 var total_amount;
+String name;
 
- PlaceOrder(this.total_amount, 
+ PlaceOrder(this.total_amount,this.name, 
 
 
  );
@@ -77,6 +78,7 @@ String username="";
           'rating': rating,
           'review': review,
           'name': username,
+          'workername':widget.name
            
            
       });
@@ -89,6 +91,7 @@ String username="";
                           'name':username,
                         'description': "order place",
                         'userFCM_token': usertoken,
+                        'workername':widget.name,
                        }
                       ); 
     await Future.delayed(const Duration(milliseconds: 1000)); showDialog(  

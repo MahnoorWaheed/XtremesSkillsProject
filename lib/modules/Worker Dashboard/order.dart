@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:xtremes_skills/modules/login_otp/screen/notification.dart';
@@ -17,13 +18,42 @@ class Order extends StatefulWidget {
 
 class _OrderState extends State<Order> {
 final List<String> clientsName=["Luqman", "Ahmed", "Salman", "Ali ","Mustafa", "Qureshi"];
+String name='';
 
 @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getchatroom();
    
   }
+    void getchatroom() async{
+    
+    await FirebaseFirestore.instance
+    .collection('worker')
+    .doc(FirebaseAuth.instance.currentUser!.email)
+    .get()
+    .then((value) {
+       setState(() {
+         name= value.data()!['firstname'];
+       }); // Access your after your get the data
+     });
+    // var id=FirebaseFirestore.instance.collection('newchat').where('users',arrayContains: username).snapshots();
+    print(name);
+    print('this is the name');
+
+    //  await FirebaseFirestore.instance.collection("worker").doc('haseeb@gmail.com').get().then((map){
+    //   setState(() {
+        
+    //     personaldata.add({
+    //     'name': map['firstname'],
+    
+    //   });
+    //   });
+    // } );
+   
+  }
+  
 
   sendNotification(String title, String token) async{
 
@@ -74,7 +104,7 @@ if(response.statusCode == 200){
         centerTitle: true,
         leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: (){},),
       ),
-    body: StreamBuilder<QuerySnapshot>(stream: FirebaseFirestore.instance.collection("orders").snapshots(),
+    body: StreamBuilder<QuerySnapshot>(stream: FirebaseFirestore.instance.collection("orders").where('workername',isEqualTo: name).snapshots(),
                 builder: (context,snapshot){
                   if(!snapshot.hasData){
                     return const Center(

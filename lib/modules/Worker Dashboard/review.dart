@@ -16,10 +16,43 @@ class Review extends StatefulWidget {
 class _ReviewState extends State<Review> {
   final FirebaseAuth auth= FirebaseAuth.instance;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  String name='';
   // List<Map<String, dynamic>> personaldata = [];
 
   // final List<String> names=["Luqman", "Ahmed", "Salman", "Ali ","Mustafa", "Qureshi"];
   // final List<String> days=["8 days ago","4 days ago","5 days ago","8 days ago","1 days ago"," Now"];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getchatroom();
+  }
+   void getchatroom() async{
+    
+    await FirebaseFirestore.instance
+    .collection('worker')
+    .doc(FirebaseAuth.instance.currentUser!.email)
+    .get()
+    .then((value) {
+       setState(() {
+         name= value.data()!['firstname'];
+       }); // Access your after your get the data
+     });
+    // var id=FirebaseFirestore.instance.collection('newchat').where('users',arrayContains: username).snapshots();
+    print(name);
+    print('this is the name');
+
+    //  await FirebaseFirestore.instance.collection("worker").doc('haseeb@gmail.com').get().then((map){
+    //   setState(() {
+        
+    //     personaldata.add({
+    //     'name': map['firstname'],
+    
+    //   });
+    //   });
+    // } );
+   
+  }
 
   
 
@@ -48,7 +81,7 @@ class _ReviewState extends State<Review> {
 
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance.collection("reviews").snapshots(),
+                  stream: FirebaseFirestore.instance.collection("reviews").where('workername',isEqualTo: name).snapshots(),
                 builder: (context,snapshot){
                   if(!snapshot.hasData){
                     return const Center(
