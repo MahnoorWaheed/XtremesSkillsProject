@@ -20,9 +20,11 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
 
  var lati,longi;
 
+  var skillname,worker_token, workername;
 
-  var skillname;
-  var workername;
+
+
+
 
 
   @override
@@ -54,6 +56,12 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
               
              itemCount: snapshot.data!.docs.length,
               itemBuilder: (ctx, i){
+                     String? token;
+                  try{
+                    token = snapshot.data!.docs[i].get('worker_token');
+                  }catch(e){
+                    print("error");
+                  }
                  DocumentSnapshot workerlist = snapshot.data!.docs[i];
                  
                 //  print("Location: ${workerlist['Location']}");
@@ -66,7 +74,13 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
                                      
                                       workerlist['services'],
                                       skillname = workerlist['skillname'],
-                                      workername= workerlist['firstname'],
+
+                                      workername = workerlist['firstname'],
+
+                                     //   worker_token = token!,
+
+                                    
+
                                     ),
                                   ));
                         },

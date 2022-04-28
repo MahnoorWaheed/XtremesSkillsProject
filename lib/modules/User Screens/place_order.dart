@@ -19,9 +19,16 @@ import 'package:xtremes_skills/widgets/wallet_method.dart';
 class PlaceOrder extends StatefulWidget {
   
 var total_amount;
+
+ // String worker_token;
+
+ PlaceOrder(this.total_amount, 
+//this.worker_token 
+
 String name;
 
  PlaceOrder(this.total_amount,this.name, 
+
 
 
  );
