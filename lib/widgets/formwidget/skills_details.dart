@@ -20,29 +20,10 @@ class Skill_Details extends StatefulWidget {
   final String Service2;
   final String Service3;
 
-  // var workerfirstName;
 
-  // var workerlastname;
-
-  // var workercity;
-
-  // var workerlati;
-
-  // var workerlongi;
-
-  // var workeremail;
-  // final String Service4;
-  // final String details1;
-  // final String details2;
-  // final String details3;
-  // final String details4;
-
-  // String prc;
-  // int ct = 1;
 
  Skill_Details(this.SkillName,this.Service1, this.Service2, this.Service3, this.cart
-//  this.Service4, 
- //this.Service2, this.Service3, this.Service4,
+
  );
 
 
@@ -77,7 +58,7 @@ class _Skill_DetailsState extends State<Skill_Details> {
   String workerfcmtoken = '';
   @override
   void initState() {
-    getUserData();
+    // getUserData();
     super.initState();
   }
 
@@ -118,31 +99,16 @@ String servicedes = '';
 String servicetime = '';
 String serviceprice = '';
 
-// List<workerdetails> myAllData = [];
-
-
-  // List<Map<String, String>> _selectedProducts = <Map<String, String>>[];
-  // int _total = 0;
-  // List<Map<String, String>> get selectedProducts => _selectedProducts;
-
-  // void add(Map<String, String> value) {
-  //   _selectedProducts.add(value);
-    
-  //   print("Rimsha is best");
-  //   print(value);
-  //   // notifyListeners();
-  // }
-
-  
-
-  // List<Map<String, String>> SelectedProducts = <Map<String, String>>[];
-  // List<Map<String, String>> get selectedProducts => SelectedProducts;
   List<mySReportDetails2> myAllData = [];
   bool value = false;
 
+   void clearText() {
+   
+  }
+
   @override
   Widget build(BuildContext context) {
-    getUserData();
+    // getUserData();
     print("Skill name 2"+ widget.SkillName,);
     return Scaffold(
       appBar: AppBar(
@@ -209,20 +175,7 @@ String serviceprice = '';
                       setState(() {  
                       this.valuefirst = value!;
 
-                      // Provider.of<WorkerModel>(context, listen: false).add({
-                             
-                      //        "Service" : "${widget.Service1}",
-                      //        "description":"${txtdata.toString()}",
-                      //        "time":"${time.toString()}",
-                      //        "Price":"${Price.toString()}",
-
-                      //     // "Service: ${widget.Service1}",
-                      //     // "description: ${txtdata}", 
-                      //     // "time: ${time}",
-                      //     // "Price: ${Price}",
-                      //       //"timestamp": getTime
-                         
-                      //     });
+                     
                           
                         }); 
                         
@@ -289,8 +242,7 @@ String serviceprice = '';
                       Price = value;
                       });},),),],),
                        ActionButton(ontap: (){
-                      //  myAllData.add(new mySReportDetails2(Service: widget.Service1, description: txtdata, time: time, Price: Price));
-                        // myAllData.add(new mySReportDetails2 (Service: se ));
+                         if(this.valuefirst == true) {
                         Provider.of<WorkerModel>(context, listen: false).add({
                              
                              "Service" : "${widget.Service1}",
@@ -308,7 +260,17 @@ String serviceprice = '';
                          
                           });
 
-                       }, text: "Add Service")
+                        }else{
+                        
+                           ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text('Please select service'),
+                            
+                          ),
+                        );
+                        }
+                        
+                         }, text: "Add Service")
                        ] )), 
                        
                        ),
@@ -351,7 +313,7 @@ String serviceprice = '';
                       borderSide: const BorderSide(color: Colors.blue),
                    ),
                     enabledBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.blue))),
+                    borderSide: BorderSide(color: Colors.blue))),
                              
                  
                             onChanged: (value){
@@ -372,13 +334,7 @@ String serviceprice = '';
                           this.valuesecond = value!;
                             
                         }); 
-              //             myALLadd({
-              //           "service": "${widget.Service2}",
-              //           "des": "${txtdata2}",
-              //           "Price": "${Price2.toString()}",
-              //           "Time": "${time2.toString()}",
-              //   //"timestamp": getTime
-              // });
+            
                        }),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -467,6 +423,7 @@ String serviceprice = '';
                               ],
                             ),
                        ActionButton(ontap: (){
+                         if(this.valuesecond == true){
                           Provider.of<WorkerModel>(context, listen: false).add({
                              
                              "Service" : "${widget.Service2}",
@@ -482,7 +439,16 @@ String serviceprice = '';
                             //"timestamp": getTime
                          
                           });
-                       }, text: 'Add Service')
+                        }else{
+                          ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text('Please select service'),
+                            
+                          ),
+                        );
+                        }
+                        
+                         }, text: 'Add Service')
                       ]
                     )
                   ),
@@ -541,13 +507,7 @@ String serviceprice = '';
                           this.valuethird = value!;
                             
                         }); 
-              //             myALLadd({
-              //           "service": "${widget.Service2}",
-              //           "des": "${txtdata2}",
-              //           "Price": "${Price2.toString()}",
-              //           "Time": "${time2.toString()}",
-              //   //"timestamp": getTime
-              // });
+            
                        }),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -634,6 +594,7 @@ String serviceprice = '';
                               ],
                             ),
                        ActionButton(ontap: (){
+                         if(this.valuethird == true){
                           Provider.of<WorkerModel>(context, listen: false).add({
                              
                              "Service" : "${widget.Service3}",
@@ -649,6 +610,15 @@ String serviceprice = '';
                             //"timestamp": getTime
                          
                           });
+                       }else{
+                           ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text('Please select service'),
+                            
+                          ),
+                        );
+                       }
+                       
                        }, text: 'Add Service')
                       ]
                     )

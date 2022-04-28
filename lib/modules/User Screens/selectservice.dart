@@ -39,7 +39,8 @@ class _NearbyState extends State<Nearby> {
     // getDocs();
     // print(widget.skillname.toString());
      getPhone();
- 
+
+     
    
   }
   void getPhone() async{

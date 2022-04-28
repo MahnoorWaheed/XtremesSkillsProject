@@ -85,7 +85,7 @@ Future<void> main() async {
 
 
 
-       home: DasboardUser(),
+       home: skills(),
 
 
 
