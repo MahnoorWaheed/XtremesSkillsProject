@@ -34,6 +34,7 @@ class WorkerModel extends ChangeNotifier {
   int counter = 0;
   String detail = "Order Successfully send";
   String order = "Your order no : ";
+  
 
   // int _remainingTime = 60;
   // int getRemainingTime() => _remainingTime;
@@ -232,8 +233,9 @@ createRecord() async {
       'services': FieldValue.arrayUnion(selectedProducts),
   
       });
-  print("check data");
+
     print(selectedProducts.toString());
+    selectedProducts.clear;
     notifyListeners();
   }
 

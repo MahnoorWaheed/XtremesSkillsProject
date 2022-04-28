@@ -87,6 +87,9 @@ Future<void> main() async {
 
        home: skills(),
 
+       home: SplashScreen(),
+
+
 
 
        )
