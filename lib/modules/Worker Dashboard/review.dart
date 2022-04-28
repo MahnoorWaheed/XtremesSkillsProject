@@ -25,9 +25,9 @@ class _ReviewState extends State<Review> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getchatroom();
+    getname();
   }
-   void getchatroom() async{
+   void getname() async{
     
     await FirebaseFirestore.instance
     .collection('worker')

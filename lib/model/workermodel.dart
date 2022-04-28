@@ -219,7 +219,7 @@ createRecord() async {
     DateTime selectedDT = new DateTime.now();
     var formatter = new DateFormat('yyyy-MM-dd');
     String formattedDate = formatter.format(selectedDT);
-    await databaseReference.collection("worker_skills").doc().set({
+    await databaseReference.collection("worker_skills").doc(workeremail).set({
       "workeremail":workeremail,
       "firstname": workerfirstName,
       "lastname": workerlastname,
@@ -233,7 +233,7 @@ createRecord() async {
       'services': FieldValue.arrayUnion(selectedProducts),
   
       });
-  print('jljlkjlkjlkjlkjlkjkljlkjkljkljkljlkjlkjjjkljkl');
+
     print(selectedProducts.toString());
     selectedProducts.clear;
     notifyListeners();
