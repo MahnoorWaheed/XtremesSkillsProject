@@ -49,10 +49,13 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
                 child: CircularProgressIndicator(),
               );
             }
-            return ListView.builder(
+           else{
+              return ListView.builder(
+              
              itemCount: snapshot.data!.docs.length,
               itemBuilder: (ctx, i){
                  DocumentSnapshot workerlist = snapshot.data!.docs[i];
+                 
                 //  print("Location: ${workerlist['Location']}");
                       return GestureDetector(
                         onTap:(){
@@ -67,7 +70,8 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
                                     ),
                                   ));
                         },
-                        child: Card(
+                        child: 
+                        Card(
                           child: ListTile(
                            leading: CircleAvatar(
                              radius: 40,
@@ -122,6 +126,7 @@ class _NearbyWorkersState extends State<NearbyWorkers> {
                         ),
                       );
             });
+           }
                  
           },
       ),

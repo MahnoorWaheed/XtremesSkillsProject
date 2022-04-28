@@ -108,6 +108,7 @@ bool valuefirst = false;
     bool _checkboxListTile = false;
      int total = 0;
       int addval = 0;
+      int subval=0;
 
   @override
   Widget build(BuildContext context) {
@@ -168,6 +169,7 @@ bool valuefirst = false;
                                                             Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => PlaceOrder(
                                       total_amount = total,
+                                      name=widget.workername,
                                       
                                     ),
                                   ));
@@ -258,7 +260,7 @@ body: Card(
                           fontSize: 18
                         ),),
                         SizedBox(width: 10,),
-                         Text(widget.workerlist[index]['description'],
+                         Text(widget.workerlist[index]['time'],
                         style: TextStyle(
                           color: Colors.blue.shade900,
                           // fontWeight: FontWeight.bold,
@@ -296,9 +298,13 @@ body: Card(
                           total += addval; 
                          
                       }
-                          print(addval);
-                          print("total value");
-                          print(total);
+                      if(value==false){
+                        subval=int.parse(widget.workerlist[index]['Price']); 
+                        total -=subval;
+
+                      }
+                    
+                         
                       // if(value==true){
                       //    for(int i=0;i<=widget.workerlist[index];i++){
                       //    total+= widget.workerlist[index]['Price'];
