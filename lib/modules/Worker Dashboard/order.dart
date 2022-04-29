@@ -19,6 +19,8 @@ class Order extends StatefulWidget {
 class _OrderState extends State<Order> {
 final List<String> clientsName=["Luqman", "Ahmed", "Salman", "Ali ","Mustafa", "Qureshi"];
 String name='';
+String workername='';
+ List<Map<String, dynamic>> personaldata = [];
 
 @override
   void initState() {
@@ -27,6 +29,7 @@ String name='';
     getname();
    
   }
+
     void getname() async{
     
     await FirebaseFirestore.instance
@@ -53,6 +56,7 @@ String name='';
     // } );
    
   }
+ 
   
 
   sendNotification(String title, String token) async{
@@ -74,7 +78,7 @@ headers: <String, String>{
 body: jsonEncode(<String, dynamic>{
 'notification': <String, dynamic>{
   'title': title,
-  'body':'accepted'},
+  'body':'Your order is Accepted'},
   'priority': 'high',
   'data': data,
   'to':'$token',
@@ -150,7 +154,7 @@ if(response.statusCode == 200){
                   onPressed: (){
                
 
-                  sendNotification("Order", token!);
+                  sendNotification("Order Accepted", token!);
 
 
 
@@ -172,7 +176,8 @@ if(response.statusCode == 200){
                     ),
                   );
                   });
-                }));
+                }),
+                );
                
   }
 }

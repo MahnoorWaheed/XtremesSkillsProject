@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +62,7 @@ class _Skill_DetailsState extends State<Skill_Details> {
   void initState() {
     getUserData();
     super.initState();
+    
   }
 
 
@@ -73,6 +76,10 @@ class _Skill_DetailsState extends State<Skill_Details> {
       print(value.docs.first.data()['firstname']);
       print(value.docs.first.data()['lastname']);
       print(value.docs.first.data()['email']);
+      print(value.docs.first.data()['FCM token']);
+      print(value.docs.first.data()['city']);
+      print(value.docs.first.data()['lat']);
+      print(value.docs.first.data()['long']);
       workerfirstName = value.docs.first.data()['firstname'];
       workerlastname = value.docs.first.data()['lastname'];
       workercity = value.docs.first.data()['city'];
