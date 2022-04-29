@@ -233,7 +233,7 @@ createRecord() async {
       'services': FieldValue.arrayUnion(selectedProducts),
   
       });
-
+     
     print(selectedProducts.toString());
     selectedProducts.clear;
     notifyListeners();

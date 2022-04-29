@@ -150,8 +150,9 @@ class _DashboardState extends State<Dashboard> {
                         padding: const EdgeInsets.only(left: 50.0),
                         child: Row(children: [
                         
-                          Text(personaldata[index]['fname'],style: GoogleFonts.poppins(fontWeight: FontWeight.bold),),
-                          Text(personaldata[index]['lname'],style: GoogleFonts.poppins(fontWeight: FontWeight.bold),),
+                          Text(personaldata[index]['fname'],style: GoogleFonts.poppins(fontWeight: FontWeight.bold,fontSize: 18),),
+                        SizedBox(width: 2),
+                          Text(personaldata[index]['lname'],style: GoogleFonts.poppins(fontWeight: FontWeight.bold,fontSize: 18),),
                         ],)
                       );
                       
@@ -170,7 +171,8 @@ class _DashboardState extends State<Dashboard> {
                    child: Padding(
                      
                      padding: const EdgeInsets.only(right: 50),
-                     child: CircleAvatar(radius: 25,
+                     child: 
+                     CircleAvatar(radius: 25,
                      backgroundImage: imagesuccessfull?NetworkImage(image):NetworkImage('https://www.google.com/url?sa=i&url=https%3A%2F%2Fsaiuniversity.edu.in%2Fteam%2Fsunita-kikeri%2F&psig=AOvVaw0SN0l_oA4hXRJh8kyK-hMn&ust=1650351364903000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCLCsiYmEnfcCFQAAAAAdAAAAABAa'),
                      ),
                    ),
