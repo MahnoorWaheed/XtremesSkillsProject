@@ -65,7 +65,9 @@ final data = {
   'click_action':"FLUTTER_NOTIFICATION_CLICK",
   'id': '1',
   'status': 'done',
-  'message': title,
+  'title': title,
+  "body" : "Your order is Accepted",
+
 };
 
 try{
