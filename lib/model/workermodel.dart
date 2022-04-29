@@ -200,10 +200,10 @@ createRecord() async {
    workerlati = a['worker_lati']; 
    workerlongi = a['worker_longi'];
    workerSkillname = a['Skill Name'];
-   worker_token = a[worker_token];
+   worker_token = a['worker_token'];
    print("workeremail");
-   print(workeremail);
-
+   print( worker_token);
+//  worker_token = a[worker_token];
     const _chars =
         'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
     Random _rnd = Random();
@@ -235,7 +235,7 @@ createRecord() async {
       });
 
     print(selectedProducts.toString());
-    selectedProducts.clear;
+   // selectedProducts.clear;
     notifyListeners();
   }
 

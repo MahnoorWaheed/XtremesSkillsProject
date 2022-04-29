@@ -58,7 +58,7 @@ class _Skill_DetailsState extends State<Skill_Details> {
   String workerfcmtoken = '';
   @override
   void initState() {
-    // getUserData();
+    getUserData();
     super.initState();
   }
 
@@ -79,7 +79,7 @@ class _Skill_DetailsState extends State<Skill_Details> {
       workerlati = value.docs.first.data()['lat'];
       workerlongi = value.docs.first.data()['long'];
      workeremail = value.docs.first.data()['email'];
-     workerfcmtoken = value.docs.first.data()['FCM token'];
+     workerfcmtoken = value.docs.first.data()['FCM_token'];
     });
     setState(() {
       isLoading = false;
@@ -108,7 +108,7 @@ String serviceprice = '';
 
   @override
   Widget build(BuildContext context) {
-    // getUserData();
+    getUserData();
     print("Skill name 2"+ widget.SkillName,);
     return Scaffold(
       appBar: AppBar(
@@ -658,7 +658,7 @@ String serviceprice = '';
                      print(myAllData);
 
                          Provider.of<WorkerModel>(context, listen: false).addAll({
-                             
+                             "worker_token": workerfcmtoken,
                              "Skill Name" : "${ widget.SkillName}",
                              "firstname":"${workerfirstName}",
                              "lastname":"${workerlastname}",
@@ -666,7 +666,7 @@ String serviceprice = '';
                             "worker_lati":"${workerlati}",
                              "worker_longi":"${workerlongi}",
                                "workeremail":"${workeremail}",
-                               "worker_token": workerfcmtoken,
+                               
                              
                                       
                                       // widget.cart,
@@ -701,7 +701,7 @@ String serviceprice = '';
                                   
                                       
                         //               );
-                                      Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> BottomNav()));
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>  BottomNav()));
 
                        // openDialog();
 //                             String Price = '';

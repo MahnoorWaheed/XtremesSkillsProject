@@ -151,7 +151,7 @@ String address = "";
             'phone' : phone,
             'lat': LAT,
             'long': long,
-            'FCM token': token
+            'FCM_token': token
          }).then((value) async {
            SharedPreferences prefs = await SharedPreferences.getInstance();
            prefs.setString('email', email);
