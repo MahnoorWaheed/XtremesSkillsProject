@@ -210,12 +210,7 @@ String serviceprice = '';
                       borderSide: const BorderSide(color: Colors.blue),),
                       enabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blue))),
-                                      //            validator: (value){
-                                    //   if(value!.isEmpty ){
-                                    //     return "Field cannot be empty";
-                                    //   }
-                                    //   return null;
-                                    // },
+                                    
                                                  
                       onChanged: (value){
                       setState(() {time = value;});},),),
@@ -238,12 +233,7 @@ String serviceprice = '';
                       borderSide: const BorderSide(color: Colors.blue),),
                       enabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blue))),
-                              //              validator: (value){
-                              //   if(value!.isEmpty ){
-                              //     return "Field cannot be empty";
-                              //   }
-                              //   return null;
-                              // },
+
                       onChanged: (value){
                       setState(() {
                       Price = value;
@@ -259,11 +249,7 @@ String serviceprice = '';
                              "value": value,
                             
 
-                          // "Service: ${widget.Service1}",
-                          // "description: ${txtdata}", 
-                          // "time: ${time}",
-                          // "Price: ${Price}",
-                            //"timestamp": getTime
+                        
                          
                           });
 
@@ -324,15 +310,15 @@ String serviceprice = '';
                              
                  
                             onChanged: (value){
-                  //  setState(() {
+                
                        txtdata2 = value;
-                  //  });
+                 
                              
                             },
                             ),
                             SizedBox(height: 10,),
                            
-//                             
+                            
                         ],
                       ), 
                       value: this.valuesecond,
@@ -370,12 +356,7 @@ String serviceprice = '';
                                           ),
                                           enabledBorder: const OutlineInputBorder(
                                               borderSide: BorderSide(color: Colors.blue))),
-                                    //            validator: (value){
-                                    //   if(value!.isEmpty ){
-                                    //     return "Field cannot be empty";
-                                    //   }
-                                    //   return null;
-                                    // },
+                               
                                                  
                                          onChanged: (value){
                                             setState(() {
@@ -392,7 +373,7 @@ String serviceprice = '';
                                 
                                 child: TextFormField(
                              
-                                // controller: lastname,
+                               
                                  
                                   
                                    keyboardType: TextInputType.name,
@@ -411,12 +392,7 @@ String serviceprice = '';
                                     ),
                                     enabledBorder: const OutlineInputBorder(
                                         borderSide: BorderSide(color: Colors.blue))),
-                              //              validator: (value){
-                              //   if(value!.isEmpty ){
-                              //     return "Field cannot be empty";
-                              //   }
-                              //   return null;
-                              // },
+                             
                                  onChanged: (value){
                                     setState(() {
                                        Price2 = value;
@@ -439,11 +415,7 @@ String serviceprice = '';
                              "Price":"${Price2}",
                               "value": value,
 
-                          // "Service: ${widget.Service1}",
-                          // "description: ${txtdata}", 
-                          // "time: ${time}",
-                          // "Price: ${Price}",
-                            //"timestamp": getTime
+                          
                          
                           });
                         }else{
@@ -542,12 +514,7 @@ String serviceprice = '';
                                           ),
                                           enabledBorder: const OutlineInputBorder(
                                               borderSide: BorderSide(color: Colors.blue))),
-                                    //            validator: (value){
-                                    //   if(value!.isEmpty ){
-                                    //     return "Field cannot be empty";
-                                    //   }
-                                    //   return null;
-                                    // },
+                                  
                                                  
                                          onChanged: (value){
                                             setState(() {
@@ -582,12 +549,7 @@ String serviceprice = '';
                                     ),
                                     enabledBorder: const OutlineInputBorder(
                                         borderSide: BorderSide(color: Colors.blue))),
-                              //              validator: (value){
-                              //   if(value!.isEmpty ){
-                              //     return "Field cannot be empty";
-                              //   }
-                              //   return null;
-                              // },
+                            
                                  onChanged: (value){
                                     setState(() {
                                        Price3 = value;
@@ -610,11 +572,7 @@ String serviceprice = '';
                              "Price":"${Price3}",
                               "value": value,
 
-                          // "Service: ${widget.Service1}",
-                          // "description: ${txtdata}", 
-                          // "time: ${time}",
-                          // "Price: ${Price}",
-                            //"timestamp": getTime
+                     
                          
                           });
                        }else{
@@ -676,92 +634,22 @@ String serviceprice = '';
                                
                              
                                       
-                                      // widget.cart,
-                                   
                                      
-
-
-
-                          // "Service: ${widget.Service1}",
-                          // "description: ${txtdata}", 
-                          // "time: ${time}",
-                          // "Price: ${Price}",
-                            //"timestamp": getTime
                          
                           });
 
-                    //     print(txtdata);
-                    //     print(time);
-                    //     print(Price);
-
-                        //  await widget.cart.createRecord(
-                        //               // widget.cart,
-                        //               widget.SkillName,
-                        //               workerfirstName,
-                                      
-                        //               // widget.cart,
-                        //               workerlastname,
-                        //               workercity,
-                        //               workerlati,
-                        //               workerlongi,
-                        //               workeremail,
-                                  
-                                      
-                        //               );
+                 
                                       Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>  BottomNav()));
 
-                       // openDialog();
-//                             String Price = '';
-// String time = '';
-// String Price2 = '';
-// String time2 = '';
-// String Price3 = '';
-// String time3 = '';
-//  bool valuefirst = false;  
-//   bool valuesecond = false; 
-//     bool valuethird = false; 
 
-// List<dynamic> list = {[widget.Service1,timegit branchgii,Price],[widget.Service1,time2,Price2],[widget.Service1,time3,Price3]} as List;
-// if(time != null && Price != null && time2 != null && Price2 != null && time3 != null && Price3 != null){
-// Map<String,dynamic> ourData = {
-//   'firstname':workerfirstName,
-//   'lastname':workerlastname,
-//   'city':workercity,
-//   'lat':workerlati,
-//    'long':workerlongi,
-//   'SkillName': widget.SkillName,
-//   // "keyarry": [0]["Service: ${widget.Service1}","description: ${txtdata}", "time: ${time}","Price: ${Price}",];
-// "key": ["Service: ${widget.Service1}","description: ${txtdata}", "time: ${time}","Price: ${Price}",],
-// "key1": {"Service": widget.Service2,"description": txtdata2,"time": time2, "Price": Price2},
-// "key2": {"Service": widget.Service3,"description": txtdata3,"time": time3, "Price": Price3},
-// "other": {"Service": servicename,"description": servicedes,"time": servicetime, "Price": serviceprice},
-// // "${widget.Service3}": {"time": time3, "Price": Price3},
-// };
-//   _firestore.collection('worker_skill').doc('haseeb@gmail.com').set(ourData);
-//                                    Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const Dashboard()));
-                     
-                        
-// }
 
    }, text: "Continue"
 
-// print("list of data: ${list}");
+
                   
                         ),
 
 
-                //           Consumer<WorkerModel>(builder: (context, cart, child) {
-                //         int total = 0;
-                //         return Expanded(
-                //                 child: ListView.builder(
-                //                     itemCount: cart.selectedProducts.length,
-                //                     itemBuilder:
-                //                         (BuildContext context, int index) {
-                //                       return cartTile(cart);
-                //                     }),
-                //               );
-                //  },
-                //          )
                           ],
             ),
           ),
@@ -805,11 +693,7 @@ Future openDialog2(){
                              "value": value,
 
 
-                          // "Service: ${widget.Service1}",
-                          // "description: ${txtdata}", 
-                          // "time: ${time}",
-                          // "Price: ${Price}",
-                            //"timestamp": getTime
+                      
                          
                           });
 
@@ -822,76 +706,62 @@ Future openDialog2(){
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             TextFormField(
-              // controller: txt1,
-              // focusNode: _nodePhone,
-              // maxLength: 10,
+           
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                 labelText: 'Service Name',
               ),
               textInputAction: TextInputAction.next,
-              onEditingComplete: () {
-                // FocusScope.of(context).requestFocus(_nodeEmail);
-              },
+           
             onChanged: (value){
-              //  setState(() {
+         
                    servicename = value;
-              //  });
+    
              
             },
             ),
             TextFormField(
-              // controller: txt1,
-              // focusNode: _nodePhone,
-              // maxLength: 10,
+           
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                 labelText: 'Description',
               ),
               textInputAction: TextInputAction.next,
-              onEditingComplete: () {
-                // FocusScope.of(context).requestFocus(_nodeEmail);
-              },
+      
             onChanged: (value){
-              //  setState(() {
+            
                   servicedes = value;
-              //  });
+             
              
             },
             ),
              TextFormField(
-              // focusNode: _nodeEmail,
-              // controller: txt2,
+            
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 labelText: 'worker time',
               ),
               textInputAction: TextInputAction.next,
-              onEditingComplete: () {
-                // FocusScope.of(context).requestFocus(_nodeFullname);
-              },
+           
               onChanged: (value){
-                // setState(() {
+               
                   servicetime = value;
-                // });
+                
                 
               },
             ),
             TextFormField(
-              // focusNode: _nodeEmail,
-              // controller: txt2,
+             
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 labelText: 'Price',
               ),
               textInputAction: TextInputAction.next,
-              onEditingComplete: () {
-                // FocusScope.of(context).requestFocus(_nodeFullname);
-              },
+           
               onChanged: (value){
-                // setState(() {
+              
                   serviceprice = value;
-                // });
+              
                 
               },
             ),
@@ -904,9 +774,3 @@ Future openDialog2(){
        });
 }
 }
-// cartTile(Map<String, String> cart) {
-//     // print("anmol is best ");
-//     // print(cart['Customer Name']);
-//     return cart;
-   
-//   }
